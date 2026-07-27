@@ -117,10 +117,10 @@
         {
           "id": "tequenos-mermelada",
           "name": {
-            "es": "Tequeños con mermelada del día",
-            "it": "Tequeños con confettura del giorno",
-            "en": "Tequeños with jam of the day",
-            "de": "Tequeños mit Konfitüre des Tages"
+            "es": "Tequeños (6 unidades) con mermelada del día",
+            "it": "Tequeños (6 pezzi) con confettura del giorno",
+            "en": "Tequeños (6 pieces) with jam of the day",
+            "de": "Tequeños (6 Stück) mit Konfitüre des Tages"
           },
           "description": {
             "es": "Bastones de masa fina y crujiente rellenos de queso fundido, fritos al momento y servidos con la mermelada del día. Un sabor diferente cada día: pregunta cuál toca hoy.",
@@ -129,7 +129,7 @@
             "de": "Knusprige, dünne Teigstangen mit geschmolzenem Käse, frisch frittiert und mit der Konfitüre des Tages serviert. Jeden Tag eine andere Sorte — fragen Sie, welche es heute gibt."
           },
           "price": {
-            "amount": 9.9
+            "amount": 8.9
           },
           "allergens": [
             "gluten",
@@ -837,13 +837,13 @@
             "de": "Hohe Rippe vom Rind"
           },
           "description": {
-            "es": "Corte de lomo alto de vaca, jugoso y tierno, hecho en la parrilla hasta el punto que pidas. Con papas fritas crujientes y verduras salteadas: el equilibrio entre sabor, calidad y tradición.",
-            "it": "Lombata di manzo, succosa e tenera, cotta alla griglia al punto che preferisci. Con patatine croccanti e verdure saltate: l'equilibrio tra sapore, qualità e tradizione.",
-            "en": "A juicy, tender cut of beef ribeye, grilled to the doneness you ask for. With crisp chips and sautéed vegetables — the balance of flavour, quality and tradition.",
-            "de": "Ein saftiges, zartes Stück hohe Rippe vom Rind, auf dem Grill nach Wunsch gegart. Mit knusprigen Pommes und sautiertem Gemüse — die Balance aus Geschmack, Qualität und Tradition."
+            "es": "Pieza de 300-350 g de lomo alto de vaca, jugosa y tierna, hecha en la parrilla hasta el punto que pidas. Con papas fritas crujientes y verduras salteadas: el equilibrio entre sabor, calidad y tradición.",
+            "it": "Pezzo da 300-350 g di lombata di manzo, succosa e tenera, cotta alla griglia al punto che preferisci. Con patatine croccanti e verdure saltate: l'equilibrio tra sapore, qualità e tradizione.",
+            "en": "A 300-350 g cut of beef ribeye, juicy and tender, grilled to the doneness you ask for. With crisp chips and sautéed vegetables — the balance of flavour, quality and tradition.",
+            "de": "Ein 300-350 g schweres Stück hohe Rippe vom Rind, saftig und zart, auf dem Grill nach Wunsch gegart. Mit knusprigen Pommes und sautiertem Gemüse — die Balance aus Geschmack, Qualität und Tradition."
           },
           "price": {
-            "amount": 22.9
+            "amount": 21.9
           },
           "allergens": [
             "gluten"

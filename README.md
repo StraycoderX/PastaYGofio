@@ -208,10 +208,6 @@ comensal.
   a la vez, de carne y vegetal, así que su foto no se ha usado: no está claro
   cuál de las dos muestra. Confirmadlo y se asigna.
 
-- **Precios de dos platos nuevos.** «Queso a la plancha» confirmado en 9,50 €.
-  «Tequeños» (9,90 €) y «Lomo alto de vaca» (22,90 €) siguen siendo propuestas;
-  se cambian en `data/menu.json`.
-
 - **Alérgenos de los platos nuevos.** Declarados por analogía con platos
   parecidos de la carta: queso → lactosa; tequeños → gluten y lactosa; lomo
   alto → gluten (igual que el entrecot). Confirmar en cocina.
