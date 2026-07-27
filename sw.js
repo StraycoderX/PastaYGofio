@@ -7,7 +7,7 @@
    Same-origin only — cross-origin requests are never touched, let alone
    cached, so a third party can never poison this cache. */
 
-const VERSION = 'pyg-v1';
+const VERSION = 'pyg-v2';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 

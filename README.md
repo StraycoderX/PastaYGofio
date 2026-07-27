@@ -182,25 +182,18 @@ confirma en sala antes de ponerlo en marcha.
 
 ### GitHub Pages
 
-La carta se publica en **https://straycoderx.github.io/PastaYGofio/**, gratis y
-con HTTPS. El workflow `.github/workflows/deploy.yml` valida los datos y publica
-en cada push a la rama por defecto.
+La carta está publicada en **https://straycoderx.github.io/PastaYGofio/**, gratis
+y con HTTPS. `.github/workflows/deploy.yml` valida los datos y publica en cada
+push a la rama por defecto; si la validación falla, no se publica nada.
 
-**Falta un paso manual, una sola vez.** Crear el sitio de Pages no está
-permitido al token de Actions: el workflow lo intenta con
-`configure-pages: enablement: true` y GitHub responde *«Resource not accessible
-by integration»*. Hay que darlo de alta a mano:
+El sitio se sirve desde una subruta (`/PastaYGofio/`) y todas las rutas del
+proyecto son relativas, así que funciona igual ahí que en la raíz de un dominio
+propio: comprobado con el service worker, el manifiesto, las fotos y los enlaces
+directos a plato.
 
-> [Settings → Pages](https://github.com/StraycoderX/PastaYGofio/settings/pages)
-> → **Build and deployment** → **Source: GitHub Actions**
-
-Hecho eso, se relanza el último despliegue (Actions → Deploy → *Re-run all
-jobs*) y a partir de ahí cada cambio en `data/menu.json` se publica solo,
-siempre que pase la validación.
-
-Todas las rutas del sitio son relativas, así que funciona igual en la subruta
-`/PastaYGofio/` que en la raíz de un dominio propio: comprobado con el service
-worker, el manifiesto, las fotos y los enlaces directos a plato.
+Solo se publica el sitio, no el repositorio: el workflow prepara un `_site` con
+`index.html`, `404.html`, el manifiesto, el service worker, `assets/` y `data/`.
+Los scripts, la configuración de CI y los fragmentos de servidor se quedan fuera.
 
 ### Servidor propio (etnoteam.io/pastaygofio)
 
