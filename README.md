@@ -133,6 +133,17 @@ npm run check
 No hay compilación ni `node_modules` en producción: Node solo se usa para los
 scripts de validación.
 
+### Carta en un solo archivo
+
+```bash
+npm run build:single    # -> dist/carta.html (~330 KB)
+```
+
+Empaqueta todo — CSS, fuentes, ilustraciones, datos y JavaScript — en un único
+HTML sin ninguna petición de red. Se abre con doble clic desde una memoria USB,
+se manda por correo o se deja en la tablet de la barra: funciona igual sin
+internet. Útil también para enseñar la carta a alguien sin desplegar nada.
+
 ---
 
 ## Despliegue

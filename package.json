@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "check": "npm run check:data && npm run check:sw",
+    "build:single": "node scripts/build-single-file.mjs",
     "check:data": "node scripts/validate-data.mjs",
     "check:sw": "node scripts/check-precache.mjs",
     "migrate": "node scripts/migrate-legacy-menu.mjs",

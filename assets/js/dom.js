@@ -54,7 +54,10 @@ export const safeColor = (value, fallback = '') => (typeof value === 'string' &&
 const FILENAME = /^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?\.(?:svg|png|jpe?g|webp|avif)$/i;
 export function safeImage(name, base = 'assets/img/dishes/') {
   if (typeof name !== 'string' || !FILENAME.test(name) || name.includes('..')) return null;
-  return base + name;
+  const path = base + name;
+  /* The single-file build (scripts/build-single-file.mjs) swaps every asset for
+     a data: URI. Validation still happens first, on the filename. */
+  return globalThis.__PYG_INLINE_ASSETS?.[path] ?? path;
 }
 
 const ID = /^[a-z0-9][a-z0-9-]{0,63}$/i;

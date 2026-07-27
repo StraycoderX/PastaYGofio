@@ -22,7 +22,13 @@ const app = {
  * boot
  * ------------------------------------------------------------------ */
 
+/** True when the page was produced by scripts/build-single-file.mjs. */
+const isSingleFile = () => !!document.querySelector('script[type="application/json"][id^="data:"]');
+
 async function loadJson(path) {
+  const inline = document.getElementById('data:' + path);
+  if (inline) return JSON.parse(inline.textContent);
+
   const res = await fetch(path, { credentials: 'omit' });
   if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
   return res.json();
@@ -88,8 +94,8 @@ function pickLang() {
   if (LANGS.includes(fromUrl)) return fromUrl;
   const saved = read('lang');
   if (LANGS.includes(saved)) return saved;
-  const nav = (navigator.language || DEFAULT_LANG).slice(0, 2).toLowerCase();
-  return LANGS.includes(nav) ? nav : DEFAULT_LANG;
+  const browser = (navigator.language || DEFAULT_LANG).slice(0, 2).toLowerCase();
+  return LANGS.includes(browser) ? browser : DEFAULT_LANG;
 }
 
 function setLang(lang) {
@@ -99,7 +105,7 @@ function setLang(lang) {
 
   const url = new URL(location.href);
   url.searchParams.set('lang', lang);
-  history.replaceState(history.state, '', url);
+  nav('replaceState', url);
 
   renderAll();
 }
@@ -141,6 +147,13 @@ function toggleFilter(group, key) {
 
 const dialog = () => $('#dishDialog');
 
+/* Deep links are a nicety, not load-bearing: inside a sandboxed frame the
+   History API throws, and a dish that opens without updating the URL is far
+   better than one that does not open at all. */
+function nav(method, url) {
+  try { history[method]({}, '', url); } catch { /* sandboxed — keep going */ }
+}
+
 function openDish(uid, { push = true } = {}) {
   const item = renderDish(app, uid);
   if (!item) return;
@@ -148,7 +161,7 @@ function openDish(uid, { push = true } = {}) {
   if (push) {
     const url = new URL(location.href);
     url.searchParams.set('dish', item.id);
-    history.pushState({ dish: item.id }, '', url);
+    nav('pushState', url);
   }
 }
 
@@ -157,7 +170,7 @@ function closeDish({ pop = true } = {}) {
   const url = new URL(location.href);
   if (pop && url.searchParams.has('dish')) {
     url.searchParams.delete('dish');
-    history.pushState({}, '', url);
+    nav('pushState', url);
   }
 }
 
@@ -277,7 +290,7 @@ function wire() {
   /* dialog */
   dialog().addEventListener('close', () => {
     const url = new URL(location.href);
-    if (url.searchParams.has('dish')) { url.searchParams.delete('dish'); history.replaceState({}, '', url); }
+    if (url.searchParams.has('dish')) { url.searchParams.delete('dish'); nav('replaceState', url); }
   });
   dialog().addEventListener('click', (event) => {
     if (event.target === dialog()) closeDish();
@@ -400,7 +413,8 @@ function installPrompt() {
 }
 
 function registerServiceWorker() {
-  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+  /* Nothing to cache in the single-file build — it is already one document. */
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:' || isSingleFile()) return;
 
   const register = () => navigator.serviceWorker
     .register('sw.js')
