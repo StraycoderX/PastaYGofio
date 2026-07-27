@@ -87,7 +87,7 @@ Todo vive en `data/menu.json`. Un plato:
   "allergens": ["gluten", "lactose"],  // claves del Reglamento (UE) 1169/2011
   "diet": ["vegetarian"],              // vegetarian | vegan | spicy | glutenfree
   "nutrition": { "calories": 420, "fat": 24, "carbohydrates": 38, "protein": 16 },
-  "image": "focaccia-teror.svg",       // archivo dentro de assets/img/dishes/
+  "image": "bruschetta-teror.webp",    // archivo dentro de assets/img/dishes/
   "pairing": "tinto-canario",          // id de un vino de la carta
   "tags": ["signature", "local"]       // De la casa / Producto canario / Para compartir
 }
@@ -103,7 +103,9 @@ La validación **bloquea el despliegue** si encuentra un alérgeno mal escrito, 
 precio negativo, un id duplicado, una traducción que falta, una imagen que no
 existe o un plato marcado como vegano que declara lactosa.
 
-`glutenfree` no hace falta ponerlo: se deduce de que el plato no declare gluten.
+`glutenfree` no hace falta ponerlo: se deduce de que el plato declare alérgenos y
+que entre ellos no esté el gluten. Ojo: un plato **sin** alérgenos declarados no
+cuenta como sin gluten, se considera desconocido.
 
 ### Volcar de nuevo desde el sitio antiguo
 
@@ -137,7 +139,7 @@ scripts de validación.
 ### Carta en un solo archivo
 
 ```bash
-npm run build:single    # -> dist/carta.html (~330 KB)
+npm run build:single    # -> dist/carta.html (~3 MB, fotos incluidas)
 ```
 
 Empaqueta todo — CSS, fuentes, ilustraciones, datos y JavaScript — en un único
@@ -192,24 +194,23 @@ comensal.
 - **`assets/img/logo.svg`** reproduce el logotipo (La Aldea + espiga y mazorca +
   Pasta y Gofio · Trattoria-Pizzería). Sustituir por el archivo original y
   regenerar los iconos con `scripts/` (ver historial de commits).
-- **Cuatro fotos pendientes.** Los platos nuevos se muestran con una lámina
-  generada (inicial sobre el color de la categoría) hasta que lleguen las
-  fotos. Para añadirlas: dejar el archivo en `assets/img/dishes/` y poner su
-  nombre en el campo `image` del plato.
+- **Fotos.** Cinco platos vienen de los carteles originales, a 1100-1200 px:
+  Bruschetta Teror, Queso a la plancha, Tequeños, Lomo alto y Lasaña Bolognese.
+  El resto se recuperó de las capturas de la carta anterior y no pasa de 450 px
+  de ancho: se ven bien en la tarjeta y algo blandas en la ficha ampliada.
+  Cuando haya fotos de estudio basta con dejarlas en `assets/img/dishes/` con el
+  mismo nombre de archivo, sin tocar nada más.
 
-  | Plato | `image` esperado |
-  |---|---|
-  | Bruschetta Teror | `bruschetta-teror.webp` (hoy usa un `.svg` dibujado a mano) |
-  | Queso a la plancha con mermelada | `queso-plancha-mermelada.webp` |
-  | Tequeños con mermelada del día | `tequenos-mermelada.webp` |
-  | Lomo alto de vaca | `lomo-alto-vaca.webp` |
+  Las dos más justas son `tabla-quesos-mixtos` (237 px) y
+  `tabla-quesos-embutidos` (236 px): son las primeras que conviene rehacer.
 
-  Recortar solo el plato, sin los rótulos del cartel. Cualquier tamaño vale;
-  con 620 px de ancho sobra.
+- **Cartel de la lasaña.** El cartel «Nueva lasaña casera» anuncia dos lasañas
+  a la vez, de carne y vegetal, así que su foto no se ha usado: no está claro
+  cuál de las dos muestra. Confirmadlo y se asigna.
 
-- **Precios de dos platos nuevos.** «Queso a la plancha» está confirmado en
-  10,90 €. «Tequeños» (9,90 €) y «Lomo alto de vaca» (22,90 €) son propuestas
-  a falta de confirmación; se cambian en `data/menu.json`.
+- **Precios de dos platos nuevos.** «Queso a la plancha» confirmado en 9,50 €.
+  «Tequeños» (9,90 €) y «Lomo alto de vaca» (22,90 €) siguen siendo propuestas;
+  se cambian en `data/menu.json`.
 
 - **Alérgenos de los platos nuevos.** Declarados por analogía con platos
   parecidos de la carta: queso → lactosa; tequeños → gluten y lactosa; lomo
