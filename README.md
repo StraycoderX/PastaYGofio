@@ -18,7 +18,8 @@ mano la selección de una fecha concreta en `data/daily.json`.
 
 **Abierto / cerrado en vivo.** La cabecera calcula el estado real desde los
 horarios (`Atlantic/Canary`, no la zona del visitante): «Abierto · cierra a las
-16:30», «Cierra en 20 min», «Cerrado · abre miércoles a las 12:30».
+23:00», «Cierra en 20 min», «Cerrado · abre miércoles a las 19:00». Los tramos
+viven en `data/restaurant.json`; miércoles y jueves solo cenas.
 
 **Filtro de alérgenos.** Ocultar todo lo que lleve gluten, lactosa, huevo,
 frutos secos, pescado, crustáceos o moluscos; o quedarse solo con lo

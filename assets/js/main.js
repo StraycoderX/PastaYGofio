@@ -84,7 +84,6 @@ async function boot() {
   app.tray.reconcile(app.model);
 
   restoreFilters();
-  renderRail(app);
   renderAll();
   wire();
 
@@ -99,18 +98,22 @@ function renderAll() {
   app.searchIndex = indexForSearch(app.model);
   applyStaticText(app);
   renderFilterChips(app);
+  /* before refreshMenu(): it calls syncRail(), which expects the links to exist */
+  renderRail(app);
   renderDaily(app);
   refreshMenu();
   renderStatus(app);
   renderFooter(app);
 }
 
-/* Cards are rebuilt from scratch, so the tray highlight and the scroll-spy
-   observer have to be re-bound to the new nodes every time. */
+/* Cards are rebuilt from scratch, so the tray highlight has to be re-applied
+   to the new nodes every time. */
 function refreshMenu() {
   renderMenu(app);
   renderTray(app);
-  observeSections();
+  /* the rail was just rebuilt, so nothing carries the active class any more */
+  activeRail = null;
+  updateRail();
 }
 
 /* ------------------------------------------------------------------ *
@@ -266,6 +269,7 @@ function wire() {
 
     const rail = target.closest('.rail__link');
     if (rail) { markRail(rail.dataset.rail); return; }
+
   });
 
   $('#themeToggle').addEventListener('click', () => {
@@ -359,6 +363,7 @@ function wire() {
     const y = window.scrollY;
     $('#masthead').classList.toggle('is-stuck', y > 8);
     toTop.hidden = y < 600;
+    updateRail();
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -394,29 +399,52 @@ function trackMastheadHeight() {
  * scroll spy
  * ------------------------------------------------------------------ */
 
-let observer = null;
+let activeRail = null;
 
 function markRail(id) {
+  if (id === activeRail) return;
+  activeRail = id;
+
+  const rail = $('#rail');
   for (const link of $$('.rail__link')) {
     const active = link.dataset.rail === id;
     link.classList.toggle('is-active', active);
-    if (active) link.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    if (!active) continue;
+    /* Scroll the rail itself rather than calling scrollIntoView on the link:
+       the link lives inside a sticky header, and scrollIntoView happily scrolls
+       the *page* to reach it, which fought the reader's own scrolling and
+       snapped the highlight back to the first category. */
+    const target = link.offsetLeft - (rail.clientWidth - link.offsetWidth) / 2;
+    rail.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
   }
 }
 
-function observeSections() {
-  observer?.disconnect();
-  const visible = new Map();
+/**
+ * Highlights the section the reader is actually in: the last one whose top has
+ * passed under the sticky header. Cheap enough to run straight off the scroll
+ * handler, and — unlike an IntersectionObserver keyed on intersectionRatio —
+ * it does not favour whichever section happens to be shortest.
+ */
+function updateRail() {
+  const sections = $$('.section');
+  if (!sections.length) return;
 
-  observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) visible.set(entry.target.dataset.section, entry.isIntersecting ? entry.intersectionRatio : 0);
-    let best = null;
-    let bestRatio = 0;
-    for (const [id, ratio] of visible) if (ratio > bestRatio) { best = id; bestRatio = ratio; }
-    if (best) markRail(best);
-  }, { rootMargin: '-180px 0px -55% 0px', threshold: [0, 0.15, 0.4, 0.75] });
+  /* Measure the sticky chrome instead of assuming its height: the masthead
+     wraps to two rows on phones and the filter panel expands in place. */
+  const line = ($('#toolbar')?.getBoundingClientRect().bottom ?? 168) + 24;
+  let current = sections[0].dataset.section;
 
-  for (const section of $$('.section')) observer.observe(section);
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top - line <= 0) current = section.dataset.section;
+    else break;
+  }
+
+  /* at the very bottom the last section may never reach the line */
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+    current = sections[sections.length - 1].dataset.section;
+  }
+
+  markRail(current);
 }
 
 /* ------------------------------------------------------------------ *

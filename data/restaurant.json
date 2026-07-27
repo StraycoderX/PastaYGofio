@@ -38,62 +38,54 @@
   },
   "hours": {
     "note": {
-      "es": "Cerramos lunes y martes.",
-      "it": "Chiuso lunedì e martedì.",
-      "en": "Closed on Monday and Tuesday.",
-      "de": "Montag und Dienstag geschlossen."
+      "es": "Cerramos lunes y martes. Miércoles y jueves, solo cenas.",
+      "it": "Chiuso lunedì e martedì. Mercoledì e giovedì solo cena.",
+      "en": "Closed Monday and Tuesday. Wednesday and Thursday, dinner only.",
+      "de": "Montag und Dienstag geschlossen. Mittwoch und Donnerstag nur abends."
     },
     "weekly": {
       "1": [],
       "2": [],
       "3": [
         [
-          "12:30",
-          "16:30"
-        ],
-        [
-          "19:30",
-          "22:30"
+          "19:00",
+          "23:00"
         ]
       ],
       "4": [
         [
-          "12:30",
-          "16:30"
-        ],
-        [
-          "19:30",
-          "22:30"
+          "19:00",
+          "23:00"
         ]
       ],
       "5": [
         [
           "12:30",
-          "16:30"
+          "16:00"
         ],
         [
-          "19:30",
-          "22:30"
+          "19:00",
+          "23:00"
         ]
       ],
       "6": [
         [
           "12:30",
-          "16:30"
+          "16:00"
         ],
         [
-          "19:30",
-          "22:30"
+          "19:00",
+          "23:00"
         ]
       ],
       "0": [
         [
           "12:30",
-          "16:30"
+          "16:00"
         ],
         [
-          "19:30",
-          "22:30"
+          "19:00",
+          "23:00"
         ]
       ]
     },
