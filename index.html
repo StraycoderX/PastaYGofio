@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- Security: the app talks to no third-party origin at all, so the policy can
+     stay strict with no 'unsafe-inline' anywhere.
+     `frame-ancestors` is deliberately absent: browsers ignore it in a <meta>
+     tag and log an error. It ships as a real header instead — see
+     deploy/headers.conf and SECURITY.md. -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self';
+  style-src 'self';
+  img-src 'self' data:;
+  font-src 'self';
+  connect-src 'self';
+  manifest-src 'self';
+  worker-src 'self';
+  base-uri 'none';
+  form-action 'none';
+  upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<title>Pasta y Gofio · La Aldea — Carta</title>
+<meta name="description" content="La carta de Pasta y Gofio en La Aldea de San Nicolás: sugerencias del día, alérgenos, horarios y reservas por WhatsApp.">
+<meta name="theme-color" content="#faf6ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15120e" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+
+<meta property="og:type" content="restaurant.restaurant">
+<meta property="og:site_name" content="Pasta y Gofio">
+<meta property="og:title" content="Pasta y Gofio · La Aldea">
+<meta property="og:description" content="Carta, sugerencias del día, alérgenos y horarios.">
+<meta property="og:image" content="assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/app.css">
+
+<script src="assets/js/theme-init.js"></script>
+<script type="module" src="assets/js/main.js"></script>
+</head>
+
+<body>
+<a class="skip-link" href="#menu" data-i18n="skipToMenu">Ir a la carta</a>
+
+<header class="masthead" id="masthead">
+  <div class="masthead__bar shell">
+    <a class="brand" href="#top">
+      <img class="brand__mark" src="assets/img/logo.svg" alt="" width="44" height="44" decoding="async">
+      <span class="brand__text">
+        <strong>Pasta y Gofio</strong>
+        <small>La Aldea</small>
+      </span>
+    </a>
+
+    <button class="status-pill" id="statusPill" type="button" aria-live="polite">
+      <span class="status-pill__dot" aria-hidden="true"></span>
+      <span class="status-pill__text">—</span>
+    </button>
+
+    <div class="masthead__actions">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button class="lang__btn" type="button" data-lang="es" lang="es">ES</button>
+        <button class="lang__btn" type="button" data-lang="it" lang="it">IT</button>
+        <button class="lang__btn" type="button" data-lang="en" lang="en">EN</button>
+        <button class="lang__btn" type="button" data-lang="de" lang="de">DE</button>
+      </div>
+
+      <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false">
+        <span class="icon-btn__glyph" aria-hidden="true"></span>
+      </button>
+
+      <button class="icon-btn icon-btn--tray" id="trayToggle" type="button" aria-expanded="false" aria-controls="tray">
+        <span class="icon-btn__glyph" aria-hidden="true"></span>
+        <span class="icon-btn__count" id="trayCount" hidden>0</span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="railwrap" id="railwrap" aria-label="Categorías">
+    <div class="rail shell" id="rail"></div>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="shell hero__inner">
+      <p class="hero__eyebrow" id="heroDate"></p>
+      <h1 class="hero__title" data-i18n="dailyTitle">Sugerencias del día</h1>
+      <p class="hero__lede" id="heroLede"></p>
+      <div class="daily" id="daily" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="toolbar" id="toolbar">
+    <div class="shell toolbar__inner">
+      <div class="search">
+        <span class="search__icon" aria-hidden="true"></span>
+        <input class="search__input" id="searchInput" type="search" autocomplete="off"
+               spellcheck="false" enterkeyhint="search">
+        <button class="search__clear" id="searchClear" type="button" hidden></button>
+      </div>
+      <button class="filter-btn" id="filterToggle" type="button" aria-expanded="false" aria-controls="filters">
+        <span class="filter-btn__label" data-i18n="filters">Filtros</span>
+        <span class="filter-btn__badge" id="filterCount" hidden>0</span>
+      </button>
+    </div>
+
+    <div class="filters shell" id="filters" hidden>
+      <fieldset class="filters__group">
+        <legend data-i18n="dietTitle">Preferencias</legend>
+        <div class="chips" id="dietChips"></div>
+      </fieldset>
+      <fieldset class="filters__group">
+        <legend data-i18n="allergenTitle">Ocultar platos con…</legend>
+        <div class="chips" id="allergenChips"></div>
+      </fieldset>
+      <div class="filters__foot">
+        <p class="filters__hint" data-i18n="allergenHint"></p>
+        <button class="btn btn--ghost" id="filterReset" type="button" data-i18n="reset">Limpiar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell" id="menu" tabindex="-1"></div>
+
+  <p class="empty" id="empty" hidden></p>
+</main>
+
+<footer class="footer">
+  <div class="shell footer__grid">
+    <section class="footer__col">
+      <h2 data-i18n="findUs">Dónde estamos</h2>
+      <address id="addressBlock"></address>
+      <a class="btn btn--ghost" id="mapsLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="openMaps">Abrir en Maps</a>
+    </section>
+
+    <section class="footer__col">
+      <h2 data-i18n="hoursTitle">Horarios</h2>
+      <table class="hours" id="hoursTable"><tbody></tbody></table>
+      <p class="footer__note" id="hoursNote"></p>
+    </section>
+
+    <section class="footer__col">
+      <h2 data-i18n="contactTitle">Contacto</h2>
+      <a class="btn btn--wa" id="waLink" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="btn__glyph" aria-hidden="true"></span>
+        <span id="waLabel"></span>
+      </a>
+      <div class="footer__links">
+        <a id="reviewLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="leaveReview">Deja tu opinión</a>
+        <a id="fbLink" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <button class="linklike" id="shareBtn" type="button" data-i18n="share">Compartir</button>
+        <button class="linklike" id="printBtn" type="button" data-i18n="print">Imprimir</button>
+        <button class="linklike" id="installBtn" type="button" hidden data-i18n="install">Instalar app</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="shell footer__legal">
+    <p id="disclaimer"></p>
+    <p class="footer__meta" id="dataStamp"></p>
+  </div>
+</footer>
+
+<button class="fab" id="toTop" type="button" hidden>
+  <span aria-hidden="true">↑</span>
+</button>
+
+<!-- dish detail -->
+<dialog class="sheet" id="dishDialog" aria-labelledby="dishName">
+  <article class="dish" id="dishBody"></article>
+</dialog>
+
+<!-- my selection -->
+<aside class="tray" id="tray" aria-hidden="true" aria-labelledby="trayTitle">
+  <header class="tray__head">
+    <h2 id="trayTitle" data-i18n="trayTitle">Mi selección</h2>
+    <button class="icon-btn" id="trayClose" type="button"><span class="icon-btn__glyph" aria-hidden="true"></span></button>
+  </header>
+  <div class="tray__body" id="trayBody"></div>
+  <footer class="tray__foot">
+    <div class="tray__total">
+      <span data-i18n="total">Total</span>
+      <strong id="trayTotal">€0.00</strong>
+    </div>
+    <p class="tray__disclaimer" data-i18n="trayDisclaimer"></p>
+    <div class="tray__actions">
+      <button class="btn btn--ghost" id="trayClear" type="button" data-i18n="clear">Vaciar</button>
+      <a class="btn btn--wa" id="traySend" href="#" target="_blank" rel="noopener noreferrer" data-i18n="sendWhatsApp">Enviar por WhatsApp</a>
+    </div>
+  </footer>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<noscript>
+  <div class="shell noscript">
+    <p>Esta carta necesita JavaScript. Llámanos al <a href="tel:+34690150698">+34 690 15 06 98</a>.</p>
+  </div>
+</noscript>
+</body>
+</html>

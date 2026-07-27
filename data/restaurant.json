@@ -1,0 +1,58 @@
+{
+  "name": "Pasta y Gofio",
+  "subtitle": "Trattoria · Pizzería · La Aldea",
+  "timezone": "Atlantic/Canary",
+  "currency": "EUR",
+  "locale": {
+    "es": "es-ES",
+    "it": "it-IT",
+    "en": "en-GB",
+    "de": "de-DE"
+  },
+  "tagline": {
+    "es": "Cocina italiana con alma canaria, en el corazón de La Aldea.",
+    "it": "Cucina italiana con anima canaria, nel cuore de La Aldea.",
+    "en": "Italian cooking with a Canarian soul, in the heart of La Aldea.",
+    "de": "Italienische Küche mit kanarischer Seele, im Herzen von La Aldea."
+  },
+  "contact": {
+    "phone": "+34690150698",
+    "phoneDisplay": "+34 690 15 06 98",
+    "whatsapp": "https://wa.me/34690150698"
+  },
+  "address": {
+    "street": "C. Alfonso XIII, 18",
+    "postalCode": "35470",
+    "city": "La Aldea de San Nicolás de Tolentino",
+    "region": "Las Palmas",
+    "country": "ES",
+    "maps": "https://maps.app.goo.gl/fbeGyUUUNUSBVkUFA",
+    "geo": { "lat": 27.98599, "lng": -15.78896 }
+  },
+  "links": {
+    "review": "https://search.google.com/local/writereview?placeid=ChIJGZuujGZjQAwRw3OF-LNu-cM",
+    "facebook": "https://www.facebook.com/profile.php?id=61571600036836"
+  },
+  "hours": {
+    "note": {
+      "es": "Cerramos lunes y martes.",
+      "it": "Chiuso lunedì e martedì.",
+      "en": "Closed on Monday and Tuesday.",
+      "de": "Montag und Dienstag geschlossen."
+    },
+    "weekly": {
+      "1": [],
+      "2": [],
+      "3": [["12:30", "16:30"], ["19:30", "22:30"]],
+      "4": [["12:30", "16:30"], ["19:30", "22:30"]],
+      "5": [["12:30", "16:30"], ["19:30", "22:30"]],
+      "6": [["12:30", "16:30"], ["19:30", "22:30"]],
+      "0": [["12:30", "16:30"], ["19:30", "22:30"]]
+    },
+    "exceptions": []
+  },
+  "legal": {
+    "pricesValidUntil": "2026-12-31",
+    "taxIncludedKey": "igic"
+  }
+}

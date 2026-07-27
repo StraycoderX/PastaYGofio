@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Pasta y Gofio">
+  <rect width="512" height="512" rx="96" fill="#f6f0dc"/>
+  <g transform="translate(256 268) scale(2.35)" fill="#241d15">
+    <!-- wheat -->
+    <g transform="rotate(-16)">
+      <path d="M0 74 L0 -34" stroke="#241d15" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+      <path d="M0 -36 C-9 -46 -9 -60 0 -70 C9 -60 9 -46 0 -36 Z"/>
+      <path d="M-3 -22 C-16 -28 -22 -40 -19 -53 C-7 -49 -1 -36 -3 -22 Z"/>
+      <path d="M3 -22 C16 -28 22 -40 19 -53 C7 -49 1 -36 3 -22 Z"/>
+      <path d="M-3 -4 C-16 -10 -22 -22 -19 -35 C-7 -31 -1 -18 -3 -4 Z"/>
+      <path d="M3 -4 C16 -10 22 -22 19 -35 C7 -31 1 -18 3 -4 Z"/>
+      <path d="M-3 14 C-16 8 -22 -4 -19 -17 C-7 -13 -1 0 -3 14 Z"/>
+      <path d="M3 14 C16 8 22 -4 19 -17 C7 -13 1 0 3 14 Z"/>
+      <path d="M-3 32 C-16 26 -22 14 -19 1 C-7 5 -1 18 -3 32 Z"/>
+      <path d="M3 32 C16 26 22 14 19 1 C7 5 1 18 3 32 Z"/>
+    </g>
+    <!-- corn -->
+    <g transform="rotate(18) translate(18 2)">
+      <path d="M0 76 L0 -18" stroke="#241d15" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <path d="M0 -58 C16 -50 24 -28 24 -6 C24 16 14 34 0 42
+               C-14 34 -24 16 -24 -6 C-24 -28 -16 -50 0 -58 Z"/>
+      <g stroke="#f6f0dc" stroke-width="2.8" fill="none">
+        <path d="M-16 -24 H16 M-20 -10 H20 M-21 4 H21 M-18 18 H18 M-12 30 H12"/>
+        <path d="M-8 -46 V38 M8 -46 V38 M0 -54 V40"/>
+      </g>
+      <path d="M-2 40 C-22 46 -36 62 -40 82 C-20 76 -6 60 -2 40 Z"/>
+      <path d="M2 40 C22 46 36 62 40 82 C20 76 6 60 2 40 Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main, master, claude/pasta-gofio-app-relaunch-f0fce0]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; let a running one finish so Pages is never half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # No build step and no dependencies — the site is served exactly as
+      # committed. These checks are the only thing standing between a typo in
+      # the carte and a diner reading it, so they gate the deploy.
+      - name: Validate menu data
+        run: node scripts/validate-data.mjs
+      - name: Check service worker precache list
+        run: node scripts/check-precache.mjs
+
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

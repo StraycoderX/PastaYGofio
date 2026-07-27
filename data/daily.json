@@ -1,0 +1,30 @@
+{
+  "$comment": "Sugerencias del día. Sin backend: la rotación es determinista a partir de la fecha, así que todos los comensales ven la misma selección el mismo día. `overrides` permite a cocina fijar a mano la selección de una fecha concreta (YYYY-MM-DD).",
+  "rotation": {
+    "seedSalt": "pastaygofio-2026",
+    "picks": [
+      {
+        "slot": "starter",
+        "from": ["starters", "salad"],
+        "label": { "es": "Para abrir boca", "it": "Per iniziare", "en": "To begin", "de": "Zum Auftakt" }
+      },
+      {
+        "slot": "main",
+        "from": ["pasta", "ravioli", "rice", "meat", "fish"],
+        "label": { "es": "El plato del día", "it": "Il piatto del giorno", "en": "Today's plate", "de": "Tagesgericht" }
+      },
+      {
+        "slot": "pizza",
+        "from": ["pizzas"],
+        "label": { "es": "Del horno", "it": "Dal forno", "en": "From the oven", "de": "Aus dem Ofen" }
+      },
+      {
+        "slot": "dessert",
+        "from": ["sweet"],
+        "label": { "es": "Para terminar", "it": "Per finire", "en": "To finish", "de": "Zum Abschluss" }
+      }
+    ],
+    "exclude": []
+  },
+  "overrides": {}
+}

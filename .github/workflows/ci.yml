@@ -1,0 +1,39 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main, master, claude/pasta-gofio-app-relaunch-f0fce0]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate menu data
+        run: node scripts/validate-data.mjs
+
+      - name: Check service worker precache list
+        run: node scripts/check-precache.mjs
+
+      - name: Check every JS module parses
+        run: |
+          for f in assets/js/*.js sw.js scripts/*.mjs; do
+            node --check "$f" || exit 1
+          done
+          echo "✓ all modules parse"
+
+      - name: Check for third-party origins
+        # The whole security model rests on the app being same-origin only.
+        # A stray CDN <link> would silently need 'unsafe-inline' back.
+        run: |
+          if grep -rnE 'https?://(fonts\.(googleapis|gstatic)|code\.jquery|cdn\.|unpkg|jsdelivr)' \
+              index.html assets/css assets/js 2>/dev/null; then
+            echo "::error::third-party origin referenced — the CSP forbids it"
+            exit 1
+          fi
+          echo "✓ no third-party origins"

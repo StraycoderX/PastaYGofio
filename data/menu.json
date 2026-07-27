@@ -1,0 +1,1013 @@
+{
+  "version": 2,
+  "updated": "2026-07-27",
+  "source": "seed",
+  "note": "Contenido de arranque reconstruido a partir de la carta publicada. Sustituible por el export real con `npm run migrate` (ver README).",
+  "sections": [
+    {
+      "id": "starters",
+      "kind": "food",
+      "accent": "#6f9f5c",
+      "name": {
+        "es": "Para empezar",
+        "it": "Antipasti",
+        "en": "Starters",
+        "de": "Vorspeisen"
+      },
+      "items": [
+        {
+          "id": "bruschetta-teror",
+          "name": {
+            "es": "Bruschetta de Teror y tomate",
+            "it": "Bruschetta di Teror e pomodoro",
+            "en": "Teror chorizo & tomato bruschetta",
+            "de": "Bruschetta mit Teror-Chorizo und Tomate"
+          },
+          "description": {
+            "es": "Sobre nuestra masa casera de focaccia, horneada al momento: chorizo de Teror, mozzarella fundida y tomate fresco con albahaca.",
+            "it": "Sul nostro impasto casalingo di focaccia, sfornato al momento: chorizo di Teror, mozzarella filante e pomodoro fresco con basilico.",
+            "en": "On our house-made focaccia dough, baked to order: Teror chorizo, melted mozzarella and fresh tomato with basil.",
+            "de": "Auf unserem hausgemachten Focaccia-Teig, frisch gebacken: Teror-Chorizo, geschmolzener Mozzarella und frische Tomate mit Basilikum."
+          },
+          "price": { "amount": 7.5 },
+          "allergens": ["gluten", "lactose"],
+          "diet": [],
+          "nutrition": { "calories": 420, "fat": 24, "carbohydrates": 38, "protein": 16 },
+          "image": "focaccia-teror.svg",
+          "pairing": "tinto-canario",
+          "tags": ["signature", "local"]
+        },
+        {
+          "id": "burrata-cherry-rucula",
+          "name": {
+            "es": "Burrata con tomates cherry y rúcula",
+            "it": "Burrata con pomodorini e rucola",
+            "en": "Burrata with cherry tomatoes and rocket",
+            "de": "Burrata mit Kirschtomaten und Rucola"
+          },
+          "description": {
+            "es": "Cremosa burrata pugliese servida con tomates cherry frescos, rúcula y un chorrito de aceite de oliva virgen extra.",
+            "it": "Cremosa burrata pugliese servita con pomodorini freschi, rucola e un filo di olio extravergine di oliva.",
+            "en": "Creamy Apulian burrata served with fresh cherry tomatoes, rocket and a drizzle of extra virgin olive oil.",
+            "de": "Cremige apulische Burrata mit frischen Kirschtomaten, Rucola und einem Schuss natives Olivenöl extra."
+          },
+          "price": { "amount": 13.5 },
+          "allergens": ["lactose"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 380, "fat": 28, "carbohydrates": 12, "protein": 22 },
+          "pairing": "vermentino",
+          "tags": ["signature"]
+        },
+        {
+          "id": "tabla-quesos-embutidos",
+          "name": {
+            "es": "Tabla de quesos y embutidos",
+            "it": "Tagliere di formaggi e salumi",
+            "en": "Cheese and cured meat board",
+            "de": "Käse- und Wurstplatte"
+          },
+          "description": {
+            "es": "Selección de quesos y embutidos curados, servidos con focaccia caliente.",
+            "it": "Selezione di formaggi e salumi stagionati, serviti con focaccia calda.",
+            "en": "A selection of cheeses and cured meats, served with warm focaccia.",
+            "de": "Auswahl an Käse und luftgetrockneten Wurstwaren, serviert mit warmer Focaccia."
+          },
+          "price": { "amount": 14.5 },
+          "allergens": ["lactose", "gluten"],
+          "diet": [],
+          "nutrition": { "calories": 500, "fat": 30, "carbohydrates": 35, "protein": 30 },
+          "pairing": "chianti",
+          "tags": ["sharing"]
+        },
+        {
+          "id": "parmigiana-berenjena",
+          "name": {
+            "es": "Parmigiana de berenjena",
+            "it": "Parmigiana di melanzane",
+            "en": "Aubergine parmigiana",
+            "de": "Auberginen-Parmigiana"
+          },
+          "description": {
+            "es": "Pastel de berenjena al horno con salsa de tomate, parmesano y queso provolone, un clásico de la cocina italiana.",
+            "it": "Sformato di melanzane al forno con salsa di pomodoro, parmigiano e provolone, un classico della cucina italiana.",
+            "en": "Baked aubergine layered with tomato sauce, parmesan and provolone — an Italian classic.",
+            "de": "Überbackene Auberginen mit Tomatensauce, Parmesan und Provolone — ein italienischer Klassiker."
+          },
+          "price": { "amount": 9.5 },
+          "allergens": ["lactose", "gluten"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 450, "fat": 25, "carbohydrates": 40, "protein": 20 },
+          "pairing": "nero-avola"
+        },
+        {
+          "id": "croquetas-gofio",
+          "name": {
+            "es": "Croquetas de gofio y queso majorero",
+            "it": "Crocchette di gofio e formaggio majorero",
+            "en": "Gofio and majorero cheese croquettes",
+            "de": "Gofio-Majorero-Kroketten"
+          },
+          "description": {
+            "es": "Croquetas cremosas de gofio canario y queso majorero curado, con mojo verde suave.",
+            "it": "Crocchette cremose di gofio canario e formaggio majorero stagionato, con mojo verde delicato.",
+            "en": "Creamy croquettes of Canarian gofio and aged majorero cheese, with mild green mojo.",
+            "de": "Cremige Kroketten aus kanarischem Gofio und gereiftem Majorero-Käse, mit mildem grünen Mojo."
+          },
+          "price": { "amount": 8.5 },
+          "allergens": ["gluten", "lactose", "eggs"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 390, "fat": 21, "carbohydrates": 34, "protein": 14 },
+          "tags": ["local", "signature"]
+        },
+        {
+          "id": "carpaccio-ternera",
+          "name": {
+            "es": "Carpaccio de ternera",
+            "it": "Carpaccio di manzo",
+            "en": "Beef carpaccio",
+            "de": "Rindercarpaccio"
+          },
+          "description": {
+            "es": "Finas láminas de ternera con rúcula, lascas de parmesano, alcaparras y limón.",
+            "it": "Sottili fette di manzo con rucola, scaglie di parmigiano, capperi e limone.",
+            "en": "Thin slices of beef with rocket, parmesan shavings, capers and lemon.",
+            "de": "Dünne Rindfleischscheiben mit Rucola, Parmesanspänen, Kapern und Zitrone."
+          },
+          "price": { "amount": 12.5 },
+          "allergens": ["lactose"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 300, "fat": 18, "carbohydrates": 4, "protein": 28 },
+          "pairing": "chianti"
+        },
+        {
+          "id": "pulpo-plancha",
+          "name": {
+            "es": "Pulpo a la plancha con papas arrugadas",
+            "it": "Polpo alla piastra con papas arrugadas",
+            "en": "Grilled octopus with wrinkled potatoes",
+            "de": "Gegrillter Oktopus mit Runzelkartoffeln"
+          },
+          "description": {
+            "es": "Pulpo marcado a la plancha sobre papas arrugadas canarias, con mojo verde y pimentón.",
+            "it": "Polpo scottato alla piastra su papas arrugadas canarie, con mojo verde e paprika.",
+            "en": "Seared octopus over Canarian wrinkled potatoes, with green mojo and paprika.",
+            "de": "Gegrillter Oktopus auf kanarischen Runzelkartoffeln, mit grünem Mojo und Paprika."
+          },
+          "price": { "amount": 15.5 },
+          "allergens": ["mollusks"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 340, "fat": 14, "carbohydrates": 28, "protein": 26 },
+          "pairing": "malvasia",
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "pasta",
+      "kind": "food",
+      "accent": "#e07a1f",
+      "name": { "es": "Pasta", "it": "Pasta", "en": "Pasta", "de": "Pasta" },
+      "items": [
+        {
+          "id": "rigatoni-amatriciana",
+          "name": {
+            "es": "Rigatoni a la amatriciana",
+            "it": "Rigatoni all'amatriciana",
+            "en": "Rigatoni all'amatriciana",
+            "de": "Rigatoni all'amatriciana"
+          },
+          "description": {
+            "es": "Guanciale curado, tomate San Marzano y pecorino romano.",
+            "it": "Guanciale stagionato, pomodoro San Marzano e pecorino romano.",
+            "en": "Cured guanciale, San Marzano tomato and pecorino romano.",
+            "de": "Gereifter Guanciale, San-Marzano-Tomate und Pecorino Romano."
+          },
+          "price": { "amount": 12.5 },
+          "allergens": ["gluten", "lactose"],
+          "nutrition": { "calories": 620, "fat": 24, "carbohydrates": 76, "protein": 22 },
+          "pairing": "chianti"
+        },
+        {
+          "id": "spaghetti-vongole",
+          "name": {
+            "es": "Spaghetti con almejas",
+            "it": "Spaghetti alle vongole",
+            "en": "Spaghetti with clams",
+            "de": "Spaghetti mit Venusmuscheln"
+          },
+          "description": {
+            "es": "Almejas frescas, ajo, guindilla, vino blanco y perejil.",
+            "it": "Vongole fresche, aglio, peperoncino, vino bianco e prezzemolo.",
+            "en": "Fresh clams, garlic, chilli, white wine and parsley.",
+            "de": "Frische Venusmuscheln, Knoblauch, Chili, Weißwein und Petersilie."
+          },
+          "price": { "amount": 15.5 },
+          "allergens": ["gluten", "mollusks", "sulfites"],
+          "diet": ["spicy"],
+          "nutrition": { "calories": 560, "fat": 16, "carbohydrates": 72, "protein": 26 },
+          "pairing": "vermentino",
+          "tags": ["signature"]
+        },
+        {
+          "id": "tagliatelle-ragu",
+          "name": {
+            "es": "Tagliatelle al ragú boloñés",
+            "it": "Tagliatelle al ragù bolognese",
+            "en": "Tagliatelle with bolognese ragù",
+            "de": "Tagliatelle mit Bolognese-Ragù"
+          },
+          "description": {
+            "es": "Ragú de cocción lenta durante cuatro horas, con parmesano reggiano.",
+            "it": "Ragù a cottura lenta per quattro ore, con parmigiano reggiano.",
+            "en": "Four-hour slow-cooked ragù, finished with parmigiano reggiano.",
+            "de": "Vier Stunden geschmortes Ragù, mit Parmigiano Reggiano."
+          },
+          "price": { "amount": 13.0 },
+          "allergens": ["gluten", "lactose", "eggs", "celery"],
+          "nutrition": { "calories": 680, "fat": 26, "carbohydrates": 78, "protein": 30 },
+          "pairing": "nero-avola"
+        },
+        {
+          "id": "carbonara",
+          "name": {
+            "es": "Espaguetis a la carbonara",
+            "it": "Spaghetti alla carbonara",
+            "en": "Spaghetti carbonara",
+            "de": "Spaghetti Carbonara"
+          },
+          "description": {
+            "es": "Huevo, guanciale, pecorino y pimienta negra. Sin nata, como en Roma.",
+            "it": "Uovo, guanciale, pecorino e pepe nero. Senza panna, come a Roma.",
+            "en": "Egg, guanciale, pecorino and black pepper. No cream, as in Rome.",
+            "de": "Ei, Guanciale, Pecorino und schwarzer Pfeffer. Ohne Sahne, wie in Rom."
+          },
+          "price": { "amount": 12.5 },
+          "allergens": ["gluten", "lactose", "eggs"],
+          "nutrition": { "calories": 650, "fat": 28, "carbohydrates": 70, "protein": 26 },
+          "pairing": "pinot-grigio"
+        },
+        {
+          "id": "trofie-pesto",
+          "name": {
+            "es": "Trofie al pesto genovés",
+            "it": "Trofie al pesto genovese",
+            "en": "Trofie with Genovese pesto",
+            "de": "Trofie mit Pesto Genovese"
+          },
+          "description": {
+            "es": "Pesto de albahaca fresca, piñones y parmesano, con judías verdes y patata.",
+            "it": "Pesto di basilico fresco, pinoli e parmigiano, con fagiolini e patata.",
+            "en": "Fresh basil pesto, pine nuts and parmesan, with green beans and potato.",
+            "de": "Pesto aus frischem Basilikum, Pinienkernen und Parmesan, mit grünen Bohnen und Kartoffel."
+          },
+          "price": { "amount": 11.5 },
+          "allergens": ["gluten", "lactose", "nuts"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 590, "fat": 27, "carbohydrates": 68, "protein": 18 },
+          "pairing": "vermentino"
+        },
+        {
+          "id": "gnocchi-cuatro-quesos",
+          "name": {
+            "es": "Ñoquis a los cuatro quesos",
+            "it": "Gnocchi ai quattro formaggi",
+            "en": "Gnocchi with four cheeses",
+            "de": "Gnocchi mit vier Käsesorten"
+          },
+          "description": {
+            "es": "Ñoquis de patata caseros con gorgonzola, fontina, parmesano y provolone.",
+            "it": "Gnocchi di patate fatti in casa con gorgonzola, fontina, parmigiano e provolone.",
+            "en": "House-made potato gnocchi with gorgonzola, fontina, parmesan and provolone.",
+            "de": "Hausgemachte Kartoffelgnocchi mit Gorgonzola, Fontina, Parmesan und Provolone."
+          },
+          "price": { "amount": 12.5 },
+          "allergens": ["gluten", "lactose", "eggs"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 700, "fat": 34, "carbohydrates": 72, "protein": 24 },
+          "pairing": "pinot-grigio"
+        }
+      ]
+    },
+    {
+      "id": "ravioli",
+      "kind": "food",
+      "accent": "#c9c34f",
+      "name": { "es": "Ravioli", "it": "Ravioli", "en": "Ravioli", "de": "Ravioli" },
+      "items": [
+        {
+          "id": "ravioli-ricotta-espinacas",
+          "name": {
+            "es": "Ravioli de ricotta y espinacas",
+            "it": "Ravioli di ricotta e spinaci",
+            "en": "Ricotta and spinach ravioli",
+            "de": "Ravioli mit Ricotta und Spinat"
+          },
+          "description": {
+            "es": "Pasta fresca rellena, con mantequilla de salvia y parmesano.",
+            "it": "Pasta fresca ripiena, con burro e salvia e parmigiano.",
+            "en": "Fresh filled pasta with sage butter and parmesan.",
+            "de": "Frische gefüllte Pasta mit Salbeibutter und Parmesan."
+          },
+          "price": { "amount": 13.5 },
+          "allergens": ["gluten", "lactose", "eggs"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 540, "fat": 26, "carbohydrates": 58, "protein": 20 },
+          "pairing": "vermentino"
+        },
+        {
+          "id": "ravioli-carne",
+          "name": {
+            "es": "Ravioli de carne",
+            "it": "Ravioli di carne",
+            "en": "Meat ravioli",
+            "de": "Fleischravioli"
+          },
+          "description": {
+            "es": "Relleno de carne braseada, salsa de tomate lento y albahaca.",
+            "it": "Ripieno di carne brasata, salsa di pomodoro lenta e basilico.",
+            "en": "Braised meat filling, slow tomato sauce and basil.",
+            "de": "Füllung aus geschmortem Fleisch, langsam gekochte Tomatensauce und Basilikum."
+          },
+          "price": { "amount": 14.0 },
+          "allergens": ["gluten", "lactose", "eggs", "celery"],
+          "nutrition": { "calories": 600, "fat": 24, "carbohydrates": 62, "protein": 28 },
+          "pairing": "chianti"
+        },
+        {
+          "id": "ravioli-cabra-palma",
+          "name": {
+            "es": "Ravioli de queso de cabra y miel de palma",
+            "it": "Ravioli di caprino e miele di palma",
+            "en": "Goat cheese ravioli with palm honey",
+            "de": "Ziegenkäse-Ravioli mit Palmhonig"
+          },
+          "description": {
+            "es": "Nuestro guiño canario: queso de cabra tierno, miel de palma gomera y nueces tostadas.",
+            "it": "Il nostro omaggio canario: caprino fresco, miele di palma della Gomera e noci tostate.",
+            "en": "Our Canarian nod: soft goat cheese, La Gomera palm honey and toasted walnuts.",
+            "de": "Unsere kanarische Note: milder Ziegenkäse, Palmhonig aus La Gomera und geröstete Walnüsse."
+          },
+          "price": { "amount": 14.5 },
+          "allergens": ["gluten", "lactose", "eggs", "nuts"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 620, "fat": 30, "carbohydrates": 60, "protein": 22 },
+          "pairing": "malvasia",
+          "tags": ["signature", "local"]
+        }
+      ]
+    },
+    {
+      "id": "rice",
+      "kind": "food",
+      "accent": "#b89a74",
+      "name": { "es": "Arroces", "it": "Risotti", "en": "Rice", "de": "Risotto" },
+      "items": [
+        {
+          "id": "risotto-setas-trufa",
+          "name": {
+            "es": "Risotto de setas y trufa",
+            "it": "Risotto ai funghi e tartufo",
+            "en": "Mushroom and truffle risotto",
+            "de": "Pilz-Trüffel-Risotto"
+          },
+          "description": {
+            "es": "Arroz carnaroli, setas de temporada, aceite de trufa y parmesano.",
+            "it": "Riso carnaroli, funghi di stagione, olio al tartufo e parmigiano.",
+            "en": "Carnaroli rice, seasonal mushrooms, truffle oil and parmesan.",
+            "de": "Carnaroli-Reis, Pilze der Saison, Trüffelöl und Parmesan."
+          },
+          "price": { "amount": 14.5 },
+          "allergens": ["lactose", "sulfites"],
+          "diet": ["vegetarian", "glutenfree"],
+          "nutrition": { "calories": 560, "fat": 22, "carbohydrates": 74, "protein": 14 },
+          "pairing": "pinot-grigio"
+        },
+        {
+          "id": "risotto-marisco",
+          "name": {
+            "es": "Risotto de marisco",
+            "it": "Risotto ai frutti di mare",
+            "en": "Seafood risotto",
+            "de": "Meeresfrüchte-Risotto"
+          },
+          "description": {
+            "es": "Gambas, mejillones y calamar, con fumet de pescado y un toque de guindilla.",
+            "it": "Gamberi, cozze e calamaro, con fumetto di pesce e un tocco di peperoncino.",
+            "en": "Prawns, mussels and squid, with fish fumet and a touch of chilli.",
+            "de": "Garnelen, Muscheln und Tintenfisch, mit Fischfond und einer Chilinote."
+          },
+          "price": { "amount": 16.5 },
+          "allergens": ["crustaceans", "mollusks", "fish", "sulfites"],
+          "diet": ["spicy", "glutenfree"],
+          "nutrition": { "calories": 540, "fat": 16, "carbohydrates": 72, "protein": 26 },
+          "pairing": "malvasia"
+        },
+        {
+          "id": "risotto-gofio",
+          "name": {
+            "es": "Risotto al azafrán con gofio tostado",
+            "it": "Risotto allo zafferano con gofio tostato",
+            "en": "Saffron risotto with toasted gofio",
+            "de": "Safran-Risotto mit geröstetem Gofio"
+          },
+          "description": {
+            "es": "Milanesa clásica terminada con una lluvia de gofio tostado. El plato que da nombre a la casa.",
+            "it": "Milanese classico rifinito con una pioggia di gofio tostato. Il piatto che dà il nome alla casa.",
+            "en": "Classic milanese finished with a dusting of toasted gofio — the dish behind our name.",
+            "de": "Klassisches Milanese, verfeinert mit geröstetem Gofio — das Gericht hinter unserem Namen."
+          },
+          "price": { "amount": 13.5 },
+          "allergens": ["lactose", "gluten", "sulfites"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 520, "fat": 18, "carbohydrates": 78, "protein": 14 },
+          "pairing": "malvasia",
+          "tags": ["signature", "local"]
+        }
+      ]
+    },
+    {
+      "id": "meat",
+      "kind": "food",
+      "accent": "#c98a52",
+      "name": { "es": "Carnes", "it": "Carni", "en": "Meat", "de": "Fleisch" },
+      "items": [
+        {
+          "id": "tagliata-ternera",
+          "name": {
+            "es": "Tagliata de ternera",
+            "it": "Tagliata di manzo",
+            "en": "Beef tagliata",
+            "de": "Rinder-Tagliata"
+          },
+          "description": {
+            "es": "Entrecot laminado al punto, con rúcula, lascas de parmesano y aceite de oliva.",
+            "it": "Controfiletto tagliato al punto giusto, con rucola, scaglie di parmigiano e olio d'oliva.",
+            "en": "Sliced sirloin cooked to your liking, with rocket, parmesan shavings and olive oil.",
+            "de": "Aufgeschnittenes Roastbeef nach Wunsch gegart, mit Rucola, Parmesanspänen und Olivenöl."
+          },
+          "price": { "amount": 19.5 },
+          "allergens": ["lactose"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 620, "fat": 38, "carbohydrates": 6, "protein": 52 },
+          "pairing": "chianti",
+          "tags": ["signature"]
+        },
+        {
+          "id": "escalope-milanesa",
+          "name": {
+            "es": "Escalope a la milanesa",
+            "it": "Cotoletta alla milanese",
+            "en": "Milanese escalope",
+            "de": "Mailänder Schnitzel"
+          },
+          "description": {
+            "es": "Empanado crujiente, servido con patatas y limón.",
+            "it": "Panatura croccante, servita con patate e limone.",
+            "en": "Crisp breadcrumb coating, served with potatoes and lemon.",
+            "de": "Knusprige Panade, serviert mit Kartoffeln und Zitrone."
+          },
+          "price": { "amount": 14.5 },
+          "allergens": ["gluten", "eggs", "lactose"],
+          "nutrition": { "calories": 720, "fat": 36, "carbohydrates": 58, "protein": 40 },
+          "pairing": "nero-avola"
+        },
+        {
+          "id": "pollo-parmigiana",
+          "name": {
+            "es": "Pollo a la parmigiana",
+            "it": "Pollo alla parmigiana",
+            "en": "Chicken parmigiana",
+            "de": "Hähnchen-Parmigiana"
+          },
+          "description": {
+            "es": "Pechuga gratinada con tomate, mozzarella y albahaca.",
+            "it": "Petto gratinato con pomodoro, mozzarella e basilico.",
+            "en": "Chicken breast gratinated with tomato, mozzarella and basil.",
+            "de": "Hähnchenbrust überbacken mit Tomate, Mozzarella und Basilikum."
+          },
+          "price": { "amount": 13.5 },
+          "allergens": ["gluten", "lactose"],
+          "nutrition": { "calories": 580, "fat": 26, "carbohydrates": 32, "protein": 46 },
+          "pairing": "nero-avola"
+        },
+        {
+          "id": "costillar-miel-palma",
+          "name": {
+            "es": "Costillar con miel de palma",
+            "it": "Costine con miele di palma",
+            "en": "Pork ribs with palm honey",
+            "de": "Rippchen mit Palmhonig"
+          },
+          "description": {
+            "es": "Costillar de cerdo a baja temperatura, lacado con miel de palma y romero.",
+            "it": "Costine di maiale a bassa temperatura, laccate con miele di palma e rosmarino.",
+            "en": "Slow-cooked pork ribs glazed with palm honey and rosemary.",
+            "de": "Langsam gegarte Schweinerippchen, glasiert mit Palmhonig und Rosmarin."
+          },
+          "price": { "amount": 16.5 },
+          "allergens": ["sulfites"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 780, "fat": 48, "carbohydrates": 22, "protein": 52 },
+          "pairing": "tinto-canario",
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "fish",
+      "kind": "food",
+      "accent": "#1497b8",
+      "name": { "es": "Pescados", "it": "Pesce", "en": "Fish", "de": "Fisch" },
+      "items": [
+        {
+          "id": "cherne-plancha",
+          "name": {
+            "es": "Cherne a la plancha con mojo verde",
+            "it": "Cernia alla piastra con mojo verde",
+            "en": "Grilled wreckfish with green mojo",
+            "de": "Gegrillter Wrackbarsch mit grünem Mojo"
+          },
+          "description": {
+            "es": "Pescado local del día a la plancha, con papas arrugadas y mojo verde.",
+            "it": "Pesce locale del giorno alla piastra, con papas arrugadas e mojo verde.",
+            "en": "Local catch of the day, grilled, with wrinkled potatoes and green mojo.",
+            "de": "Lokaler Fisch des Tages vom Grill, mit Runzelkartoffeln und grünem Mojo."
+          },
+          "price": { "amount": 18.5 },
+          "allergens": ["fish"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 460, "fat": 18, "carbohydrates": 30, "protein": 44 },
+          "pairing": "malvasia",
+          "tags": ["local", "signature"]
+        },
+        {
+          "id": "salmon-horno",
+          "name": {
+            "es": "Salmón al horno con hierbas",
+            "it": "Salmone al forno con erbe",
+            "en": "Oven-baked salmon with herbs",
+            "de": "Ofenlachs mit Kräutern"
+          },
+          "description": {
+            "es": "Lomo de salmón con costra de hierbas mediterráneas y verduras asadas.",
+            "it": "Filetto di salmone in crosta di erbe mediterranee e verdure arrosto.",
+            "en": "Salmon fillet with a Mediterranean herb crust and roasted vegetables.",
+            "de": "Lachsfilet mit mediterraner Kräuterkruste und Ofengemüse."
+          },
+          "price": { "amount": 16.5 },
+          "allergens": ["fish"],
+          "diet": ["glutenfree"],
+          "nutrition": { "calories": 520, "fat": 30, "carbohydrates": 18, "protein": 42 },
+          "pairing": "vermentino"
+        },
+        {
+          "id": "fritura-calamares",
+          "name": {
+            "es": "Fritura de calamares",
+            "it": "Frittura di calamari",
+            "en": "Fried calamari",
+            "de": "Frittierte Calamari"
+          },
+          "description": {
+            "es": "Calamares rebozados y fritos al momento, con alioli de limón.",
+            "it": "Calamari infarinati e fritti al momento, con aioli al limone.",
+            "en": "Freshly fried floured calamari with lemon aioli.",
+            "de": "Frisch frittierte Calamari mit Zitronen-Aioli."
+          },
+          "price": { "amount": 13.5 },
+          "allergens": ["gluten", "mollusks", "eggs"],
+          "nutrition": { "calories": 560, "fat": 32, "carbohydrates": 40, "protein": 24 },
+          "pairing": "pinot-grigio"
+        }
+      ]
+    },
+    {
+      "id": "salad",
+      "kind": "food",
+      "accent": "#8a7b47",
+      "name": { "es": "Ensaladas", "it": "Insalate", "en": "Salads", "de": "Salate" },
+      "items": [
+        {
+          "id": "ensalada-caprese",
+          "name": {
+            "es": "Ensalada caprese",
+            "it": "Insalata caprese",
+            "en": "Caprese salad",
+            "de": "Caprese-Salat"
+          },
+          "description": {
+            "es": "Mozzarella fior di latte, tomate de la tierra, albahaca y aceite de oliva.",
+            "it": "Mozzarella fior di latte, pomodoro locale, basilico e olio d'oliva.",
+            "en": "Fior di latte mozzarella, local tomato, basil and olive oil.",
+            "de": "Fior-di-latte-Mozzarella, lokale Tomate, Basilikum und Olivenöl."
+          },
+          "price": { "amount": 10.5 },
+          "allergens": ["lactose"],
+          "diet": ["vegetarian", "glutenfree"],
+          "nutrition": { "calories": 320, "fat": 24, "carbohydrates": 10, "protein": 18 },
+          "pairing": "vermentino"
+        },
+        {
+          "id": "ensalada-cesar",
+          "name": {
+            "es": "Ensalada césar",
+            "it": "Insalata cesare",
+            "en": "Caesar salad",
+            "de": "Caesar Salad"
+          },
+          "description": {
+            "es": "Cogollos, pollo a la plancha, picatostes, parmesano y salsa césar.",
+            "it": "Lattuga, pollo alla piastra, crostini, parmigiano e salsa cesare.",
+            "en": "Baby gem, grilled chicken, croutons, parmesan and Caesar dressing.",
+            "de": "Römersalat, gegrilltes Hähnchen, Croutons, Parmesan und Caesar-Dressing."
+          },
+          "price": { "amount": 11.5 },
+          "allergens": ["gluten", "lactose", "eggs", "fish", "mustard"],
+          "nutrition": { "calories": 460, "fat": 28, "carbohydrates": 22, "protein": 30 },
+          "pairing": "pinot-grigio"
+        },
+        {
+          "id": "ensalada-aldeana",
+          "name": {
+            "es": "Ensalada de la huerta aldeana",
+            "it": "Insalata dell'orto de La Aldea",
+            "en": "La Aldea garden salad",
+            "de": "Gartensalat aus La Aldea"
+          },
+          "description": {
+            "es": "Verduras de temporada del valle, aguacate, tomate y vinagreta de miel de palma.",
+            "it": "Verdure di stagione della valle, avocado, pomodoro e vinaigrette al miele di palma.",
+            "en": "Seasonal vegetables from the valley, avocado, tomato and palm honey vinaigrette.",
+            "de": "Saisonales Gemüse aus dem Tal, Avocado, Tomate und Palmhonig-Vinaigrette."
+          },
+          "price": { "amount": 9.5 },
+          "allergens": ["sulfites"],
+          "diet": ["vegan", "vegetarian", "glutenfree"],
+          "nutrition": { "calories": 280, "fat": 18, "carbohydrates": 24, "protein": 6 },
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "pizzas",
+      "kind": "food",
+      "accent": "#b81f13",
+      "name": { "es": "Pizzas", "it": "Pizze", "en": "Pizzas", "de": "Pizzen" },
+      "sizes": [
+        { "key": "medium", "label": { "es": "Mediana", "it": "Media", "en": "Medium", "de": "Mittel" } },
+        { "key": "large", "label": { "es": "Familiar", "it": "Familiare", "en": "Family", "de": "Familie" } }
+      ],
+      "extras": [
+        {
+          "id": "extra-mozzarella",
+          "name": { "es": "Extra mozzarella", "it": "Extra mozzarella", "en": "Extra mozzarella", "de": "Extra Mozzarella" },
+          "price": { "medium": 1.5, "large": 2.5 }
+        },
+        {
+          "id": "extra-teror",
+          "name": { "es": "Extra chorizo de Teror", "it": "Extra chorizo di Teror", "en": "Extra Teror chorizo", "de": "Extra Teror-Chorizo" },
+          "price": { "medium": 2.0, "large": 3.0 }
+        },
+        {
+          "id": "extra-jamon",
+          "name": { "es": "Extra jamón", "it": "Extra prosciutto", "en": "Extra ham", "de": "Extra Schinken" },
+          "price": { "medium": 2.0, "large": 3.0 }
+        },
+        {
+          "id": "extra-verduras",
+          "name": { "es": "Extra verduras", "it": "Extra verdure", "en": "Extra vegetables", "de": "Extra Gemüse" },
+          "price": { "medium": 1.5, "large": 2.0 }
+        }
+      ],
+      "items": [
+        {
+          "id": "pizza-margherita",
+          "name": { "es": "Margherita", "it": "Margherita", "en": "Margherita", "de": "Margherita" },
+          "description": {
+            "es": "Tomate San Marzano, mozzarella fior di latte y albahaca fresca.",
+            "it": "Pomodoro San Marzano, mozzarella fior di latte e basilico fresco.",
+            "en": "San Marzano tomato, fior di latte mozzarella and fresh basil.",
+            "de": "San-Marzano-Tomate, Fior-di-latte-Mozzarella und frisches Basilikum."
+          },
+          "price": { "medium": 8.5, "large": 11.5 },
+          "allergens": ["gluten", "lactose"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 780, "fat": 26, "carbohydrates": 104, "protein": 32 },
+          "pairing": "chianti"
+        },
+        {
+          "id": "pizza-diavola",
+          "name": { "es": "Diavola", "it": "Diavola", "en": "Diavola", "de": "Diavola" },
+          "description": {
+            "es": "Tomate, mozzarella y salami picante calabrés.",
+            "it": "Pomodoro, mozzarella e salame piccante calabrese.",
+            "en": "Tomato, mozzarella and spicy Calabrian salami.",
+            "de": "Tomate, Mozzarella und scharfe kalabrische Salami."
+          },
+          "price": { "medium": 10.5, "large": 13.5 },
+          "allergens": ["gluten", "lactose"],
+          "diet": ["spicy"],
+          "nutrition": { "calories": 920, "fat": 38, "carbohydrates": 106, "protein": 38 },
+          "pairing": "nero-avola"
+        },
+        {
+          "id": "pizza-quattro-formaggi",
+          "name": { "es": "Cuatro quesos", "it": "Quattro formaggi", "en": "Four cheeses", "de": "Vier Käse" },
+          "description": {
+            "es": "Mozzarella, gorgonzola, fontina y parmesano.",
+            "it": "Mozzarella, gorgonzola, fontina e parmigiano.",
+            "en": "Mozzarella, gorgonzola, fontina and parmesan.",
+            "de": "Mozzarella, Gorgonzola, Fontina und Parmesan."
+          },
+          "price": { "medium": 11.5, "large": 14.5 },
+          "allergens": ["gluten", "lactose"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 980, "fat": 46, "carbohydrates": 100, "protein": 44 },
+          "pairing": "pinot-grigio"
+        },
+        {
+          "id": "pizza-prosciutto-funghi",
+          "name": {
+            "es": "Jamón y champiñones",
+            "it": "Prosciutto e funghi",
+            "en": "Ham and mushrooms",
+            "de": "Schinken und Champignons"
+          },
+          "description": {
+            "es": "Tomate, mozzarella, jamón cocido y champiñones frescos.",
+            "it": "Pomodoro, mozzarella, prosciutto cotto e funghi freschi.",
+            "en": "Tomato, mozzarella, cooked ham and fresh mushrooms.",
+            "de": "Tomate, Mozzarella, Kochschinken und frische Champignons."
+          },
+          "price": { "medium": 11.0, "large": 14.0 },
+          "allergens": ["gluten", "lactose"],
+          "nutrition": { "calories": 860, "fat": 32, "carbohydrates": 104, "protein": 40 },
+          "pairing": "chianti"
+        },
+        {
+          "id": "pizza-la-aldea",
+          "name": { "es": "La Aldea", "it": "La Aldea", "en": "La Aldea", "de": "La Aldea" },
+          "description": {
+            "es": "Nuestra pizza de la casa: chorizo de Teror, queso de flor, cebolla roja y mojo suave.",
+            "it": "La nostra pizza della casa: chorizo di Teror, queso de flor, cipolla rossa e mojo delicato.",
+            "en": "Our house pizza: Teror chorizo, queso de flor, red onion and mild mojo.",
+            "de": "Unsere Hauspizza: Teror-Chorizo, Queso de Flor, rote Zwiebel und milder Mojo."
+          },
+          "price": { "medium": 12.5, "large": 15.5 },
+          "allergens": ["gluten", "lactose"],
+          "nutrition": { "calories": 950, "fat": 42, "carbohydrates": 102, "protein": 40 },
+          "pairing": "tinto-canario",
+          "tags": ["signature", "local"]
+        },
+        {
+          "id": "pizza-vegetariana",
+          "name": { "es": "Vegetariana", "it": "Vegetariana", "en": "Vegetarian", "de": "Vegetarisch" },
+          "description": {
+            "es": "Tomate, mozzarella, calabacín, berenjena, pimiento y cebolla.",
+            "it": "Pomodoro, mozzarella, zucchine, melanzane, peperoni e cipolla.",
+            "en": "Tomato, mozzarella, courgette, aubergine, pepper and onion.",
+            "de": "Tomate, Mozzarella, Zucchini, Aubergine, Paprika und Zwiebel."
+          },
+          "price": { "medium": 10.5, "large": 13.5 },
+          "allergens": ["gluten", "lactose"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 800, "fat": 28, "carbohydrates": 106, "protein": 32 },
+          "pairing": "vermentino"
+        }
+      ]
+    },
+    {
+      "id": "sweet",
+      "kind": "food",
+      "accent": "#4a3a2e",
+      "name": { "es": "Postres", "it": "Dolci", "en": "Desserts", "de": "Desserts" },
+      "items": [
+        {
+          "id": "tiramisu",
+          "name": { "es": "Tiramisú", "it": "Tiramisù", "en": "Tiramisu", "de": "Tiramisu" },
+          "description": {
+            "es": "Receta clásica con mascarpone, café espresso y cacao.",
+            "it": "Ricetta classica con mascarpone, caffè espresso e cacao.",
+            "en": "Classic recipe with mascarpone, espresso and cocoa.",
+            "de": "Klassisches Rezept mit Mascarpone, Espresso und Kakao."
+          },
+          "price": { "amount": 6.5 },
+          "allergens": ["gluten", "lactose", "eggs"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 420, "fat": 26, "carbohydrates": 38, "protein": 8 },
+          "tags": ["signature"]
+        },
+        {
+          "id": "panna-cotta",
+          "name": {
+            "es": "Panna cotta de frutos rojos",
+            "it": "Panna cotta ai frutti di bosco",
+            "en": "Berry panna cotta",
+            "de": "Panna cotta mit roten Beeren"
+          },
+          "description": {
+            "es": "Crema cocida suave con coulis de frutos rojos.",
+            "it": "Crema cotta delicata con coulis di frutti di bosco.",
+            "en": "Silky cooked cream with berry coulis.",
+            "de": "Zarte gekochte Sahne mit Beerencoulis."
+          },
+          "price": { "amount": 6.0 },
+          "allergens": ["lactose"],
+          "diet": ["vegetarian", "glutenfree"],
+          "nutrition": { "calories": 340, "fat": 22, "carbohydrates": 32, "protein": 5 }
+        },
+        {
+          "id": "bienmesabe",
+          "name": {
+            "es": "Bienmesabe con helado de vainilla",
+            "it": "Bienmesabe con gelato alla vaniglia",
+            "en": "Bienmesabe with vanilla ice cream",
+            "de": "Bienmesabe mit Vanilleeis"
+          },
+          "description": {
+            "es": "Crema canaria de almendra y miel, con helado artesanal de vainilla.",
+            "it": "Crema canaria di mandorla e miele, con gelato artigianale alla vaniglia.",
+            "en": "Canarian almond and honey cream with artisan vanilla ice cream.",
+            "de": "Kanarische Mandel-Honig-Creme mit handwerklichem Vanilleeis."
+          },
+          "price": { "amount": 6.5 },
+          "allergens": ["nuts", "eggs", "lactose"],
+          "diet": ["vegetarian", "glutenfree"],
+          "nutrition": { "calories": 480, "fat": 26, "carbohydrates": 52, "protein": 8 },
+          "tags": ["local", "signature"]
+        },
+        {
+          "id": "tarta-queso",
+          "name": {
+            "es": "Tarta de queso al horno",
+            "it": "Cheesecake al forno",
+            "en": "Baked cheesecake",
+            "de": "Gebackener Käsekuchen"
+          },
+          "description": {
+            "es": "Cremosa por dentro, tostada por fuera, con mermelada de higos.",
+            "it": "Cremosa dentro, dorata fuori, con marmellata di fichi.",
+            "en": "Creamy inside, caramelised outside, with fig jam.",
+            "de": "Innen cremig, außen karamellisiert, mit Feigenkonfitüre."
+          },
+          "price": { "amount": 6.5 },
+          "allergens": ["lactose", "eggs", "gluten"],
+          "diet": ["vegetarian"],
+          "nutrition": { "calories": 450, "fat": 28, "carbohydrates": 40, "protein": 10 }
+        }
+      ]
+    },
+    {
+      "id": "redwine",
+      "kind": "drink",
+      "accent": "#8d2440",
+      "name": { "es": "Vino tinto", "it": "Vino rosso", "en": "Red wine", "de": "Rotwein" },
+      "items": [
+        {
+          "id": "chianti",
+          "name": "Chianti Classico DOCG",
+          "meta": { "grapes": ["Sangiovese"], "region": "Toscana, IT" },
+          "price": { "glass": 3.8, "bottle": 18.5 },
+          "allergens": ["sulfites"]
+        },
+        {
+          "id": "nero-avola",
+          "name": "Nero d'Avola IGT",
+          "meta": { "grapes": ["Nero d'Avola"], "region": "Sicilia, IT" },
+          "price": { "glass": 3.5, "bottle": 16.5 },
+          "allergens": ["sulfites"]
+        },
+        {
+          "id": "tinto-canario",
+          "name": "Tinto Gran Canaria DO",
+          "meta": { "grapes": ["Listán Negro", "Tintilla"], "region": "Gran Canaria, ES" },
+          "price": { "glass": 4.2, "bottle": 19.5 },
+          "allergens": ["sulfites"],
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "whitewine",
+      "kind": "drink",
+      "accent": "#c9b458",
+      "name": { "es": "Vino blanco", "it": "Vino bianco", "en": "White wine", "de": "Weißwein" },
+      "items": [
+        {
+          "id": "pinot-grigio",
+          "name": "Pinot Grigio DOC",
+          "meta": { "grapes": ["Pinot Grigio"], "region": "Veneto, IT" },
+          "price": { "glass": 3.5, "bottle": 16.0 },
+          "allergens": ["sulfites"]
+        },
+        {
+          "id": "vermentino",
+          "name": "Vermentino di Sardegna DOC",
+          "meta": { "grapes": ["Vermentino"], "region": "Sardegna, IT" },
+          "price": { "glass": 3.8, "bottle": 17.5 },
+          "allergens": ["sulfites"]
+        },
+        {
+          "id": "malvasia",
+          "name": "Malvasía Volcánica DO",
+          "meta": { "grapes": ["Malvasía"], "region": "Lanzarote, ES" },
+          "price": { "glass": 4.5, "bottle": 21.0 },
+          "allergens": ["sulfites"],
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "beer",
+      "kind": "drink",
+      "accent": "#d9a51a",
+      "name": { "es": "Cerveza", "it": "Birra", "en": "Beer", "de": "Bier" },
+      "items": [
+        {
+          "id": "cana",
+          "name": { "es": "Caña (25 cl)", "it": "Birra piccola (25 cl)", "en": "Small draught (25 cl)", "de": "Kleines Bier (25 cl)" },
+          "price": { "amount": 2.2 },
+          "allergens": ["gluten"]
+        },
+        {
+          "id": "jarra",
+          "name": { "es": "Jarra (50 cl)", "it": "Boccale (50 cl)", "en": "Large draught (50 cl)", "de": "Großes Bier (50 cl)" },
+          "price": { "amount": 3.5 },
+          "allergens": ["gluten"]
+        },
+        { "id": "moretti", "name": "Birra Moretti (33 cl)", "price": { "amount": 3.2 }, "allergens": ["gluten"] },
+        { "id": "peroni", "name": "Peroni Nastro Azzurro (33 cl)", "price": { "amount": 3.2 }, "allergens": ["gluten"] },
+        { "id": "tropical", "name": "Tropical (33 cl)", "price": { "amount": 2.5 }, "allergens": ["gluten"], "tags": ["local"] },
+        { "id": "dorada", "name": "Dorada (33 cl)", "price": { "amount": 2.5 }, "allergens": ["gluten"], "tags": ["local"] }
+      ]
+    },
+    {
+      "id": "beverages",
+      "kind": "drink",
+      "accent": "#e07a1f",
+      "name": { "es": "Refrescos", "it": "Bibite", "en": "Soft drinks", "de": "Erfrischungsgetränke" },
+      "items": [
+        {
+          "id": "agua",
+          "name": { "es": "Agua mineral (50 cl)", "it": "Acqua minerale (50 cl)", "en": "Mineral water (50 cl)", "de": "Mineralwasser (50 cl)" },
+          "price": { "amount": 1.8 },
+          "diet": ["vegan", "glutenfree"]
+        },
+        {
+          "id": "refresco",
+          "name": { "es": "Refrescos", "it": "Bibite in lattina", "en": "Soft drinks", "de": "Softdrinks" },
+          "price": { "amount": 2.5 }
+        },
+        {
+          "id": "zumo-natural",
+          "name": { "es": "Zumo de naranja natural", "it": "Spremuta d'arancia", "en": "Fresh orange juice", "de": "Frisch gepresster Orangensaft" },
+          "price": { "amount": 3.5 },
+          "diet": ["vegan", "glutenfree"]
+        },
+        {
+          "id": "limonada",
+          "name": { "es": "Limonada casera", "it": "Limonata della casa", "en": "House lemonade", "de": "Hausgemachte Limonade" },
+          "price": { "amount": 3.0 },
+          "diet": ["vegan", "glutenfree"]
+        }
+      ]
+    },
+    {
+      "id": "coffee",
+      "kind": "drink",
+      "accent": "#6b4226",
+      "name": { "es": "Café", "it": "Caffè", "en": "Coffee", "de": "Kaffee" },
+      "items": [
+        { "id": "espresso", "name": "Espresso", "price": { "amount": 1.5 } },
+        { "id": "cortado", "name": "Cortado", "price": { "amount": 1.6 } },
+        {
+          "id": "cafe-leche",
+          "name": { "es": "Café con leche", "it": "Caffelatte", "en": "White coffee", "de": "Milchkaffee" },
+          "price": { "amount": 1.8 },
+          "allergens": ["lactose"]
+        },
+        { "id": "capuchino", "name": "Cappuccino", "price": { "amount": 2.2 }, "allergens": ["lactose"] },
+        {
+          "id": "barraquito",
+          "name": "Barraquito",
+          "price": { "amount": 2.5 },
+          "allergens": ["lactose"],
+          "tags": ["local"]
+        }
+      ]
+    },
+    {
+      "id": "spirits",
+      "kind": "drink",
+      "accent": "#d2471f",
+      "name": { "es": "Licores", "it": "Liquori", "en": "Spirits", "de": "Spirituosen" },
+      "items": [
+        { "id": "limoncello", "name": "Limoncello", "price": { "amount": 3.5 } },
+        { "id": "grappa", "name": "Grappa", "price": { "amount": 4.0 } },
+        { "id": "amaro", "name": "Amaro del Capo", "price": { "amount": 3.5 } },
+        { "id": "ron-miel", "name": "Ron miel canario", "price": { "amount": 3.0 }, "tags": ["local"] },
+        { "id": "gin-tonic", "name": "Gin tonic", "price": { "amount": 7.0 } }
+      ]
+    }
+  ]
+}
