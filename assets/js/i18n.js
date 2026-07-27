@@ -88,10 +88,10 @@ export const T = {
     de: 'Noch nichts hinzugefügt. Tippen Sie auf „+“, um Ihren Tisch zusammenzustellen.'
   },
   trayDisclaimer: {
-    es: 'Orientativo: no es un pedido. Sirve para enseñárselo al camarero o mandárnoslo por WhatsApp.',
-    it: 'Indicativo: non è un ordine. Serve per mostrarlo al cameriere o inviarcelo su WhatsApp.',
-    en: 'Indicative only — this is not an order. Show it to the waiter or send it to us on WhatsApp.',
-    de: 'Nur zur Orientierung — keine Bestellung. Zeigen Sie sie dem Kellner oder senden Sie sie per WhatsApp.'
+    es: 'Es tu selección, no un pedido. Enséñasela al camarero cuando venga a tomar nota.',
+    it: 'È la tua selezione, non un ordine. Mostrala al cameriere quando viene a prendere la comanda.',
+    en: 'This is your selection, not an order. Show it to the waiter when they come to take it.',
+    de: 'Das ist Ihre Auswahl, keine Bestellung. Zeigen Sie sie dem Kellner bei der Aufnahme.'
   },
   total: { es: 'Total', it: 'Totale', en: 'Total', de: 'Gesamt' },
   clear: { es: 'Vaciar', it: 'Svuota', en: 'Clear', de: 'Leeren' },
@@ -100,6 +100,40 @@ export const T = {
   added: { es: 'Añadido a tu selección', it: 'Aggiunto alla selezione', en: 'Added to your selection', de: 'Zur Auswahl hinzugefügt' },
   increase: { es: 'Añadir uno', it: 'Aggiungi uno', en: 'Add one', de: 'Eins mehr' },
   decrease: { es: 'Quitar uno', it: 'Togli uno', en: 'Remove one', de: 'Eins weniger' },
+  /* table service */
+  tableLabel: { es: 'Mesa', it: 'Tavolo', en: 'Table', de: 'Tisch' },
+  tablePlaceholder: { es: 'nº', it: 'n.', en: 'no.', de: 'Nr.' },
+  tableFromQr: {
+    es: 'Leído del QR de tu mesa. Cámbialo si no es correcto.',
+    it: 'Letto dal QR del tuo tavolo. Modificalo se non è corretto.',
+    en: 'Read from your table QR code. Change it if it is wrong.',
+    de: 'Vom QR-Code Ihres Tisches gelesen. Bei Bedarf ändern.'
+  },
+  tableAsk: {
+    es: 'Escribe tu número de mesa para que sepamos dónde estás.',
+    it: 'Scrivi il numero del tavolo così sappiamo dove sei.',
+    en: 'Enter your table number so we know where you are.',
+    de: 'Geben Sie Ihre Tischnummer an, damit wir wissen, wo Sie sitzen.'
+  },
+  trayDisclaimerTable: {
+    es: 'Al enviarlo nos llega tu mesa y lo que habéis elegido. Te lo confirmamos en sala antes de ponerlo en marcha.',
+    it: 'Inviandolo ci arrivano il tuo tavolo e quello che avete scelto. Te lo confermiamo in sala prima di procedere.',
+    en: 'Sending it tells us your table and what you have chosen. We will confirm it at the table before starting.',
+    de: 'Beim Senden erhalten wir Ihren Tisch und Ihre Auswahl. Wir bestätigen sie am Tisch, bevor es losgeht.'
+  },
+  waIntroOrder: {
+    es: 'Hola, estamos en la {mesa} y nos gustaría pedir:',
+    it: 'Ciao, siamo al {mesa} e vorremmo ordinare:',
+    en: 'Hello, we are at {mesa} and would like to order:',
+    de: 'Hallo, wir sitzen an {mesa} und möchten bestellen:'
+  },
+  waOutroOrder: {
+    es: '(Enviado desde la carta digital. Esperamos vuestra confirmación.)',
+    it: '(Inviato dal menu digitale. Attendiamo conferma.)',
+    en: '(Sent from the digital menu. Awaiting your confirmation.)',
+    de: '(Über die digitale Karte gesendet. Wir warten auf Ihre Bestätigung.)'
+  },
+
   waIntro: {
     es: 'Hola, me gustaría reservar mesa en Pasta y Gofio. Estamos mirando:',
     it: 'Ciao, vorrei prenotare un tavolo da Pasta y Gofio. Stiamo guardando:',

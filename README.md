@@ -25,9 +25,8 @@ frutos secos, pescado, crustáceos o moluscos; o quedarse solo con lo
 vegetariano, vegano o sin gluten. El filtro se guarda entre visitas —
 para alguien celíaco, entrar y ver ya solo lo que puede comer.
 
-**Mi selección.** Se van tocando platos, se ve el total, y de ahí sale un
-mensaje de WhatsApp ya escrito para reservar. Es orientativo, no un pedido:
-sirve para enseñárselo al camarero o para mandarlo antes de venir.
+**Mi selección.** Se van tocando platos y se ve el total. Es una selección, no
+un pedido: sirve para enseñársela al camarero cuando venga a tomar nota.
 
 **Cuatro idiomas** (es · it · en · de) con detección automática y URL
 compartible. El buscador indexa **todos** los idiomas a la vez y es
@@ -146,6 +145,35 @@ Empaqueta todo — CSS, fuentes, ilustraciones, datos y JavaScript — en un ún
 HTML sin ninguna petición de red. Se abre con doble clic desde una memoria USB,
 se manda por correo o se deja en la tablet de la barra: funciona igual sin
 internet. Útil también para enseñar la carta a alguien sin desplegar nada.
+
+---
+
+## Pedido en mesa (preparado, sin activar)
+
+`data/restaurant.json` → `service.ordering` está en `false`. Poniéndolo en
+`true` la cesta gana dos cosas:
+
+- **Número de mesa.** Cada mesa lleva su propio QR apuntando a `…/?mesa=S1`.
+  La carta lo lee, lo recuerda durante la visita y lo enseña en la cesta por si
+  hay que corregirlo. Se guarda en `sessionStorage`, no en `localStorage`: al
+  cerrar la pestaña se olvida, para que quien abra la carta desde casa no siga
+  siendo la mesa S1. Al compartir el enlace, el número se retira.
+- **Envío por WhatsApp.** El mensaje se abre con la mesa —«Hola, estamos en la
+  Mesa T7 y nos gustaría pedir:»— seguido de las líneas y el total.
+
+Los códigos QR se generan ya con vuestra numeración (S1-S11 salón, T1-T12
+terraza):
+
+```bash
+pip install segno
+python3 scripts/make-table-qr.py --url https://tu-dominio/pastaygofio/
+# -> dist/qr-mesas.html   agrupado por zona, listo para imprimir y recortar
+```
+
+Antes de activarlo conviene resolver lo que WhatsApp no cubre: quién vigila el
+buzón en hora punta, cómo se confirma al comensal que su pedido ha entrado, y
+qué pasa con las modificaciones («sin cebolla»). El mensaje ya avisa de que se
+confirma en sala antes de ponerlo en marcha.
 
 ---
 

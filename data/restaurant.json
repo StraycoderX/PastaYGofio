@@ -27,7 +27,10 @@
     "region": "Las Palmas",
     "country": "ES",
     "maps": "https://maps.app.goo.gl/fbeGyUUUNUSBVkUFA",
-    "geo": { "lat": 27.98599, "lng": -15.78896 }
+    "geo": {
+      "lat": 27.98599,
+      "lng": -15.78896
+    }
   },
   "links": {
     "review": "https://search.google.com/local/writereview?placeid=ChIJGZuujGZjQAwRw3OF-LNu-cM",
@@ -43,16 +46,65 @@
     "weekly": {
       "1": [],
       "2": [],
-      "3": [["12:30", "16:30"], ["19:30", "22:30"]],
-      "4": [["12:30", "16:30"], ["19:30", "22:30"]],
-      "5": [["12:30", "16:30"], ["19:30", "22:30"]],
-      "6": [["12:30", "16:30"], ["19:30", "22:30"]],
-      "0": [["12:30", "16:30"], ["19:30", "22:30"]]
+      "3": [
+        [
+          "12:30",
+          "16:30"
+        ],
+        [
+          "19:30",
+          "22:30"
+        ]
+      ],
+      "4": [
+        [
+          "12:30",
+          "16:30"
+        ],
+        [
+          "19:30",
+          "22:30"
+        ]
+      ],
+      "5": [
+        [
+          "12:30",
+          "16:30"
+        ],
+        [
+          "19:30",
+          "22:30"
+        ]
+      ],
+      "6": [
+        [
+          "12:30",
+          "16:30"
+        ],
+        [
+          "19:30",
+          "22:30"
+        ]
+      ],
+      "0": [
+        [
+          "12:30",
+          "16:30"
+        ],
+        [
+          "19:30",
+          "22:30"
+        ]
+      ]
     },
     "exceptions": []
   },
   "legal": {
     "pricesValidUntil": "2026-12-31",
     "taxIncludedKey": "igic"
+  },
+  "service": {
+    "$comment": "ordering=false: la cesta es solo una selección para enseñar al camarero. Al ponerlo en true vuelven el número de mesa (leído del QR, ?mesa=S1) y el envío del pedido por WhatsApp.",
+    "ordering": false
   }
 }

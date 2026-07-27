@@ -24,6 +24,25 @@ export function remove(key) {
   try { localStorage.removeItem(NS + key); } catch { /* ignore */ }
 }
 
+/* The table number belongs to this sitting, not to the phone. sessionStorage
+   forgets it when the tab closes, so a diner who opens the menu again from
+   home is not still "table 7". */
+export function readSession(key, fallback = null) {
+  try {
+    const raw = sessionStorage.getItem(NS + key);
+    return raw == null ? fallback : raw;
+  } catch {
+    return fallback;
+  }
+}
+
+export function writeSession(key, value) {
+  try {
+    if (value == null || value === '') sessionStorage.removeItem(NS + key);
+    else sessionStorage.setItem(NS + key, String(value));
+  } catch { /* storage unavailable */ }
+}
+
 /* ------------------------------------------------------------------ */
 
 const MAX_QTY = 20;

@@ -35,6 +35,8 @@ export function applyStaticText(app) {
   $('#trayClose').setAttribute('aria-label', t('close', lang));
   $('#toTop').setAttribute('aria-label', t('toTop', lang));
   $('#heroLede').textContent = t('dailyLede', lang);
+  $('#tableInput').setAttribute('aria-label', t('tableLabel', lang));
+  $('#tableInput').placeholder = t('tablePlaceholder', lang);
   $('#disclaimer').textContent = t('disclaimer', lang);
 
   for (const btn of $$('.lang__btn')) {
@@ -431,13 +433,30 @@ export function renderTray(app) {
   badge.textContent = String(count);
   badge.hidden = count === 0;
 
+  /* Table service is off for now: the tray is a selection the diner shows to
+     the waiter, not something that gets sent anywhere. Flipping
+     restaurant.json -> service.ordering brings back the table field and the
+     WhatsApp hand-off, both of which are still wired below. */
+  const ordering = app.restaurant?.service?.ordering === true;
   const send = $('#traySend');
-  if (!rows.length) {
-    send.setAttribute('aria-disabled', 'true');
-    send.href = '#';
-  } else {
-    send.removeAttribute('aria-disabled');
-    send.href = whatsappHref(app, rows, total);
+
+  $('#tray').dataset.ordering = String(ordering);
+  $('#trayTable').hidden = !ordering;
+  send.hidden = !ordering;
+
+  $('#trayDisclaimer').textContent = t(
+    ordering && app.table ? 'trayDisclaimerTable' : 'trayDisclaimer', lang
+  );
+
+  if (ordering) {
+    $('#tableHint').textContent = t(app.tableFromQr ? 'tableFromQr' : 'tableAsk', lang);
+    if (!rows.length) {
+      send.setAttribute('aria-disabled', 'true');
+      send.href = '#';
+    } else {
+      send.removeAttribute('aria-disabled');
+      send.href = whatsappHref(app, rows, total);
+    }
   }
 
   /* keep the "+" buttons in the grid in sync */
@@ -453,13 +472,18 @@ function whatsappHref(app, rows, total) {
     const size = variant.key === 'single' ? '' : ` (${sizeLabel(app, variant.key)})`;
     return `• ${qty}× ${localise(item.name, lang)}${size} — ${money(app, line)}`;
   });
+
+  /* Knowing the table means the diner is sitting in the restaurant, so this is
+     an order. Without it they are looking from somewhere else, so it is a
+     booking enquiry — same button, different message. */
+  const table = app.table ? `${t('tableLabel', lang)} ${app.table}` : null;
   const text = [
-    t('waIntro', lang),
+    table ? t('waIntroOrder', lang, { mesa: table }) : t('waIntro', lang),
     '',
     ...lines,
     '',
     `${t('total', lang)}: ${money(app, total)}`,
-    t('waOutro', lang)
+    table ? t('waOutroOrder', lang) : t('waOutro', lang)
   ].join('\n');
 
   const phone = String(app.restaurant?.contact?.phone ?? '').replace(/[^\d]/g, '');

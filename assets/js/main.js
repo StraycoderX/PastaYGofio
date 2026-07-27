@@ -1,7 +1,7 @@
 import { $, $$ } from './dom.js';
 import { DEFAULT_LANG, LANGS, t } from './i18n.js';
 import { buildModel, indexForSearch } from './model.js';
-import { Tray, read, write } from './store.js';
+import { Tray, read, readSession, write, writeSession } from './store.js';
 import {
   applyStaticText, renderDaily, renderDish, renderFilterChips, renderFooter,
   renderMenu, renderRail, renderStatus, renderTray, toast
@@ -15,8 +15,35 @@ const app = {
   searchIndex: null,
   restaurant: null,
   daily: null,
+  /** Table number for this sitting, or null when we simply do not know. */
+  table: null,
+  tableFromQr: false,
   tray: new Tray()
 };
+
+/* Table numbers come off the QR taped to the table: /?mesa=7. Kept short and
+   alphanumeric so nothing else can ride in on the query string — the value
+   ends up in a WhatsApp message and on screen. */
+const TABLE_RE = /^[A-Za-z0-9-]{1,8}$/;
+
+function pickTable() {
+  const params = new URLSearchParams(location.search);
+  const fromQr = params.get('mesa') ?? params.get('table');
+
+  if (fromQr && TABLE_RE.test(fromQr)) {
+    app.table = fromQr.toUpperCase();
+    app.tableFromQr = true;
+    writeSession('table', app.table);
+    writeSession('tableFromQr', '1');
+    return;
+  }
+
+  const saved = readSession('table');
+  if (saved && TABLE_RE.test(saved)) {
+    app.table = saved.toUpperCase();
+    app.tableFromQr = readSession('tableFromQr') === '1';
+  }
+}
 
 /* ------------------------------------------------------------------ *
  * boot
@@ -36,6 +63,7 @@ async function loadJson(path) {
 
 async function boot() {
   app.lang = pickLang();
+  pickTable();
 
   let menu, restaurant, daily;
   try {
@@ -254,6 +282,21 @@ function wire() {
   });
 
   /* search */
+  /* table number — the one field the diner may need to correct */
+  const table = $('#tableInput');
+  table.value = app.table ?? '';
+  table.addEventListener('input', () => {
+    const value = table.value.trim();
+    const valid = value === '' || TABLE_RE.test(value);
+    table.setAttribute('aria-invalid', String(!valid));
+    if (!valid) return;
+    app.table = value ? value.toUpperCase() : null;
+    app.tableFromQr = false;
+    writeSession('table', app.table);
+    writeSession('tableFromQr', '');
+    renderTray(app);
+  });
+
   const search = $('#searchInput');
   let debounce = 0;
   search.addEventListener('input', () => {
@@ -385,6 +428,9 @@ async function shareUrl(dishId) {
   url.searchParams.set('lang', app.lang);
   if (dishId) url.searchParams.set('dish', dishId);
   else url.searchParams.delete('dish');
+  /* never hand your table number to whoever you share the menu with */
+  url.searchParams.delete('mesa');
+  url.searchParams.delete('table');
 
   const payload = { title: document.title, url: url.toString() };
   try {
