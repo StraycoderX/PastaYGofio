@@ -39,8 +39,12 @@ function normaliseItem(raw, section) {
     variants,
     from: variants.length ? Math.min(...variants.map((v) => v.amount)) : null,
     allergens,
-    /* A dish is gluten-free if it says so, or if gluten simply is not in it. */
-    diet: diet.includes('glutenfree') || !allergens.includes('gluten') ? [...new Set([...diet, 'glutenfree'])] : diet,
+    /* "Gluten free" may only be inferred from a *declared* allergen list.
+       A dish with no allergens recorded is unknown, not safe — inferring
+       otherwise would badge an undeclared dish as coeliac-friendly. */
+    diet: diet.includes('glutenfree') || (allergens.length && !allergens.includes('gluten'))
+      ? [...new Set([...diet, 'glutenfree'])]
+      : diet,
     declaredDiet: diet,
     tags,
     nutrition: raw.nutrition && typeof raw.nutrition === 'object' ? raw.nutrition : null,

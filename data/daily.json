@@ -5,23 +5,57 @@
     "picks": [
       {
         "slot": "starter",
-        "from": ["starters", "salad"],
-        "label": { "es": "Para abrir boca", "it": "Per iniziare", "en": "To begin", "de": "Zum Auftakt" }
+        "from": [
+          "starters",
+          "salad"
+        ],
+        "label": {
+          "es": "Para abrir boca",
+          "it": "Per iniziare",
+          "en": "To begin",
+          "de": "Zum Auftakt"
+        }
       },
       {
         "slot": "main",
-        "from": ["pasta", "ravioli", "rice", "meat", "fish"],
-        "label": { "es": "El plato del día", "it": "Il piatto del giorno", "en": "Today's plate", "de": "Tagesgericht" }
+        "from": [
+          "pasta",
+          "ravioli",
+          "rice",
+          "meat",
+          "fish"
+        ],
+        "label": {
+          "es": "El plato del día",
+          "it": "Il piatto del giorno",
+          "en": "Today's plate",
+          "de": "Tagesgericht"
+        }
       },
       {
         "slot": "pizza",
-        "from": ["pizzas"],
-        "label": { "es": "Del horno", "it": "Dal forno", "en": "From the oven", "de": "Aus dem Ofen" }
+        "from": [
+          "pizzas"
+        ],
+        "label": {
+          "es": "Del horno",
+          "it": "Dal forno",
+          "en": "From the oven",
+          "de": "Aus dem Ofen"
+        }
       },
       {
-        "slot": "dessert",
-        "from": ["sweet"],
-        "label": { "es": "Para terminar", "it": "Per finire", "en": "To finish", "de": "Zum Abschluss" }
+        "slot": "wine",
+        "from": [
+          "redwine",
+          "whitewine"
+        ],
+        "label": {
+          "es": "El vino del día",
+          "it": "Il vino del giorno",
+          "en": "Wine of the day",
+          "de": "Wein des Tages"
+        }
       }
     ],
     "exclude": []

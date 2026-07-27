@@ -105,11 +105,12 @@ existe o un plato marcado como vegano que declara lactosa.
 
 `glutenfree` no hace falta ponerlo: se deduce de que el plato no declare gluten.
 
-### Traer la carta real desde el sitio antiguo
+### Volcar de nuevo desde el sitio antiguo
 
-El contenido de `data/menu.json` es una reconstrucción a partir de la carta
-publicada — sirve para ver la app funcionando, pero **los precios y platos hay
-que sustituirlos por los reales**. Hay un conversor del formato antiguo:
+`data/menu.json` contiene la carta real, transcrita de la versión publicada en
+julio de 2026: 49 platos, 15 categorías y las fotos de esa misma carta. Si en
+algún momento hay que volver a partir del `menu.json` antiguo, el conversor
+sigue disponible:
 
 ```bash
 node scripts/migrate-legacy-menu.mjs menu-antiguo.json > data/menu.json
@@ -186,14 +187,21 @@ comensal.
 
 ---
 
-## Pendiente de material real
-
-Dos cosas son marcadores de posición a la espera de los originales:
+## Pendiente de revisar
 
 - **`assets/img/logo.svg`** reproduce el logotipo (La Aldea + espiga y mazorca +
   Pasta y Gofio · Trattoria-Pizzería). Sustituir por el archivo original y
-  regenerar los iconos.
-- **Fotos de los platos.** Solo la bruschetta tiene ilustración propia. El resto
-  usa una lámina generada con la inicial y el color de la categoría; en cuanto
-  se añade un `image` al plato, aparece la foto. Copiar los JPG en
-  `assets/img/dishes/` y referenciarlos por nombre de archivo.
+  regenerar los iconos con `scripts/` (ver historial de commits).
+- **Foto de la Bruschetta Teror.** Es la única ilustración vectorial de la
+  carta, dibujada para mostrar la base de masa casera. En cuanto haya una foto
+  real, sustituir `assets/img/dishes/bruschetta-teror.svg` por el archivo y
+  actualizar el campo `image` del plato.
+- **Maridajes.** Los `pairing` de cada plato son sugerencias nuestras sobre la
+  bodega real de la casa. Ajústalos a criterio de sala.
+- **Alérgenos de la carta original.** «Salsa de tomate» y «Risotto con setas»
+  no declaraban ninguno en la versión anterior. Aquí se han añadido gluten y
+  lactosa respectivamente por ser lo esperable, pero conviene confirmarlo en
+  cocina.
+- **Fecha del descargo legal.** El texto dice «precios válidos hasta diciembre
+  de 2026» (`disclaimer` en `assets/js/i18n.js`). La carta anterior seguía
+  diciendo 2025.

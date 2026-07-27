@@ -447,6 +447,8 @@ a:hover { text-decoration-color: var(--accent); }
   display: flex;
   flex-direction: column;
   text-align: start;
+  padding: 0;
+  cursor: pointer;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -455,32 +457,49 @@ a:hover { text-decoration-color: var(--accent); }
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .pick:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.pick__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.pick__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 480ms var(--ease); }
+.pick:hover .pick__media img { transform: scale(1.05); }
 .pick__slot {
-  padding: .7rem 1rem 0;
-  font-size: .68rem;
-  letter-spacing: .16em;
+  position: absolute;
+  inset-block-end: .55rem;
+  inset-inline-start: .55rem;
+  padding: .22rem .6rem;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--sect, var(--accent)) 92%, #000);
+  color: #fff;
+  font-size: .63rem;
+  letter-spacing: .13em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--sect, var(--accent));
 }
+.pick__body { display: flex; flex-direction: column; flex: 1; padding: .8rem 1rem 1rem; }
 .pick__name {
-  padding: .3rem 1rem 0;
-  font-size: 1.16rem;
+  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-variation-settings: 'opsz' 48, 'WONK' 1;
+  line-height: 1.15;
 }
 .pick__desc {
-  padding: .4rem 1rem 0;
-  font-size: .86rem;
+  padding-top: .35rem;
+  font-size: .84rem;
   color: var(--fg-muted);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .pick__foot {
   margin-top: auto;
-  padding: .85rem 1rem 1rem;
+  padding-top: .8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -661,7 +680,7 @@ a:hover { text-decoration-color: var(--accent); }
 .grid {
   display: grid;
   gap: var(--gap);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 265px), 1fr));
 }
 
 .card {
@@ -673,30 +692,67 @@ a:hover { text-decoration-color: var(--accent); }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
-  padding: 1rem 1.1rem 1.1rem;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
-.card::before {
-  content: "";
-  position: absolute;
-  inset-block: 1rem;
-  inset-inline-start: 0;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-  background: var(--sect, var(--accent));
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease);
-}
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
   border-color: color-mix(in srgb, var(--sect, var(--accent)) 40%, var(--border));
 }
-.card:hover::before { opacity: 1; }
-.card.is-dimmed { opacity: .42; }
+
+/* the dish photo carries the card — it is what people scan for */
+.card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+}
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 480ms var(--ease);
+}
+.card:hover .card__media img { transform: scale(1.045); }
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: .85rem 1rem 1rem;
+}
+.card--drink { padding: .9rem 1.1rem; }
+.card--drink .card__body { padding: 0; }
 
 .card__top { display: flex; gap: .75rem; align-items: flex-start; }
+.card__name { cursor: pointer; }
+.card__meta-line { margin-top: .3rem; font-size: .8rem; color: var(--fg-muted); }
+
+/* On a phone the card turns into a compact row: a whole carte of 90 dishes is
+   scannable this way, and the full photo is one tap away in the detail sheet. */
+@media (max-width: 560px) {
+  .card--photo {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .card--photo .card__media {
+    flex: none;
+    width: 104px;
+    aspect-ratio: auto;
+    border-bottom: 0;
+    border-inline-end: 1px solid var(--border);
+  }
+  .card--photo .card__body { padding: .7rem .85rem .75rem; min-width: 0; }
+  .card__name { font-size: 1rem; }
+  .card__desc { -webkit-line-clamp: 2; line-clamp: 2; font-size: .84rem; }
+  .card__foot { padding-top: .6rem; }
+  .card:hover .card__media img { transform: none; }
+  .grid { gap: .7rem; }
+}
 .card__name {
   flex: 1;
   font-size: 1.08rem;
@@ -824,7 +880,6 @@ a:hover { text-decoration-color: var(--accent); }
 .card__adds { display: flex; gap: .35rem; flex-wrap: wrap; justify-content: flex-end; }
 
 /* wine rows are denser than dish cards */
-.card--drink { padding-block: .8rem .85rem; }
 .card--drink .card__desc { -webkit-line-clamp: 2; line-clamp: 2; }
 .card__prices { display: flex; gap: .9rem; align-items: baseline; }
 .card__prices span {
@@ -1253,7 +1308,7 @@ body.is-locked .toast {
 
 @media print {
   :root { --bg: #fff; --surface: #fff; --fg: #000; --fg-muted: #444; --border: #bbb; }
-  .masthead, .toolbar, .fab, .tray, .scrim, .hero, .skip-link, .footer__links, .add, .card__more { display: none !important; }
+  .masthead, .toolbar, .fab, .tray, .scrim, .hero, .skip-link, .footer__links, .add, .card__more, .card__media { display: none !important; }
   body { font-size: 11pt; }
   .card { break-inside: avoid; box-shadow: none; border-color: #ccc; }
   .section { break-before: auto; }

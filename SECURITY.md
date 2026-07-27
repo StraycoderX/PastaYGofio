@@ -143,6 +143,13 @@ that no longer exists in the carte is dropped on load.
    based on what `menu.json` declares. The UI says so in all four languages, but
    the data must be kept accurate by the kitchen. The validator checks the keys
    are *valid*, and cannot check they are *true*.
+
+   Related, and worth stating plainly: "gluten free" is only ever inferred from
+   a **non-empty** allergen list. A dish with no allergens recorded is treated
+   as *unknown*, not as safe — it gets no "sin gluten" badge and is excluded
+   from the gluten-free filter. The previous carte had two dishes with no
+   allergens declared at all; under a naive rule both would have been advertised
+   to coeliac diners as safe.
 4. **`upgrade-insecure-requests` is not HSTS.** Terminate TLS properly and serve
    `Strict-Transport-Security` at the edge.
 

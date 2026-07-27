@@ -32,7 +32,7 @@ const PRECACHE = [
   'assets/fonts/inter-latin-ext.woff2',
   'assets/img/logo.svg',
   'assets/img/icon.svg',
-  'assets/img/dishes/focaccia-teror.svg',
+  'assets/img/dishes/bruschetta-teror.svg',
   'assets/img/ui/basket.svg',
   'assets/img/ui/check.svg',
   'assets/img/ui/close.svg',
@@ -60,8 +60,47 @@ self.addEventListener('activate', (event) => {
     caches.keys()
       .then((keys) => Promise.all(keys.filter((key) => key !== SHELL && key !== RUNTIME).map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
+      .then(warmDishPhotos)
   );
 });
+
+/**
+ * Pull the dish photos into the runtime cache once the shell is live.
+ *
+ * They are deliberately *not* in PRECACHE: `cache.addAll` is atomic, so one
+ * flaky request out of fifty would fail the whole install and leave the diner
+ * with no offline menu at all. Here each photo is fetched on its own and a
+ * failure costs nothing — the menu already works, the photo just arrives on
+ * the next visit.
+ */
+async function warmDishPhotos() {
+  try {
+    const response = await fetch('data/menu.json', { cache: 'no-cache' });
+    if (!response.ok) return;
+    const menu = await response.json();
+    const cache = await caches.open(RUNTIME);
+
+    const files = [];
+    for (const section of menu.sections ?? []) {
+      for (const item of section.items ?? []) {
+        if (typeof item.image === 'string' && /^[a-z0-9][a-z0-9._-]*$/i.test(item.image)) {
+          files.push('assets/img/dishes/' + item.image);
+        }
+      }
+    }
+
+    /* a few at a time, so warming never competes with the page itself */
+    for (let i = 0; i < files.length; i += 4) {
+      await Promise.all(files.slice(i, i + 4).map(async (path) => {
+        if (await cache.match(path)) return;
+        try {
+          const res = await fetch(path);
+          if (res.ok && res.type === 'basic') await cache.put(path, res);
+        } catch { /* offline or missing — try again next activation */ }
+      }));
+    }
+  } catch { /* nothing to warm */ }
+}
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;

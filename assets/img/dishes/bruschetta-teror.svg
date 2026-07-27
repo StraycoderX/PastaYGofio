@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img"
      aria-labelledby="fc-title fc-desc" preserveAspectRatio="xMidYMid slice">
   <title id="fc-title">Bruschetta de Teror sobre masa casera de focaccia</title>
-  <desc id="fc-desc">Focaccia de masa casera, gruesa y alveolada, cubierta de chorizo de Teror,
-    mozzarella fundida, tomate fresco y albahaca.</desc>
+  <desc id="fc-desc">Focaccia de masa casera, gruesa y alveolada, cubierta de chorizo de Teror
+    y mozzarella fundida.</desc>
 
   <defs>
     <linearGradient id="fcBoard" x1="0" y1="0" x2="0.4" y2="1">
@@ -217,27 +217,6 @@
         </g>
       </g>
 
-      <!-- fresh tomato -->
-      <g>
-        <path d="M320 292 l30 -8 10 26 -30 9 Z" fill="url(#fcTomato)"/>
-        <path d="M436 300 l28 -10 12 24 -28 11 Z" fill="url(#fcTomato)"/>
-        <path d="M252 330 l26 -9 10 22 -26 10 Z" fill="url(#fcTomato)"/>
-        <path d="M544 316 l27 -9 10 23 -27 10 Z" fill="url(#fcTomato)"/>
-        <g fill="#ff8f6b" opacity="0.5">
-          <path d="M322 290 l26 -7 4 9 -26 8 Z"/>
-          <path d="M438 298 l24 -8 4 8 -24 9 Z"/>
-        </g>
-      </g>
-
-      <!-- basil -->
-      <g>
-        <path d="M356 216 C378 200 406 202 418 218 C404 236 374 238 356 216 Z" fill="url(#fcBasil)"/>
-        <path d="M356 216 C380 210 402 212 418 218" stroke="#1f4d19" stroke-width="2.5" fill="none"/>
-        <path d="M486 232 C506 216 534 218 546 234 C532 252 504 254 486 232 Z" fill="url(#fcBasil)"/>
-        <path d="M486 232 C508 226 530 228 546 234" stroke="#1f4d19" stroke-width="2.5" fill="none"/>
-        <path d="M262 344 C282 330 308 332 320 346 C306 364 280 366 262 344 Z" fill="url(#fcBasil)"/>
-        <path d="M262 344 C284 338 304 340 320 346" stroke="#1f4d19" stroke-width="2.5" fill="none"/>
-      </g>
 
       <!-- olive-oil sheen -->
       <ellipse cx="360" cy="248" rx="130" ry="34" fill="#fff3d0" opacity="0.08" filter="url(#fcSoft)"/>

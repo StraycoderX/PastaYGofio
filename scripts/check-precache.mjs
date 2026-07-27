@@ -19,11 +19,13 @@ if (!block) {
 }
 const listed = new Set([...block[1].matchAll(/'([^']+)'/g)].map((m) => m[1]));
 
-/* Everything the app needs to boot and render offline. Photos and the raster
-   icons are intentionally left to the runtime cache: they are large, optional,
-   and fetched lazily. */
+/* Everything the app needs to boot and render offline. Dish photographs and the
+   raster icons are deliberately excluded — they are warmed into the runtime
+   cache after activation (see warmDishPhotos in sw.js) so that one failed
+   image can never break the atomic precache. */
 const WANTED_DIRS = ['assets/css', 'assets/js', 'assets/fonts', 'assets/img/ui', 'assets/img/dishes', 'data'];
 const WANTED_FILES = ['index.html', 'manifest.webmanifest', 'assets/img/logo.svg', 'assets/img/icon.svg'];
+const RUNTIME_ONLY = /assets\/img\/dishes\/.+\.(png|jpe?g|webp|avif)$/i;
 
 function walk(dir) {
   const out = [];
@@ -35,7 +37,7 @@ function walk(dir) {
   return out;
 }
 
-const expected = new Set([...WANTED_FILES, ...WANTED_DIRS.flatMap(walk)]);
+const expected = new Set([...WANTED_FILES, ...WANTED_DIRS.flatMap(walk)].filter((f) => !RUNTIME_ONLY.test(f)));
 
 const missing = [...expected].filter((f) => !listed.has(f)).sort();
 const stale = [...listed].filter((f) => f !== './' && !expected.has(f)).sort();

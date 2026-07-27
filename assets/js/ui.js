@@ -116,23 +116,38 @@ export function renderDaily(app) {
 
   for (const { label, item } of picks) {
     const pairing = item.pairing ? app.model.byId.get(item.pairing) : null;
-    const card = el('button', {
+    const name = localise(item.name, app.lang);
+
+    host.append(el('button', {
       class: 'pick',
       type: 'button',
       style: { '--sect': item.accent },
       dataset: { open: item.uid }
     },
-      el('span', { class: 'pick__slot', text: label ? localise(label, app.lang) : localise(item.sectionName, app.lang) }),
-      el('span', { class: 'pick__name', text: localise(item.name, app.lang) }),
-      item.description ? el('span', { class: 'pick__desc', text: localise(item.description, app.lang) }) : null,
-      el('span', { class: 'pick__foot' },
-        el('span', { class: 'pick__price', text: item.from != null ? money(app, item.from) : '' }),
-        pairing
-          ? el('span', { class: 'pick__pair', text: `${t('pairsWith', app.lang)} ${localise(pairing.name, app.lang)}` })
-          : null
+      el('span', { class: 'pick__media' },
+        item.image
+          /* above the fold — these four load eagerly */
+          ? el('img', { src: item.image, alt: '', decoding: 'async' })
+          : el('span', { class: 'plate' }, el('span', { class: 'plate__mono', text: name.trim().charAt(0).toUpperCase() })),
+        el('span', { class: 'pick__slot', text: label ? localise(label, app.lang) : localise(item.sectionName, app.lang) })
+      ),
+      el('span', { class: 'pick__body' },
+        el('span', { class: 'pick__name', text: name }),
+        /* wines carry no prose — show grapes and region instead */
+        el('span', {
+          class: 'pick__desc',
+          text: item.description
+            ? localise(item.description, app.lang)
+            : [item.meta?.grapes?.join(' · '), item.meta?.region].filter(Boolean).join(' — ')
+        }),
+        el('span', { class: 'pick__foot' },
+          el('span', { class: 'pick__price', text: item.from != null ? money(app, item.from) : '' }),
+          pairing
+            ? el('span', { class: 'pick__pair', text: `${t('pairsWith', app.lang)} ${localise(pairing.name, app.lang)}` })
+            : null
+        )
       )
-    );
-    host.append(card);
+    ));
   }
 }
 
@@ -178,30 +193,48 @@ function addControls(app, item) {
   );
 }
 
+/** Photo, or a tinted plate with the dish's initial when there is none. */
+function thumb(app, item, { lazy = true } = {}) {
+  const name = localise(item.name, app.lang);
+  return el('div', { class: 'card__media', dataset: { open: item.uid } },
+    item.image
+      ? el('img', {
+          src: item.image,
+          alt: name,
+          loading: lazy ? 'lazy' : null,
+          decoding: 'async'
+        })
+      : el('div', { class: 'plate' }, el('span', { class: 'plate__mono', text: name.trim().charAt(0).toUpperCase() }))
+  );
+}
+
 function card(app, item) {
   const meta = [];
   if (item.meta?.grapes?.length) meta.push(item.meta.grapes.join(' · '));
   if (item.meta?.region) meta.push(item.meta.region);
 
+  const badges = badgesFor(app, item);
+  const withPhoto = item.kind === 'food';
+
   return el('article', {
-    class: 'card' + (item.kind === 'drink' ? ' card--drink' : ''),
+    class: 'card' + (withPhoto ? ' card--photo' : ' card--drink'),
     style: { '--sect': item.accent },
     dataset: { uid: item.uid },
     id: 'item-' + item.id
   },
-    el('div', { class: 'card__top' },
-      el('h3', { class: 'card__name', text: localise(item.name, app.lang) }),
-      priceBlock(app, item)
-    ),
-    item.description ? el('p', { class: 'card__desc', text: localise(item.description, app.lang) }) : null,
-    meta.length ? el('p', { class: 'card__desc', text: meta.join(' — ') }) : null,
-    (() => {
-      const badges = badgesFor(app, item);
-      return badges.length ? el('div', { class: 'card__meta' }, badges) : null;
-    })(),
-    el('div', { class: 'card__foot' },
-      el('button', { class: 'card__more', type: 'button', dataset: { open: item.uid }, text: t('details', app.lang) }),
-      addControls(app, item)
+    withPhoto ? thumb(app, item) : null,
+    el('div', { class: 'card__body' },
+      el('div', { class: 'card__top' },
+        el('h3', { class: 'card__name', dataset: { open: item.uid }, text: localise(item.name, app.lang) }),
+        priceBlock(app, item)
+      ),
+      item.description ? el('p', { class: 'card__desc', text: localise(item.description, app.lang) }) : null,
+      meta.length ? el('p', { class: 'card__meta-line', text: meta.join(' — ') }) : null,
+      badges.length ? el('div', { class: 'card__meta' }, badges) : null,
+      el('div', { class: 'card__foot' },
+        el('button', { class: 'card__more', type: 'button', dataset: { open: item.uid }, text: t('details', app.lang) }),
+        addControls(app, item)
+      )
     )
   );
 }
