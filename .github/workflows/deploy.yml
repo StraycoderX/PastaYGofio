@@ -44,8 +44,17 @@ jobs:
           # Turns Pages on the first time this runs, using the `pages: write`
           # permission above, so publishing needs no visit to repo settings.
           enablement: true
+      # Publish the carte, not the repository: the scripts, the CI config and
+      # the server snippets have no business on a public menu URL, and leaving
+      # them out keeps the artifact small.
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          cp -r assets data index.html 404.html manifest.webmanifest sw.js robots.txt .nojekyll _site/
+          echo "Publicando:"; du -sh _site; find _site -type f | wc -l | xargs echo "archivos:"
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
