@@ -75,7 +75,7 @@
             "carbohydrates": 25,
             "protein": 15
           },
-          "image": "bruschetta-teror.svg",
+          "image": "bruschetta-teror.webp",
           "tags": [
             "new",
             "signature",
@@ -98,7 +98,7 @@
             "de": "Ein Stück Inselkäse von der Plancha: außen goldbraun und knusprig, innen weich und cremig. Warm serviert mit unserer hausgemachten Konfitüre — süß-herzhaft und unwiderstehlich."
           },
           "price": {
-            "amount": 10.9
+            "amount": 9.5
           },
           "allergens": [
             "lactose"
@@ -111,7 +111,8 @@
             "new",
             "local",
             "signature"
-          ]
+          ],
+          "image": "queso-plancha-mermelada.webp"
         },
         {
           "id": "tequenos-mermelada",
@@ -141,7 +142,8 @@
           "tags": [
             "new",
             "sharing"
-          ]
+          ],
+          "image": "tequenos-mermelada.webp"
         },
         {
           "id": "carpaccio-calabacin",
@@ -850,7 +852,8 @@
           "tags": [
             "new",
             "signature"
-          ]
+          ],
+          "image": "lomo-alto-vaca.webp"
         },
         {
           "id": "entrecot-parrilla",

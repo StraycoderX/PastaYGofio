@@ -32,7 +32,6 @@ const PRECACHE = [
   'assets/fonts/inter-latin-ext.woff2',
   'assets/img/logo.svg',
   'assets/img/icon.svg',
-  'assets/img/dishes/bruschetta-teror.svg',
   'assets/img/ui/basket.svg',
   'assets/img/ui/check.svg',
   'assets/img/ui/close.svg',
