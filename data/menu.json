@@ -57,10 +57,10 @@
             "de": "Teror-Bruschetta"
           },
           "description": {
-            "es": "Sobre nuestra masa casera de focaccia, horneada al momento: chorizo de Teror y mozzarella fundida.",
-            "it": "Sul nostro impasto casalingo di focaccia, sfornato al momento: chorizo di Teror e mozzarella filante.",
-            "en": "On our house-made focaccia dough, baked to order: Teror chorizo and melted mozzarella.",
-            "de": "Auf unserem hausgemachten Focaccia-Teig, frisch gebacken: Teror-Chorizo und geschmolzener Mozzarella."
+            "es": "Nuestra masa casera horneada al momento y cubierta de quesos fundidos que se derriten en cada bocado, con chorizo de Teror desmigado por encima. Producto local, tradicional y lleno de sabor.",
+            "it": "Il nostro impasto casalingo sfornato al momento, coperto di formaggi fusi che si sciolgono a ogni morso, con chorizo di Teror sbriciolato sopra. Prodotto locale, tradizionale e pieno di sapore.",
+            "en": "Our house-made dough, baked to order and covered with melted cheeses that give way at every bite, finished with crumbled Teror chorizo — local, traditional and full of flavour.",
+            "de": "Unser hausgemachter Teig, frisch gebacken und mit geschmolzenem Käse überzogen, der bei jedem Bissen zergeht, darauf zerbröselte Teror-Chorizo — lokal, traditionell und voller Geschmack."
           },
           "price": {
             "amount": 5.0
@@ -77,10 +77,71 @@
           },
           "image": "bruschetta-teror.svg",
           "tags": [
+            "new",
             "signature",
             "local"
           ],
           "pairing": "lambrusco-amabile"
+        },
+        {
+          "id": "queso-plancha-mermelada",
+          "name": {
+            "es": "Queso a la plancha con mermelada",
+            "it": "Formaggio alla piastra con confettura",
+            "en": "Grilled cheese with jam",
+            "de": "Gegrillter Käse mit Konfitüre"
+          },
+          "description": {
+            "es": "Taco de queso isleño marcado a la plancha: dorado y crujiente por fuera, tierno y cremoso por dentro. Se sirve caliente con nuestra mermelada casera, ese contraste dulce y salado que engancha.",
+            "it": "Taglio di formaggio isolano scottato alla piastra: dorato e croccante fuori, tenero e cremoso dentro. Servito caldo con la nostra confettura fatta in casa, un contrasto dolce-salato che conquista.",
+            "en": "A slab of island cheese seared on the plancha: golden and crisp outside, soft and creamy within. Served hot with our home-made jam — the sweet-and-savoury contrast that keeps people ordering it.",
+            "de": "Ein Stück Inselkäse von der Plancha: außen goldbraun und knusprig, innen weich und cremig. Warm serviert mit unserer hausgemachten Konfitüre — süß-herzhaft und unwiderstehlich."
+          },
+          "price": {
+            "amount": 10.9
+          },
+          "allergens": [
+            "lactose"
+          ],
+          "diet": [
+            "vegetarian"
+          ],
+          "pairing": "knarita-semidolce",
+          "tags": [
+            "new",
+            "local",
+            "signature"
+          ]
+        },
+        {
+          "id": "tequenos-mermelada",
+          "name": {
+            "es": "Tequeños con mermelada del día",
+            "it": "Tequeños con confettura del giorno",
+            "en": "Tequeños with jam of the day",
+            "de": "Tequeños mit Konfitüre des Tages"
+          },
+          "description": {
+            "es": "Bastones de masa fina y crujiente rellenos de queso fundido, fritos al momento y servidos con la mermelada del día. Un sabor diferente cada día: pregunta cuál toca hoy.",
+            "it": "Bastoncini di pasta sottile e croccante ripieni di formaggio fuso, fritti al momento e serviti con la confettura del giorno. Un gusto diverso ogni giorno: chiedi qual è quello di oggi.",
+            "en": "Crisp, thin pastry sticks filled with molten cheese, fried to order and served with the jam of the day. A different flavour every day — ask which one is on today.",
+            "de": "Knusprige, dünne Teigstangen mit geschmolzenem Käse, frisch frittiert und mit der Konfitüre des Tages serviert. Jeden Tag eine andere Sorte — fragen Sie, welche es heute gibt."
+          },
+          "price": {
+            "amount": 9.9
+          },
+          "allergens": [
+            "gluten",
+            "lactose"
+          ],
+          "diet": [
+            "vegetarian"
+          ],
+          "pairing": "prosecco",
+          "tags": [
+            "new",
+            "sharing"
+          ]
         },
         {
           "id": "carpaccio-calabacin",
@@ -765,6 +826,32 @@
         "de": "Fleisch"
       },
       "items": [
+        {
+          "id": "lomo-alto-vaca",
+          "name": {
+            "es": "Lomo alto de vaca",
+            "it": "Lombata di manzo",
+            "en": "Aged beef ribeye",
+            "de": "Hohe Rippe vom Rind"
+          },
+          "description": {
+            "es": "Corte de lomo alto de vaca, jugoso y tierno, hecho en la parrilla hasta el punto que pidas. Con papas fritas crujientes y verduras salteadas: el equilibrio entre sabor, calidad y tradición.",
+            "it": "Lombata di manzo, succosa e tenera, cotta alla griglia al punto che preferisci. Con patatine croccanti e verdure saltate: l'equilibrio tra sapore, qualità e tradizione.",
+            "en": "A juicy, tender cut of beef ribeye, grilled to the doneness you ask for. With crisp chips and sautéed vegetables — the balance of flavour, quality and tradition.",
+            "de": "Ein saftiges, zartes Stück hohe Rippe vom Rind, auf dem Grill nach Wunsch gegart. Mit knusprigen Pommes und sautiertem Gemüse — die Balance aus Geschmack, Qualität und Tradition."
+          },
+          "price": {
+            "amount": 22.9
+          },
+          "allergens": [
+            "gluten"
+          ],
+          "pairing": "masso-antico",
+          "tags": [
+            "new",
+            "signature"
+          ]
+        },
         {
           "id": "entrecot-parrilla",
           "name": {

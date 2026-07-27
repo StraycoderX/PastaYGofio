@@ -192,10 +192,28 @@ comensal.
 - **`assets/img/logo.svg`** reproduce el logotipo (La Aldea + espiga y mazorca +
   Pasta y Gofio · Trattoria-Pizzería). Sustituir por el archivo original y
   regenerar los iconos con `scripts/` (ver historial de commits).
-- **Foto de la Bruschetta Teror.** Es la única ilustración vectorial de la
-  carta, dibujada para mostrar la base de masa casera. En cuanto haya una foto
-  real, sustituir `assets/img/dishes/bruschetta-teror.svg` por el archivo y
-  actualizar el campo `image` del plato.
+- **Cuatro fotos pendientes.** Los platos nuevos se muestran con una lámina
+  generada (inicial sobre el color de la categoría) hasta que lleguen las
+  fotos. Para añadirlas: dejar el archivo en `assets/img/dishes/` y poner su
+  nombre en el campo `image` del plato.
+
+  | Plato | `image` esperado |
+  |---|---|
+  | Bruschetta Teror | `bruschetta-teror.webp` (hoy usa un `.svg` dibujado a mano) |
+  | Queso a la plancha con mermelada | `queso-plancha-mermelada.webp` |
+  | Tequeños con mermelada del día | `tequenos-mermelada.webp` |
+  | Lomo alto de vaca | `lomo-alto-vaca.webp` |
+
+  Recortar solo el plato, sin los rótulos del cartel. Cualquier tamaño vale;
+  con 620 px de ancho sobra.
+
+- **Precios de dos platos nuevos.** «Queso a la plancha» está confirmado en
+  10,90 €. «Tequeños» (9,90 €) y «Lomo alto de vaca» (22,90 €) son propuestas
+  a falta de confirmación; se cambian en `data/menu.json`.
+
+- **Alérgenos de los platos nuevos.** Declarados por analogía con platos
+  parecidos de la carta: queso → lactosa; tequeños → gluten y lactosa; lomo
+  alto → gluten (igual que el entrecot). Confirmar en cocina.
 - **Maridajes.** Los `pairing` de cada plato son sugerencias nuestras sobre la
   bodega real de la casa. Ajústalos a criterio de sala.
 - **Alérgenos de la carta original.** «Salsa de tomate» y «Risotto con setas»

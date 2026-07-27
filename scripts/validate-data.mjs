@@ -156,6 +156,11 @@ for (const [pi, pick] of (daily.rotation?.picks ?? []).entries()) {
 for (const id of daily.rotation?.exclude ?? []) {
   if (!itemIds.has(id)) warn(`daily.rotation.exclude: "${id}" is not an item id`);
 }
+for (const [i, entry] of (daily.featured ?? []).entries()) {
+  const id = typeof entry === 'string' ? entry : entry?.id;
+  if (!itemIds.has(id)) fail(`daily.featured[${i}]: unknown item "${id}"`);
+  if (entry?.label) checkI18n(entry.label, `daily.featured[${i}].label`);
+}
 for (const [date, override] of Object.entries(daily.overrides ?? {})) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) fail(`daily.overrides: "${date}" is not a YYYY-MM-DD date`);
   for (const entry of override.items ?? []) {

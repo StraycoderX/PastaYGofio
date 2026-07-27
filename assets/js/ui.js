@@ -8,7 +8,7 @@ import { longDate, pickOfTheDay } from './daily.js';
 import { fromMinutes, status, weekRows } from './hours.js';
 
 const BADGE_ORDER = [
-  ['tag', 'signature'], ['tag', 'local'], ['tag', 'sharing'],
+  ['tag', 'new'], ['tag', 'signature'], ['tag', 'local'], ['tag', 'sharing'],
   ['diet', 'vegan'], ['diet', 'vegetarian'], ['diet', 'spicy'], ['diet', 'glutenfree']
 ];
 const MAX_BADGES = 3;
@@ -161,7 +161,7 @@ function badgesFor(app, item) {
     if (out.length >= MAX_BADGES) break;
     const present = group === 'tag' ? item.tags.includes(key) : item.declaredDiet.includes(key) || (key === 'glutenfree' && item.diet.includes('glutenfree'));
     if (!present) continue;
-    const cls = { signature: 'signature', local: 'local', sharing: 'local', vegan: 'vegan', vegetarian: 'veg', spicy: 'spicy', glutenfree: 'gf' }[key];
+    const cls = { new: 'new', signature: 'signature', local: 'local', sharing: 'local', vegan: 'vegan', vegetarian: 'veg', spicy: 'spicy', glutenfree: 'gf' }[key];
     out.push(el('span', { class: `badge badge--${cls}`, text: t((group === 'tag' ? 'tag_' : 'diet_') + key, app.lang) }));
   }
   return out;

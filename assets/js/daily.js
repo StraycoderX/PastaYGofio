@@ -49,6 +49,15 @@ export function pickOfTheDay(model, config, tz) {
     if (out.length) return out;
   }
 
+  /* `featured` runs every day, ahead of the rotation: it is where a new dish
+     or a running promotion lives until the kitchen takes it back out. */
+  for (const entry of config?.featured ?? []) {
+    const item = model.byId.get(typeof entry === 'string' ? entry : entry?.id);
+    if (!item || chosen.has(item.uid)) continue;
+    chosen.add(item.uid);
+    out.push({ slot: entry?.slot ?? 'featured', label: entry?.label ?? null, item });
+  }
+
   for (const pick of picks) {
     const pool = [];
     for (const section of model.sections) {

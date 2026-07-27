@@ -1,245 +1,181 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img"
-     aria-labelledby="fc-title fc-desc" preserveAspectRatio="xMidYMid slice">
-  <title id="fc-title">Bruschetta de Teror sobre masa casera de focaccia</title>
-  <desc id="fc-desc">Focaccia de masa casera, gruesa y alveolada, cubierta de chorizo de Teror
-    y mozzarella fundida.</desc>
+     aria-labelledby="bt-title bt-desc" preserveAspectRatio="xMidYMid slice">
+  <title id="bt-title">Bruschetta de Teror</title>
+  <desc id="bt-desc">Base redonda de masa casera con el borde alto y dorado, cubierta de quesos
+    fundidos y chorizo de Teror desmigado, servida en bandeja oscura.</desc>
 
   <defs>
-    <linearGradient id="fcBoard" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0" stop-color="#3a2a20"/>
-      <stop offset="0.55" stop-color="#2a1d16"/>
-      <stop offset="1" stop-color="#1c130e"/>
-    </linearGradient>
-    <radialGradient id="fcGlow" cx="0.42" cy="0.30" r="0.8">
-      <stop offset="0" stop-color="#ffc978" stop-opacity="0.16"/>
-      <stop offset="0.55" stop-color="#ff9a3c" stop-opacity="0.05"/>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.35"/>
+    <radialGradient id="btRoom" cx="0.5" cy="0.42" r="0.78">
+      <stop offset="0" stop-color="#6b4f36"/>
+      <stop offset="0.55" stop-color="#3a2a1c"/>
+      <stop offset="1" stop-color="#1a120b"/>
     </radialGradient>
-    <linearGradient id="fcSlate" x1="0.2" y1="0" x2="0.8" y2="1">
-      <stop offset="0" stop-color="#4a4741"/>
-      <stop offset="0.5" stop-color="#33312d"/>
-      <stop offset="1" stop-color="#232120"/>
+    <linearGradient id="btWood" x1="0" y1="0" x2="0.25" y2="1">
+      <stop offset="0" stop-color="#4a3521" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#241a10" stop-opacity="0.55"/>
     </linearGradient>
 
-    <!-- baked focaccia top: olive-oil gold with darker blistered edges -->
-    <linearGradient id="fcCrustTop" x1="0.15" y1="0" x2="0.85" y2="1">
-      <stop offset="0" stop-color="#f0c069"/>
-      <stop offset="0.35" stop-color="#e2a544"/>
-      <stop offset="0.7" stop-color="#cf8a2e"/>
-      <stop offset="1" stop-color="#b26f22"/>
-    </linearGradient>
-    <!-- cut side of the dough: pale, open crumb -->
-    <linearGradient id="fcCrumb" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f6e3bb"/>
-      <stop offset="0.45" stop-color="#eed6a6"/>
-      <stop offset="1" stop-color="#d8b478"/>
-    </linearGradient>
-    <linearGradient id="fcCrustSide" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#c98328"/>
-      <stop offset="1" stop-color="#96601c"/>
-    </linearGradient>
-
-    <!-- chorizo de Teror: soft, spreadable, deep paprika red -->
-    <linearGradient id="fcChorizo" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0" stop-color="#d4451f"/>
-      <stop offset="0.5" stop-color="#b82f14"/>
-      <stop offset="1" stop-color="#8e1f0d"/>
-    </linearGradient>
-    <radialGradient id="fcChorizoHi" cx="0.35" cy="0.3" r="0.7">
-      <stop offset="0" stop-color="#ff7a45" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#ff7a45" stop-opacity="0"/>
+    <radialGradient id="btPan" cx="0.42" cy="0.34" r="0.72">
+      <stop offset="0" stop-color="#4b4744"/>
+      <stop offset="0.6" stop-color="#2c2926"/>
+      <stop offset="1" stop-color="#171513"/>
     </radialGradient>
 
-    <!-- melted mozzarella -->
-    <radialGradient id="fcMozz" cx="0.36" cy="0.28" r="0.8">
-      <stop offset="0" stop-color="#fffdf6"/>
-      <stop offset="0.55" stop-color="#f7efdc"/>
-      <stop offset="1" stop-color="#e4d5b6"/>
-    </radialGradient>
-    <linearGradient id="fcTomato" x1="0" y1="0" x2="0.6" y2="1">
-      <stop offset="0" stop-color="#f0512f"/>
-      <stop offset="1" stop-color="#c22a18"/>
-    </linearGradient>
-    <linearGradient id="fcBasil" x1="0" y1="0" x2="0.7" y2="1">
-      <stop offset="0" stop-color="#63a83f"/>
-      <stop offset="1" stop-color="#2f6b25"/>
+    <!-- puffed, blistered cornicione -->
+    <linearGradient id="btCrustRing" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#f5d187"/>
+      <stop offset="0.42" stop-color="#e0a94c"/>
+      <stop offset="0.78" stop-color="#c07f2a"/>
+      <stop offset="1" stop-color="#96601b"/>
     </linearGradient>
 
-    <filter id="fcSoft" x="-25%" y="-25%" width="150%" height="150%">
-      <feGaussianBlur stdDeviation="7"/>
+    <!-- the melted cheese surface: pale, glossy, browned in patches -->
+    <radialGradient id="btCheese" cx="0.38" cy="0.3" r="0.82">
+      <stop offset="0" stop-color="#fdf3d6"/>
+      <stop offset="0.45" stop-color="#f7e5b8"/>
+      <stop offset="0.8" stop-color="#eed08c"/>
+      <stop offset="1" stop-color="#dcb264"/>
+    </radialGradient>
+
+    <!-- chorizo de Teror: soft, deep paprika crumbles -->
+    <radialGradient id="btChorizo" cx="0.35" cy="0.3" r="0.75">
+      <stop offset="0" stop-color="#e0612a"/>
+      <stop offset="0.5" stop-color="#c2401a"/>
+      <stop offset="1" stop-color="#8d2409"/>
+    </radialGradient>
+
+    <filter id="btDrop" x="-30%" y="-30%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#000" flood-opacity="0.6"/>
     </filter>
-    <filter id="fcDrop" x="-30%" y="-30%" width="170%" height="170%">
-      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/>
+    <filter id="btSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="9"/>
     </filter>
-    <filter id="fcGrain" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7"/>
+    <filter id="btGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="11"/>
       <feColorMatrix type="saturate" values="0"/>
-      <feComponentTransfer><feFuncA type="linear" slope="0.06" intercept="0"/></feComponentTransfer>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
     </filter>
 
-    <clipPath id="fcTopClip">
-      <path d="M138 214 C176 176 246 160 336 156 C452 151 566 158 638 178
-               C688 192 700 214 692 246 C682 288 664 330 640 362
-               C614 398 540 414 424 418 C306 422 218 410 174 384
-               C142 366 130 330 130 288 C130 258 130 232 138 214 Z"/>
+    <clipPath id="btInner">
+      <circle cx="400" cy="298" r="176"/>
     </clipPath>
   </defs>
 
-  <!-- table -->
-  <rect width="800" height="600" fill="url(#fcBoard)"/>
+  <!-- dark table -->
+  <rect width="800" height="600" fill="url(#btRoom)"/>
   <g opacity="0.5">
-    <path d="M0 96 H800 M0 232 H800 M0 368 H800 M0 504 H800"
-          stroke="#000" stroke-opacity="0.28" stroke-width="3"/>
+    <path d="M0 78 H800 M0 214 H800 M0 350 H800 M0 486 H800"
+          stroke="#0d0906" stroke-opacity="0.5" stroke-width="4"/>
   </g>
-  <rect width="800" height="600" fill="url(#fcGlow)"/>
+  <rect width="800" height="600" fill="url(#btWood)"/>
 
-  <!-- slate serving board -->
-  <g filter="url(#fcDrop)">
-    <path d="M92 176 C92 152 116 138 152 134 L664 118 C706 116 726 134 726 162
-             L722 424 C720 456 700 474 660 478 L152 496 C112 498 90 480 90 450 Z"
-          fill="url(#fcSlate)"/>
-    <path d="M92 176 C92 152 116 138 152 134 L664 118 C706 116 726 134 726 162 L726 178
-             C700 164 620 156 470 154 C300 152 160 162 92 190 Z"
-          fill="#ffffff" opacity="0.07"/>
+  <!-- serving pan -->
+  <g filter="url(#btDrop)">
+    <circle cx="400" cy="300" r="252" fill="url(#btPan)"/>
+    <circle cx="400" cy="300" r="252" fill="none" stroke="#0f0d0b" stroke-width="6" opacity="0.7"/>
+    <circle cx="400" cy="300" r="238" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="3"/>
   </g>
 
-  <!-- ===== the focaccia: thick, hand-stretched, home-made dough ===== -->
-  <g filter="url(#fcDrop)">
-    <!-- depth: the slab is tall, this is dough, not a slice of loaf -->
-    <path d="M130 288 C130 330 142 366 174 384 C218 410 306 422 424 418
-             C540 414 614 398 640 362 L640 428 C614 464 540 480 424 484
-             C306 488 218 476 174 450 C142 432 130 396 130 354 Z"
-          fill="url(#fcCrustSide)"/>
-    <!-- open, airy crumb along the cut face -->
-    <path d="M152 372 C200 402 300 416 424 412 C520 409 590 396 626 374
-             L626 424 C590 448 520 462 424 465 C300 469 200 454 152 424 Z"
-          fill="url(#fcCrumb)"/>
-    <g fill="#c9a271" opacity="0.85">
-      <ellipse cx="214" cy="418" rx="17" ry="13"/>
-      <ellipse cx="266" cy="434" rx="11" ry="9"/>
-      <ellipse cx="318" cy="416" rx="21" ry="15"/>
-      <ellipse cx="382" cy="436" rx="13" ry="10"/>
-      <ellipse cx="438" cy="418" rx="18" ry="13"/>
-      <ellipse cx="500" cy="434" rx="12" ry="9"/>
-      <ellipse cx="552" cy="416" rx="16" ry="12"/>
-      <ellipse cx="600" cy="430" rx="10" ry="8"/>
-      <ellipse cx="180" cy="436" rx="9" ry="7"/>
-      <ellipse cx="352" cy="404" rx="9" ry="7"/>
-      <ellipse cx="470" cy="440" rx="9" ry="7"/>
+  <!-- ===== the dough: round, hand-stretched, high rim ===== -->
+  <g>
+    <circle cx="400" cy="300" r="222" fill="url(#btCrustRing)"/>
+
+    <!-- char blisters around the rim -->
+    <g fill="#6f3f10" opacity="0.55">
+      <ellipse cx="400" cy="88" rx="30" ry="13"/>
+      <ellipse cx="546" cy="132" rx="24" ry="12" transform="rotate(35 546 132)"/>
+      <ellipse cx="608" cy="252" rx="13" ry="26"/>
+      <ellipse cx="584" cy="404" rx="20" ry="13" transform="rotate(-38 584 404)"/>
+      <ellipse cx="452" cy="508" rx="27" ry="12"/>
+      <ellipse cx="288" cy="492" rx="22" ry="13" transform="rotate(28 288 492)"/>
+      <ellipse cx="196" cy="376" rx="13" ry="24" transform="rotate(18 196 376)"/>
+      <ellipse cx="200" cy="216" rx="17" ry="24" transform="rotate(-30 200 216)"/>
+      <ellipse cx="300" cy="112" rx="22" ry="12" transform="rotate(-28 300 112)"/>
     </g>
-    <g fill="#8f6a3c" opacity="0.35">
-      <ellipse cx="214" cy="421" rx="10" ry="7"/>
-      <ellipse cx="318" cy="419" rx="12" ry="8"/>
-      <ellipse cx="438" cy="421" rx="10" ry="7"/>
-      <ellipse cx="552" cy="418" rx="9" ry="6"/>
+    <g fill="#ffe0a4" opacity="0.45">
+      <ellipse cx="356" cy="98" rx="34" ry="12"/>
+      <ellipse cx="220" cy="242" rx="12" ry="26" transform="rotate(-16 220 242)"/>
+      <ellipse cx="516" cy="482" rx="26" ry="11" transform="rotate(24 516 482)"/>
     </g>
 
-    <!-- baked top surface -->
-    <path d="M138 214 C176 176 246 160 336 156 C452 151 566 158 638 178
-             C688 192 700 214 692 246 C682 288 664 330 640 362
-             C614 398 540 414 424 418 C306 422 218 410 174 384
-             C142 366 130 330 130 288 C130 258 130 232 138 214 Z"
-          fill="url(#fcCrustTop)"/>
+    <!-- shadow where the rim rises above the filling -->
+    <circle cx="400" cy="298" r="180" fill="#8a5615" opacity="0.5"/>
 
-    <g clip-path="url(#fcTopClip)">
-      <!-- the dimples that only hand-pressed focaccia dough has -->
-      <g fill="#a9661d" opacity="0.5">
-        <ellipse cx="196" cy="238" rx="15" ry="11"/>
-        <ellipse cx="268" cy="212" rx="13" ry="9"/>
-        <ellipse cx="356" cy="228" rx="16" ry="11"/>
-        <ellipse cx="452" cy="204" rx="13" ry="9"/>
-        <ellipse cx="546" cy="222" rx="15" ry="10"/>
-        <ellipse cx="628" cy="248" rx="12" ry="9"/>
-        <ellipse cx="182" cy="318" rx="14" ry="10"/>
-        <ellipse cx="252" cy="356" rx="12" ry="9"/>
-        <ellipse cx="600" cy="330" rx="14" ry="10"/>
-        <ellipse cx="662" cy="292" rx="11" ry="8"/>
-      </g>
-      <g fill="#ffd98f" opacity="0.45">
-        <ellipse cx="196" cy="233" rx="9" ry="5"/>
-        <ellipse cx="356" cy="223" rx="9" ry="5"/>
-        <ellipse cx="546" cy="217" rx="8" ry="5"/>
-        <ellipse cx="182" cy="313" rx="8" ry="5"/>
-        <ellipse cx="600" cy="325" rx="8" ry="5"/>
-      </g>
-      <!-- blistered, oil-brushed edges -->
-      <path d="M130 262 C160 236 230 220 340 214 C470 207 610 216 692 240
-               L692 214 C610 190 470 180 340 187 C230 193 158 210 132 232 Z"
-            fill="#a05f18" opacity="0.32"/>
-      <ellipse cx="330" cy="196" rx="200" ry="24" fill="#ffe1a4" opacity="0.12" filter="url(#fcSoft)"/>
+    <!-- ===== quesos fundidos: covers the whole base ===== -->
+    <circle cx="400" cy="298" r="176" fill="url(#btCheese)"/>
 
-      <!-- ===== chorizo de Teror, spread across the dough ===== -->
+    <g clip-path="url(#btInner)">
+      <!-- where the cheese caught the oven -->
+      <g fill="#c48a3c" opacity="0.42">
+        <ellipse cx="318" cy="212" rx="42" ry="26" transform="rotate(-18 318 212)"/>
+        <ellipse cx="470" cy="196" rx="34" ry="21" transform="rotate(12 470 196)"/>
+        <ellipse cx="530" cy="322" rx="38" ry="24" transform="rotate(-8 530 322)"/>
+        <ellipse cx="286" cy="360" rx="36" ry="22" transform="rotate(22 286 360)"/>
+        <ellipse cx="404" cy="418" rx="44" ry="24" transform="rotate(-6 404 418)"/>
+        <ellipse cx="392" cy="292" rx="30" ry="19"/>
+      </g>
+      <g fill="#8f5a1c" opacity="0.3">
+        <ellipse cx="330" cy="206" rx="17" ry="10" transform="rotate(-18 330 206)"/>
+        <ellipse cx="524" cy="330" rx="15" ry="9"/>
+        <ellipse cx="414" cy="424" rx="19" ry="10"/>
+        <ellipse cx="276" cy="356" rx="14" ry="9"/>
+      </g>
+      <!-- glossy, molten highlights -->
+      <g fill="#fffaeb" opacity="0.55">
+        <ellipse cx="352" cy="232" rx="52" ry="24" transform="rotate(-14 352 232)"/>
+        <ellipse cx="466" cy="268" rx="34" ry="16" transform="rotate(10 466 268)"/>
+        <ellipse cx="318" cy="316" rx="28" ry="13"/>
+      </g>
+
+      <!-- ===== chorizo de Teror, desmigado por encima ===== -->
       <g>
-        <path d="M206 268 C244 244 300 236 366 240 C446 245 522 240 580 252
-                 C620 260 632 280 620 302 C606 328 560 344 486 350
-                 C400 357 306 352 250 336 C206 323 190 296 206 268 Z"
-              fill="url(#fcChorizo)"/>
-        <path d="M206 268 C244 244 300 236 366 240 C446 245 522 240 580 252
-                 C620 260 632 280 620 302 C606 328 560 344 486 350
-                 C400 357 306 352 250 336 C206 323 190 296 206 268 Z"
-              fill="url(#fcChorizoHi)"/>
-        <!-- paprika flecks + fat marbling of the sobrasada-style spread -->
-        <g fill="#5f1206" opacity="0.5">
-          <circle cx="262" cy="288" r="4"/><circle cx="318" cy="272" r="3"/>
-          <circle cx="372" cy="300" r="4.5"/><circle cx="430" cy="278" r="3.5"/>
-          <circle cx="492" cy="302" r="4"/><circle cx="548" cy="284" r="3"/>
-          <circle cx="288" cy="322" r="3.5"/><circle cx="402" cy="330" r="3"/>
-          <circle cx="516" cy="330" r="3.5"/><circle cx="576" cy="308" r="3"/>
-        </g>
-        <g fill="#ffb08a" opacity="0.35">
-          <ellipse cx="300" cy="262" rx="20" ry="7" transform="rotate(-6 300 262)"/>
-          <ellipse cx="456" cy="264" rx="24" ry="6" transform="rotate(4 456 264)"/>
-          <ellipse cx="360" cy="318" rx="18" ry="6" transform="rotate(-3 360 318)"/>
-        </g>
-      </g>
+        <path d="M300 178 c14 -10 30 -6 34 6 c4 12 -8 22 -22 22 c-16 0 -24 -18 -12 -28 Z" fill="url(#btChorizo)" transform="rotate(-25 300 178) translate(300 178) scale(0.87 0.87) translate(-300 -178)"/>
+        <path d="M436 164 c16 -6 30 4 28 16 c-2 14 -20 20 -32 12 c-11 -7 -9 -24 4 -28 Z" fill="url(#btChorizo)" transform="rotate(-60 436 164) translate(436 164) scale(1.09 0.76) translate(-436 -164)"/>
+        <path d="M528 226 c15 -4 27 6 24 18 c-3 13 -20 18 -30 9 c-10 -8 -7 -24 6 -27 Z" fill="url(#btChorizo)" transform="rotate(-62 528 226) translate(528 226) scale(1.07 0.63) translate(-528 -226)"/>
+        <path d="M556 320 c14 2 22 15 16 26 c-7 12 -25 12 -32 1 c-7 -11 2 -29 16 -27 Z" fill="url(#btChorizo)" transform="rotate(-9 556 320) translate(556 320) scale(0.82 0.65) translate(-556 -320)"/>
+        <path d="M482 386 c16 -8 32 2 31 15 c-1 14 -19 21 -31 13 c-11 -7 -11 -23 0 -28 Z" fill="url(#btChorizo)" transform="rotate(-11 482 386) translate(482 386) scale(1.25 0.67) translate(-482 -386)"/>
+        <path d="M370 404 c17 -5 30 6 27 19 c-3 14 -22 19 -32 9 c-10 -9 -6 -25 5 -28 Z" fill="url(#btChorizo)" transform="rotate(-39 370 404) translate(370 404) scale(1.14 0.98) translate(-370 -404)"/>
+        <path d="M262 344 c15 -8 31 0 31 13 c0 14 -17 22 -29 15 c-12 -7 -13 -22 -2 -28 Z" fill="url(#btChorizo)" transform="rotate(11 262 344) translate(262 344) scale(1.01 0.99) translate(-262 -344)"/>
+        <path d="M246 244 c14 -7 29 1 29 14 c0 13 -16 21 -27 14 c-12 -7 -13 -22 -2 -28 Z" fill="url(#btChorizo)" transform="rotate(-63 246 244) translate(246 244) scale(1.27 0.73) translate(-246 -244)"/>
+        <path d="M394 258 c17 -7 33 4 30 17 c-3 14 -22 20 -33 11 c-10 -8 -8 -24 3 -28 Z" fill="url(#btChorizo)" transform="rotate(-50 394 258) translate(394 258) scale(0.85 0.74) translate(-394 -258)"/>
+        <path d="M462 306 c12 -4 22 4 20 14 c-2 11 -16 15 -24 8 c-8 -6 -6 -19 4 -22 Z" fill="url(#btChorizo)" transform="rotate(44 462 306) translate(462 306) scale(0.88 0.84) translate(-462 -306)"/>
+        <path d="M330 306 c11 -5 22 2 21 12 c-1 11 -14 16 -22 10 c-9 -6 -8 -19 1 -22 Z" fill="url(#btChorizo)" transform="rotate(19 330 306) translate(330 306) scale(0.99 0.83) translate(-330 -306)"/>
+        <path d="M420 352 c11 -4 21 3 20 13 c-1 10 -14 15 -22 9 c-8 -6 -7 -19 2 -22 Z" fill="url(#btChorizo)" transform="rotate(-61 420 352) translate(420 352) scale(0.81 0.70) translate(-420 -352)"/>
+        <path d="M292 396 c10 -4 19 2 18 11 c-1 10 -12 14 -19 8 c-8 -5 -7 -17 1 -19 Z" fill="url(#btChorizo)" transform="rotate(25 292 396) translate(292 396) scale(1.02 0.74) translate(-292 -396)"/>
+        <path d="M516 262 c10 -4 19 2 18 11 c-1 10 -12 14 -19 8 c-8 -5 -7 -17 1 -19 Z" fill="url(#btChorizo)" transform="rotate(12 516 262) translate(516 262) scale(1.04 0.73) translate(-516 -262)"/>
+        <path d="M352 176 c9 -4 18 2 17 10 c-1 9 -12 13 -18 7 c-7 -5 -6 -15 1 -17 Z" fill="url(#btChorizo)" transform="rotate(41 352 176) translate(352 176) scale(1.18 0.71) translate(-352 -176)"/>
 
-      <!-- ===== mozzarella, melted over the chorizo ===== -->
-      <g>
-        <ellipse cx="284" cy="272" rx="44" ry="27" fill="url(#fcMozz)"/>
-        <ellipse cx="402" cy="260" rx="52" ry="29" fill="url(#fcMozz)"/>
-        <ellipse cx="526" cy="276" rx="45" ry="26" fill="url(#fcMozz)"/>
-        <ellipse cx="338" cy="328" rx="39" ry="22" fill="url(#fcMozz)"/>
-        <ellipse cx="472" cy="330" rx="42" ry="22" fill="url(#fcMozz)"/>
-        <ellipse cx="594" cy="302" rx="26" ry="16" fill="url(#fcMozz)"/>
-        <ellipse cx="228" cy="310" rx="26" ry="16" fill="url(#fcMozz)"/>
-        <!-- browned bubbles where the cheese caught the oven -->
-        <g fill="#d9a55f" opacity="0.5">
-          <ellipse cx="264" cy="258" rx="13" ry="8"/>
-          <ellipse cx="392" cy="244" rx="16" ry="9"/>
-          <ellipse cx="540" cy="266" rx="12" ry="8"/>
-          <ellipse cx="352" cy="336" rx="11" ry="7"/>
-          <ellipse cx="486" cy="338" rx="13" ry="8"/>
+        <!-- paprika grain and the rendered fat around each crumble -->
+        <g fill="#5e1503" opacity="0.5">
+          <circle cx="316" cy="192" r="3.5"/><circle cx="450" cy="176" r="3"/>
+          <circle cx="538" cy="238" r="3.2"/><circle cx="566" cy="332" r="3"/>
+          <circle cx="494" cy="398" r="3.4"/><circle cx="382" cy="416" r="3"/>
+          <circle cx="274" cy="356" r="3.2"/><circle cx="258" cy="256" r="3"/>
+          <circle cx="408" cy="270" r="3.4"/>
         </g>
-        <g fill="#ffffff" opacity="0.55">
-          <ellipse cx="382" cy="248" rx="26" ry="10"/>
-          <ellipse cx="272" cy="264" rx="18" ry="7"/>
-          <ellipse cx="512" cy="270" rx="20" ry="8"/>
+        <g fill="#ffb27f" opacity="0.34">
+          <ellipse cx="326" cy="186" rx="12" ry="4" transform="rotate(-14 326 186)"/>
+          <ellipse cx="456" cy="170" rx="11" ry="4" transform="rotate(10 456 170)"/>
+          <ellipse cx="380" cy="410" rx="12" ry="4"/>
+          <ellipse cx="548" cy="316" rx="10" ry="4" transform="rotate(-20 548 316)"/>
         </g>
       </g>
 
-
-      <!-- olive-oil sheen -->
-      <ellipse cx="360" cy="248" rx="130" ry="34" fill="#fff3d0" opacity="0.08" filter="url(#fcSoft)"/>
+      <!-- oil sheen across the top left -->
+      <ellipse cx="332" cy="228" rx="128" ry="62" fill="#fff6de" opacity="0.1" filter="url(#btSoft)"/>
     </g>
 
-    <!-- rim of the top face -->
-    <path d="M138 214 C176 176 246 160 336 156 C452 151 566 158 638 178
-             C688 192 700 214 692 246 C682 288 664 330 640 362
-             C614 398 540 414 424 418 C306 422 218 410 174 384
-             C142 366 130 330 130 288 C130 258 130 232 138 214 Z"
-          fill="none" stroke="#8f5a16" stroke-opacity="0.45" stroke-width="3"/>
+    <!-- rim edges -->
+    <circle cx="400" cy="298" r="176" fill="none" stroke="#a3671c" stroke-opacity="0.5" stroke-width="4"/>
+    <circle cx="400" cy="300" r="222" fill="none" stroke="#7d4d12" stroke-opacity="0.45" stroke-width="3"/>
   </g>
 
-  <!-- scattered rosemary + salt on the board -->
-  <g opacity="0.75">
-    <path d="M700 452 l34 -12" stroke="#4f7a35" stroke-width="4" stroke-linecap="round"/>
-    <path d="M706 446 l8 -9 M716 442 l7 -10 M726 439 l7 -9" stroke="#4f7a35" stroke-width="3" stroke-linecap="round"/>
-    <g fill="#f3ead6">
-      <circle cx="676" cy="474" r="3"/><circle cx="694" cy="486" r="2.4"/>
-      <circle cx="712" cy="470" r="2.8"/><circle cx="120" cy="512" r="2.6"/>
-      <circle cx="146" cy="524" r="2.2"/>
-    </g>
+  <!-- a scatter of thyme on the pan -->
+  <g opacity="0.6" fill="#5d8a3c">
+    <ellipse cx="640" cy="500" rx="7" ry="3" transform="rotate(24 640 500)"/>
+    <ellipse cx="664" cy="486" rx="6" ry="2.6" transform="rotate(-12 664 486)"/>
+    <ellipse cx="150" cy="128" rx="6" ry="2.6" transform="rotate(40 150 128)"/>
   </g>
 
-  <rect width="800" height="600" filter="url(#fcGrain)" opacity="0.35" pointer-events="none"/>
+  <rect width="800" height="600" filter="url(#btGrain)" opacity="0.35" pointer-events="none"/>
 </svg>

@@ -60,6 +60,7 @@ export const T = {
   size_bottle: { es: 'botella', it: 'bottiglia', en: 'bottle', de: 'Flasche' },
 
   /* badges */
+  tag_new: { es: 'Nuevo', it: 'Novità', en: 'New', de: 'Neu' },
   tag_signature: { es: 'De la casa', it: 'Della casa', en: 'House special', de: 'Hausspezialität' },
   tag_local: { es: 'Producto canario', it: 'Prodotto canario', en: 'Canarian produce', de: 'Kanarisches Produkt' },
   tag_sharing: { es: 'Para compartir', it: 'Da condividere', en: 'To share', de: 'Zum Teilen' },

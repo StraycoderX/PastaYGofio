@@ -435,7 +435,8 @@ a:hover { text-decoration-color: var(--accent); }
 @media (min-width: 860px) {
   .daily {
     grid-auto-flow: row;
-    grid-template-columns: repeat(4, 1fr);
+    /* card count varies: pinned promos plus whatever the rotation adds */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
     overflow: visible;
     margin-inline: 0;
     padding-inline: 0;
@@ -821,6 +822,11 @@ a:hover { text-decoration-color: var(--accent); }
   color: var(--fg-muted);
   white-space: nowrap;
 }
+.badge--new {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
 .badge--signature {
   border-color: color-mix(in srgb, var(--gold) 55%, transparent);
   background: color-mix(in srgb, var(--gold) 15%, var(--surface));
@@ -848,7 +854,12 @@ a:hover { text-decoration-color: var(--accent); }
 [data-theme="dark"] .badge--local { color: #a8c98a; }
 [data-theme="dark"] .badge--spicy { color: #f0a184; }
 [data-theme="dark"] .badge--gf,
-[data-theme="dark"] .badge--signature { color: #e2c079; }
+[data-theme="dark"] .badge--new {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.badge--signature { color: #e2c079; }
 
 /* add to selection */
 .add {
