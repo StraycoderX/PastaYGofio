@@ -96,6 +96,12 @@
 <main id="top">
   <section class="hero" id="hero">
     <div class="shell hero__inner">
+      <!-- On a phone the masthead has no room for the opening-hours pill, so it
+           lives here instead; CSS shows exactly one of the two. -->
+      <button class="status-pill status-pill--hero" id="statusPillHero" type="button" aria-live="polite">
+        <span class="status-pill__dot" aria-hidden="true"></span>
+        <span class="status-pill__text">—</span>
+      </button>
       <p class="hero__eyebrow" id="heroDate"></p>
       <h1 class="hero__title" data-i18n="dailyTitle">Sugerencias del día</h1>
       <p class="hero__lede" id="heroLede"></p>
@@ -176,6 +182,15 @@
 
 <button class="fab" id="toTop" type="button" hidden>
   <span aria-hidden="true">↑</span>
+</button>
+
+<!-- Phone-only: reaching the basket icon in the header means scrolling back to
+     the top of a 94-dish carte. This stays in reach and shows the running
+     total, which is the reason people open the basket at all. -->
+<button class="cartbar" id="cartBar" type="button" hidden>
+  <span class="cartbar__count" id="cartBarCount">0</span>
+  <span class="cartbar__label" data-i18n="trayTitle">Mi selección</span>
+  <strong class="cartbar__total" id="cartBarTotal">€0.00</strong>
 </button>
 
 <!-- dish detail -->

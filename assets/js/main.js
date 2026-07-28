@@ -277,6 +277,7 @@ function wire() {
   });
 
   $('#trayToggle').addEventListener('click', () => setTrayOpen(!$('#tray').classList.contains('is-open')));
+  $('#cartBar').addEventListener('click', () => setTrayOpen(true));
   $('#trayClose').addEventListener('click', () => setTrayOpen(false));
   $('#scrim').addEventListener('click', () => setTrayOpen(false));
   $('#trayClear').addEventListener('click', () => { app.tray.clear(); refreshMenu(); });

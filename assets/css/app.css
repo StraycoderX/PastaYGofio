@@ -87,9 +87,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 /* Several components set `display`, which silently beats the UA rule for the
-   `hidden` attribute. Restore it once, globally. `.fab` and `.toast` opt out:
-   they fade out instead of disappearing, and handle `[hidden]` themselves. */
-[hidden]:not(.fab):not(.toast) { display: none !important; }
+   `hidden` attribute. Restore it once, globally. `.fab`, `.toast` and
+   `.cartbar` opt out: they slide or fade out instead of disappearing, and
+   handle `[hidden]` themselves. */
+[hidden]:not(.fab):not(.toast):not(.cartbar) { display: none !important; }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -313,21 +314,31 @@ a:hover { text-decoration-color: var(--accent); }
 #trayClose,
 #searchClear { --glyph: url("../img/ui/close.svg"); }
 
-/* Narrow screens: brand + controls on one line, the opening-hours pill gets a
-   full-width line of its own so its sentence never truncates. */
+/* The hero copy of the opening-hours pill; the masthead keeps its own. */
+.status-pill--hero { display: none; }
+
+/* Phones: one single row of chrome. Every pixel the header keeps is a pixel of
+   food the diner does not see, and the sticky header + toolbar were eating a
+   quarter of the screen. The opening hours move into the hero, where they are
+   read once, and the brand subtitle goes. */
 @media (max-width: 720px) {
-  .masthead__bar { padding-block: .5rem; }
-  .brand__mark { width: 34px; height: 34px; }
+  .masthead__bar { padding-block: .45rem; flex-wrap: nowrap; gap: .4rem; }
+  .brand { gap: .45rem; min-width: 0; }
+  .brand__mark { width: 32px; height: 32px; border-radius: 8px; }
   .brand__text small { display: none; }
-  .brand__text strong { font-size: 1rem; }
-  .status-pill {
-    order: 3;
-    flex: 1 1 100%;
-    max-width: none;
-    justify-content: center;
+  .brand__text strong { font-size: .98rem; }
+  .masthead .status-pill { display: none; }
+  .status-pill--hero {
+    display: inline-flex;
+    margin-bottom: .9rem;
+    max-width: 100%;
   }
-  .lang__btn { padding: .28rem .38rem; }
-  .icon-btn { width: 34px; height: 34px; }
+  .lang { padding: 1px; }
+  .lang__btn { padding: .26rem .34rem; font-size: .7rem; }
+  .icon-btn { width: 32px; height: 32px; }
+  .icon-btn__glyph { width: 17px; height: 17px; }
+  .masthead__actions { gap: .3rem; }
+  :root { --rail-h: 46px; }
 }
 
 /* category rail */
@@ -377,6 +388,12 @@ a:hover { text-decoration-color: var(--accent); }
   background: var(--sect, var(--accent));
   margin-inline-end: .45rem;
   vertical-align: 1px;
+}
+
+@media (max-width: 720px) {
+  .rail { gap: .35rem; }
+  .rail__link { font-size: .8rem; padding: .3rem .72rem; }
+  .rail__link.is-active::before { width: 6px; height: 6px; margin-inline-end: .35rem; }
 }
 
 /* =========================================================================
@@ -516,6 +533,21 @@ a:hover { text-decoration-color: var(--accent); }
   text-align: end;
 }
 
+/* On a phone the suggestions are the first thing on screen and the only place
+   the photos get to be big — keep them generous, trim everything around them. */
+@media (max-width: 720px) {
+  .hero { padding-block: 1.35rem 1.5rem; }
+  .hero__eyebrow { font-size: .68rem; letter-spacing: .16em; }
+  .hero__title { font-size: clamp(1.85rem, 8vw, 2.4rem); margin-block: .25rem .4rem; }
+  .hero__lede { font-size: .92rem; line-height: 1.5; }
+  .daily { gap: .7rem; margin-top: 1.1rem; grid-auto-columns: min(72vw, 280px); }
+  .pick__media { aspect-ratio: 4 / 3; }
+  .pick__body { padding: .7rem .85rem .85rem; }
+  /* the pairing reads as a caption under the price, not squeezed beside it */
+  .pick__foot { padding-top: .6rem; flex-direction: column; align-items: flex-start; gap: .1rem; }
+  .pick__pair { text-align: start; }
+}
+
 /* =========================================================================
    toolbar — search + filters
    ========================================================================= */
@@ -600,6 +632,14 @@ a:hover { text-decoration-color: var(--accent); }
   color: var(--accent-ink);
   font-size: .68rem; font-weight: 700;
   display: grid; place-items: center;
+}
+
+@media (max-width: 720px) {
+  .toolbar { padding-block: .45rem; }
+  .toolbar__inner { gap: .45rem; }
+  .search__input { padding-block: .48rem; padding-inline-start: 2.25rem; font-size: .9rem; }
+  .search__icon { inset-inline-start: .7rem; width: 15px; height: 15px; }
+  .filter-btn { padding: .45rem .75rem; font-size: .82rem; }
 }
 
 .filters[hidden] { display: none; }
@@ -729,31 +769,13 @@ a:hover { text-decoration-color: var(--accent); }
 .card--drink { padding: .9rem 1.1rem; }
 .card--drink .card__body { padding: 0; }
 
-.card__top { display: flex; gap: .75rem; align-items: flex-start; }
+/* Wrapping matters for the pizzas: "mediana 9,00 € · familiar 13,50 €" is wider
+   than some grid columns, and without it the second price was clipped by the
+   card. Nothing wraps while it fits. */
+.card__top { display: flex; flex-wrap: wrap; gap: .2rem .75rem; align-items: flex-start; }
 .card__name { cursor: pointer; }
 .card__meta-line { margin-top: .3rem; font-size: .8rem; color: var(--fg-muted); }
 
-/* On a phone the card turns into a compact row: a whole carte of 90 dishes is
-   scannable this way, and the full photo is one tap away in the detail sheet. */
-@media (max-width: 560px) {
-  .card--photo {
-    flex-direction: row;
-    align-items: stretch;
-  }
-  .card--photo .card__media {
-    flex: none;
-    width: 104px;
-    aspect-ratio: auto;
-    border-bottom: 0;
-    border-inline-end: 1px solid var(--border);
-  }
-  .card--photo .card__body { padding: .7rem .85rem .75rem; min-width: 0; }
-  .card__name { font-size: 1rem; }
-  .card__desc { -webkit-line-clamp: 2; line-clamp: 2; font-size: .84rem; }
-  .card__foot { padding-top: .6rem; }
-  .card:hover .card__media img { transform: none; }
-  .grid { gap: .7rem; }
-}
 .card__name {
   flex: 1;
   font-size: 1.08rem;
@@ -892,7 +914,7 @@ a:hover { text-decoration-color: var(--accent); }
 
 /* wine rows are denser than dish cards */
 .card--drink .card__desc { -webkit-line-clamp: 2; line-clamp: 2; }
-.card__prices { display: flex; gap: .9rem; align-items: baseline; }
+.card__prices { display: flex; flex-wrap: wrap; gap: .1rem .9rem; align-items: baseline; }
 .card__prices span {
   font-family: var(--font-display);
   font-weight: 600;
@@ -904,6 +926,78 @@ a:hover { text-decoration-color: var(--accent); }
   color: var(--fg-muted);
   margin-inline-end: .2rem;
   letter-spacing: .04em;
+}
+
+/* On a phone the card turns into a compact row: a whole carte of 94 dishes is
+   scannable this way, and the full photo is one tap away in the detail sheet.
+   This block sits *after* the base card rules on purpose — the phone overrides
+   share their specificity, so source order is what decides. */
+@media (max-width: 560px) {
+  .card--photo {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  /* A square thumbnail with its own height, not one stretched to the card's.
+     Letting the photo fill the row turned every dish into a vertical sliver:
+     `object-fit: cover` on a 104x165 box crops a plate down to a strip of
+     sauce. Centred and inset, the crop matches what the camera saw. */
+  .card--photo .card__media {
+    flex: none;
+    align-self: center;
+    width: 116px;
+    aspect-ratio: 1;
+    margin: .6rem 0 .6rem .6rem;
+    border: 0;
+    border-radius: 13px;
+    box-shadow: 0 1px 4px rgb(28 20 10 / 12%);
+  }
+  .card--photo .card__body { padding: .7rem .85rem .7rem .8rem; min-width: 0; }
+
+  .card__top { gap: .1rem .55rem; flex-wrap: wrap; }
+  /* two lines of name, so the price always lands beside the first one */
+  .card__name {
+    font-size: .97rem;
+    line-height: 1.22;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card__price { font-size: .97rem; }
+  /* Two prices (mediana / familiar) do not fit beside the name on a phone, and
+     clamping the name gives it an automatic minimum size of zero — it
+     collapsed to nothing and the pizzas showed a price with no dish. Give the
+     pair its own line instead. */
+  .card__prices { width: 100%; gap: .05rem .7rem; }
+  .card__prices span { font-size: .93rem; }
+  .card__prices small { font-size: .63rem; }
+  .card--photo .card__desc {
+    margin-top: .3rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    font-size: .81rem;
+    line-height: 1.45;
+  }
+  .card__meta { margin-top: .45rem; gap: .25rem; }
+  /* a third badge only ever wrapped onto a line of its own */
+  .card__meta .badge:nth-child(n+3) { display: none; }
+  .badge { font-size: .65rem; padding: .14rem .45rem; }
+
+  /* the dashed rule cost a whole row of pixels and separated nothing */
+  .card__foot { padding-top: .55rem; border-top: 0; flex-wrap: wrap; row-gap: .4rem; }
+  /* "Ver detalle" broke across two lines whenever a dish had size buttons */
+  .card__more { font-size: .76rem; white-space: nowrap; }
+  /* `nowrap` keeps mediana+familiar side by side, which makes the pair too wide
+     to share a line — so the foot wraps and gives them their own, right-aligned.
+     A lone "Añadir" still fits next to "Ver detalle" and stays there. */
+  .card__adds { flex-wrap: nowrap; margin-inline-start: auto; }
+  .add { font-size: .75rem; padding: .28rem .62rem .28rem .5rem; }
+
+  .card { box-shadow: 0 1px 2px rgb(28 20 10 / 5%); }
+  .card:hover { transform: none; }
+  .card:hover .card__media img { transform: none; }
+  .grid { gap: .6rem; }
 }
 
 .empty {
@@ -1307,6 +1401,55 @@ a:hover { text-decoration-color: var(--accent); }
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 .fab[hidden] { display: grid; opacity: 0; pointer-events: none; transform: translateY(10px) scale(.9); }
+
+/* running selection — phones only, where the header basket is out of reach */
+.cartbar { display: none; }
+
+@media (max-width: 720px) {
+  .cartbar {
+    position: fixed;
+    z-index: 70;
+    inset-inline: .75rem;
+    inset-block-end: max(.75rem, env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .7rem .95rem;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 6px 22px rgb(28 20 10 / 28%);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .cartbar[hidden] { display: flex; opacity: 0; pointer-events: none; transform: translateY(140%); }
+  .cartbar__count {
+    min-width: 24px; height: 24px;
+    padding: 0 6px;
+    display: grid; place-items: center;
+    border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--accent-ink) 20%, transparent);
+    font-size: .78rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .cartbar__label { flex: 1; text-align: start; font-size: .92rem; font-weight: 600; }
+  .cartbar__total {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  /* keep the last dish and the footer clear of the bar */
+  body.has-cartbar { padding-bottom: 4.25rem; }
+  body.has-cartbar .toast { inset-block-end: max(5.5rem, calc(env(safe-area-inset-bottom) + 5.5rem)); }
+  /* Two floating controls stacked in the same corner is one too many, and the
+     arrow lands squarely on the "Añadir" buttons. The brand in the sticky
+     header already links to the top, so the bar simply takes over. */
+  body.has-cartbar .fab { display: none; }
+  /* the tray covers it anyway, and it must not stay in the tab order behind it */
+  body.is-locked .cartbar { opacity: 0; pointer-events: none; visibility: hidden; }
+}
 
 .toast {
   position: fixed;

@@ -433,6 +433,16 @@ export function renderTray(app) {
   badge.textContent = String(count);
   badge.hidden = count === 0;
 
+  /* the phone-only bar mirrors the header basket, which scrolls out of reach */
+  const bar = $('#cartBar');
+  if (bar) {
+    $('#cartBarCount').textContent = String(count);
+    $('#cartBarTotal').textContent = money(app, total);
+    bar.setAttribute('aria-label', `${t('trayOpen', lang)} — ${money(app, total)}`);
+    bar.hidden = count === 0;
+    document.body.classList.toggle('has-cartbar', count > 0);
+  }
+
   /* Table service is off for now: the tray is a selection the diner shows to
      the waiter, not something that gets sent anywhere. Flipping
      restaurant.json -> service.ordering brings back the table field and the
@@ -499,7 +509,6 @@ export function renderStatus(app) {
   const tz = app.restaurant?.timezone ?? 'Atlantic/Canary';
   const info = status(app.restaurant?.hours, tz);
   const pill = $('#statusPill');
-  const text = pill.querySelector('.status-pill__text');
 
   const days = WEEKDAYS[lang] ?? WEEKDAYS.es;
   let label;
@@ -527,9 +536,14 @@ export function renderStatus(app) {
             : t('opensOn', lang, { d: days[info.opensDay], t: fromMinutes(info.opensAt) })}`;
   }
 
-  pill.dataset.state = state;
-  text.textContent = label;
-  pill.setAttribute('aria-label', label);
+  /* Two pills exist — one in the masthead, one in the hero — and CSS shows
+     whichever fits the viewport. Both carry the same state. */
+  for (const node of [pill, $('#statusPillHero')]) {
+    if (!node) continue;
+    node.dataset.state = state;
+    node.querySelector('.status-pill__text').textContent = label;
+    node.setAttribute('aria-label', label);
+  }
 }
 
 export function renderFooter(app) {
