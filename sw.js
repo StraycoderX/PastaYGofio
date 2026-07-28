@@ -7,7 +7,14 @@
    Same-origin only — cross-origin requests are never touched, let alone
    cached, so a third party can never poison this cache. */
 
-const VERSION = 'pyg-v2';
+/* SUBE ESTE NÚMERO cada vez que cambie el CSS, el JavaScript o el index.
+   Las hojas de estilo y los módulos se sirven desde caché primero (ver
+   cacheFirst más abajo), así que a quien ya tenga la carta instalada no le
+   llega nada nuevo hasta que este identificador cambia: el navegador solo
+   reinstala el service worker cuando este archivo es distinto. Sin subirlo,
+   un visitante que vuelve se queda con el diseño viejo y el index nuevo —
+   la peor mezcla posible. */
+const VERSION = 'pyg-v3';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 
