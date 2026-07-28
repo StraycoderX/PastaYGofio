@@ -16,6 +16,15 @@ export const T = {
   },
   pairsWith: { es: 'marida con', it: 'in abbinamento a', en: 'pairs with', de: 'passt zu' },
 
+  /* novedades */
+  newsTitle: { es: 'Novedades', it: 'Novità', en: "What's new", de: 'Neu bei uns' },
+  newsLede: {
+    es: 'Lo último que ha entrado en la carta. Se queda aquí hasta que deja de ser nuevo.',
+    it: 'Le ultime entrate nel menu. Restano qui finché non smettono di essere una novità.',
+    en: 'The latest additions to the menu. They stay here until they are no longer new.',
+    de: 'Die neuesten Gerichte auf der Karte. Sie bleiben hier, bis sie nicht mehr neu sind.'
+  },
+
   /* toolbar */
   searchPlaceholder: { es: 'Buscar plato, ingrediente…', it: 'Cerca piatto, ingrediente…', en: 'Search dish, ingredient…', de: 'Gericht, Zutat suchen…' },
   searchLabel: { es: 'Buscar en la carta', it: 'Cerca nel menu', en: 'Search the menu', de: 'Karte durchsuchen' },

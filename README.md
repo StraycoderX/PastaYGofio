@@ -17,10 +17,14 @@ lo mismo el mismo día y sigue funcionando sin conexión.
 
 Y es un turno de verdad, no un sorteo: cada categoría recorre su lista entera
 antes de repetir ninguno, así que ningún plato se queda sin salir y ninguno
-sale dos días seguidos. Delante van las novedades fijas de `featured`, que se
-enseñan siempre; los platos que estén ahí no vuelven a salir en el turno.
-Cocina puede fijar a mano la selección de una fecha concreta en
-`data/daily.json`.
+sale dos días seguidos. Cocina puede fijar a mano la selección de una fecha
+concreta en `data/daily.json`.
+
+**Novedades.** Banda propia, debajo y separada del menú del día: platos nuevos
+y promociones, que se quedan ahí hasta que cocina los retira de `featured`.
+Nunca se mezclan con las sugerencias — un plato que esté en novedades no sale
+en el turno diario, y en cuanto se retira de ahí entra en él solo. Si no hay
+ninguna, la banda entera desaparece.
 
 **Abierto / cerrado en vivo.** La cabecera calcula el estado real desde los
 horarios (`Atlantic/Canary`, no la zona del visitante): «Abierto · cierra a las

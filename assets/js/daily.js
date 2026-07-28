@@ -53,7 +53,11 @@ export function localDateKey(tz) {
 }
 
 /**
- * @returns {Array<{slot:string, label:object, item:object}>}
+ * `kind` says which block a pick belongs to: `featured` are the standing
+ * novelties, `rotation` is the menu that changes every day. They are rendered
+ * as two separate sections, so keeping them apart matters here.
+ *
+ * @returns {Array<{kind:'featured'|'rotation', slot:string, label:object, item:object}>}
  */
 export function pickOfTheDay(model, config, tz) {
   const dateKey = localDateKey(tz);
@@ -70,7 +74,7 @@ export function pickOfTheDay(model, config, tz) {
       const item = model.byId.get(typeof entry === 'string' ? entry : entry?.id);
       if (!item || chosen.has(item.uid)) return;
       chosen.add(item.uid);
-      out.push({ slot: entry?.slot ?? `pinned-${i}`, label: entry?.label ?? picks[i]?.label ?? null, item });
+      out.push({ kind: 'rotation', slot: entry?.slot ?? `pinned-${i}`, label: entry?.label ?? picks[i]?.label ?? null, item });
     });
     if (out.length) return out;
   }
@@ -81,7 +85,7 @@ export function pickOfTheDay(model, config, tz) {
     const item = model.byId.get(typeof entry === 'string' ? entry : entry?.id);
     if (!item || chosen.has(item.uid)) continue;
     chosen.add(item.uid);
-    out.push({ slot: entry?.slot ?? 'featured', label: entry?.label ?? null, item });
+    out.push({ kind: 'featured', slot: entry?.slot ?? 'featured', label: entry?.label ?? null, item });
   }
 
   for (const pick of picks) {
@@ -106,7 +110,7 @@ export function pickOfTheDay(model, config, tz) {
     const item = pool[(seed + dayNumber(dateKey) * strideFor(seed, pool.length)) % pool.length];
 
     chosen.add(item.uid);
-    out.push({ slot: pick.slot, label: pick.label ?? null, item });
+    out.push({ kind: 'rotation', slot: pick.slot, label: pick.label ?? null, item });
   }
 
   return out;

@@ -1,5 +1,5 @@
 {
-  "$comment": "Sugerencias del día. `featured` se muestra siempre, por delante de la rotación: es donde viven las novedades y promociones. `rotation` completa el resto de forma determinista a partir de la fecha, así que todos los comensales ven lo mismo el mismo día. `overrides` fija a mano la selección de una fecha concreta (YYYY-MM-DD).",
+  "$comment": "Sugerencias del día. `featured` es la banda de Novedades: se muestra siempre, aparte del menú del día, y ahí viven los platos nuevos y las promociones hasta que cocina los retira. Sin `label`, cada tarjeta enseña su categoría (Pizzas, Empezar…), que dice más que repetir «Novedad» cinco veces bajo un titular que ya lo dice. `rotation` arma el menú del día a partir de la fecha, y `overrides` fija a mano la selección de una fecha concreta (YYYY-MM-DD).",
   "$comment2": "Un menú completo cada día: entrante, pasta o ravioli, carne o pescado, pizza y el vino. Cada `pick` sortea su propio plato con la fecha, así que la elección es la misma para todos los comensales y cambia sola a medianoche. Un plato que ya esté en `featured` no vuelve a salir en la rotación, y si el sorteo cae en uno repetido pasa al siguiente. Para quitar un turno, borrar su bloque; para añadir otro (ensaladas, dulces…), copiar uno y cambiar `slot`, `from` y `label`.",
   "rotation": {
     "seedSalt": "pastaygofio-2026",
@@ -74,53 +74,23 @@
   "featured": [
     {
       "id": "bruschetta-teror",
-      "slot": "featured-1",
-      "label": {
-        "es": "Novedad",
-        "it": "Novità",
-        "en": "New",
-        "de": "Neu"
-      }
+      "slot": "featured-1"
     },
     {
       "id": "queso-plancha-mermelada",
-      "slot": "featured-2",
-      "label": {
-        "es": "Novedad",
-        "it": "Novità",
-        "en": "New",
-        "de": "Neu"
-      }
+      "slot": "featured-2"
     },
     {
       "id": "tequenos-mermelada",
-      "slot": "featured-3",
-      "label": {
-        "es": "Novedad",
-        "it": "Novità",
-        "en": "New",
-        "de": "Neu"
-      }
+      "slot": "featured-3"
     },
     {
       "id": "lomo-alto-vaca",
-      "slot": "featured-4",
-      "label": {
-        "es": "Novedad",
-        "it": "Novità",
-        "en": "New",
-        "de": "Neu"
-      }
+      "slot": "featured-4"
     },
     {
       "id": "pizza-estrella",
-      "slot": "featured-5",
-      "label": {
-        "es": "Novedad",
-        "it": "Novità",
-        "en": "New",
-        "de": "Neu"
-      }
+      "slot": "featured-5"
     }
   ]
 }

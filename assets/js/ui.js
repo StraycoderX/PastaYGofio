@@ -112,45 +112,57 @@ function syncRail(visibleIds) {
 export function renderDaily(app) {
   const tz = app.restaurant?.timezone ?? 'Atlantic/Canary';
   $('#heroDate').textContent = longDate(app.lang, tz);
+  $('#newsLede').textContent = t('newsLede', app.lang);
 
-  const host = clear($('#daily'));
-  const picks = pickOfTheDay(app.model, app.daily, tz);
+  const today = clear($('#daily'));
+  const news = clear($('#newsStrip'));
+  let novelties = 0;
 
-  for (const { label, item } of picks) {
-    const pairing = item.pairing ? app.model.byId.get(item.pairing) : null;
-    const name = localise(item.name, app.lang);
-
-    host.append(el('button', {
-      class: 'pick',
-      type: 'button',
-      style: { '--sect': item.accent },
-      dataset: { open: item.uid }
-    },
-      el('span', { class: 'pick__media' },
-        item.image
-          /* above the fold — these four load eagerly */
-          ? el('img', { src: item.image, alt: '', decoding: 'async' })
-          : el('span', { class: 'plate' }, el('span', { class: 'plate__mono', text: name.trim().charAt(0).toUpperCase() })),
-        el('span', { class: 'pick__slot', text: label ? localise(label, app.lang) : localise(item.sectionName, app.lang) })
-      ),
-      el('span', { class: 'pick__body' },
-        el('span', { class: 'pick__name', text: name }),
-        /* wines carry no prose — show grapes and region instead */
-        el('span', {
-          class: 'pick__desc',
-          text: item.description
-            ? localise(item.description, app.lang)
-            : [item.meta?.grapes?.join(' · '), item.meta?.region].filter(Boolean).join(' — ')
-        }),
-        el('span', { class: 'pick__foot' },
-          el('span', { class: 'pick__price', text: item.from != null ? money(app, item.from) : '' }),
-          pairing
-            ? el('span', { class: 'pick__pair', text: `${t('pairsWith', app.lang)} ${localise(pairing.name, app.lang)}` })
-            : null
-        )
-      )
-    ));
+  /* Two bands, one list: the day's menu rotates, the novelties stand. Mixing
+     them put ten cards in the hero and buried the part that changes. */
+  for (const pick of pickOfTheDay(app.model, app.daily, tz)) {
+    if (pick.kind === 'featured') { news.append(pickCard(app, pick)); novelties++; }
+    else today.append(pickCard(app, pick));
   }
+
+  /* nothing new on the carte: the band goes, heading and all */
+  $('#news').hidden = novelties === 0;
+}
+
+function pickCard(app, { label, item }) {
+  const pairing = item.pairing ? app.model.byId.get(item.pairing) : null;
+  const name = localise(item.name, app.lang);
+
+  return el('button', {
+    class: 'pick',
+    type: 'button',
+    style: { '--sect': item.accent },
+    dataset: { open: item.uid }
+  },
+    el('span', { class: 'pick__media' },
+      item.image
+        /* above the fold — these load eagerly */
+        ? el('img', { src: item.image, alt: '', decoding: 'async' })
+        : el('span', { class: 'plate' }, el('span', { class: 'plate__mono', text: name.trim().charAt(0).toUpperCase() })),
+      el('span', { class: 'pick__slot', text: label ? localise(label, app.lang) : localise(item.sectionName, app.lang) })
+    ),
+    el('span', { class: 'pick__body' },
+      el('span', { class: 'pick__name', text: name }),
+      /* wines carry no prose — show grapes and region instead */
+      el('span', {
+        class: 'pick__desc',
+        text: item.description
+          ? localise(item.description, app.lang)
+          : [item.meta?.grapes?.join(' · '), item.meta?.region].filter(Boolean).join(' — ')
+      }),
+      el('span', { class: 'pick__foot' },
+        el('span', { class: 'pick__price', text: item.from != null ? money(app, item.from) : '' }),
+        pairing
+          ? el('span', { class: 'pick__pair', text: `${t('pairsWith', app.lang)} ${localise(pairing.name, app.lang)}` })
+          : null
+      )
+    )
+  );
 }
 
 /* ------------------------------------------------------------------ *

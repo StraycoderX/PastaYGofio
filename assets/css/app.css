@@ -556,6 +556,29 @@ a:hover { text-decoration-color: var(--accent); }
 }
 
 /* =========================================================================
+   novedades — su propia banda, no cinco tarjetas más en el hero
+   ========================================================================= */
+
+.news {
+  padding-block: clamp(1.6rem, 4vw, 2.6rem);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.news__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .15rem 1rem;
+}
+.news__title {
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  font-variation-settings: 'opsz' 96, 'WONK' 1;
+}
+.news__lede { color: var(--fg-muted); font-size: .88rem; max-width: 58ch; }
+/* beats both `.daily` and its phone override, wherever they sit in the file */
+.news .daily { margin-top: clamp(1rem, 2.6vw, 1.5rem); }
+
+/* =========================================================================
    toolbar — search + filters
    ========================================================================= */
 
