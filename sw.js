@@ -56,7 +56,13 @@ const PRECACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL)
-      .then((cache) => cache.addAll(PRECACHE))
+      /* `cache: 'reload'` es imprescindible, no un detalle. Sin él estas
+         peticiones pasan por el caché HTTP del navegador, que acaba de
+         guardarse la versión anterior — GitHub Pages las sirve con diez
+         minutos de validez —, así que el service worker nuevo se precachearía
+         los archivos viejos y el rediseño no llegaría nunca. Comprobado:
+         subir VERSION sin esto deja las fotos con el recorte antiguo. */
+      .then((cache) => cache.addAll(PRECACHE.map((path) => new Request(path, { cache: 'reload' }))))
       .then(() => self.skipWaiting())
   );
 });
