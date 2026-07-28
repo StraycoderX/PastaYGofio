@@ -259,6 +259,19 @@ comensal.
 - **Alérgenos de los platos nuevos.** Declarados por analogía con platos
   parecidos de la carta: queso → lactosa; tequeños → gluten y lactosa; lomo
   alto → gluten (igual que el entrecot). Confirmar en cocina.
+
+- **Pizza Estrella: alérgenos y gajos.** Declara gluten y lactosa, como el
+  resto de pizzas. Es el plato donde más importa confirmarlo, porque los gajos
+  cambian: si algún día lleva frutos secos, anchoas o marisco, hay que
+  añadirlos a `allergens` ese mismo día o el filtro de alérgenos dirá que es
+  apto para alguien que no puede comerlo.
+
+- **Foto de la Pizza Estrella.** Sale del cartel, y el cartel rodea la pizza de
+  rótulos por los cuatro lados: cualquier recorte que abarque la estrella
+  entera se lleva también trozos de letra. El que hay es el mayor limpio
+  (620x413) y enseña seis gajos, pero no la silueta de estrella, que es lo que
+  da nombre al plato. Con la foto original sin los textos encima entra la
+  estrella completa: mismo nombre de archivo y listo.
 - **Maridajes.** Los `pairing` de cada plato son sugerencias nuestras sobre la
   bodega real de la casa. Ajústalos a criterio de sala.
 - **Alérgenos de la carta original.** «Salsa de tomate» y «Risotto con setas»

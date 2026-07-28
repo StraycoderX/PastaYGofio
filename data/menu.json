@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-07-27",
+  "updated": "2026-07-28",
   "source": "carta-real",
   "note": "Transcrita de la carta publicada en etnoteam.io/pastaygofio (julio 2026). Fotos extraídas de esa misma carta.",
   "sections": [
@@ -1284,6 +1284,36 @@
         }
       ],
       "items": [
+        {
+          "id": "pizza-estrella",
+          "name": {
+            "es": "Pizza Estrella",
+            "it": "Pizza Stella",
+            "en": "Star Pizza",
+            "de": "Sternpizza"
+          },
+          "description": {
+            "es": "Puntas rellenas alrededor de un centro repartido en gajos, cada uno con su propia combinación. Masa artesanal horneada al momento: se pone en medio de la mesa, se comparte y cada punta trae su sorpresa.",
+            "it": "Punte ripiene attorno a un centro diviso a spicchi, ognuno con la sua combinazione. Impasto artigianale sfornato al momento: si mette in mezzo alla tavola, si divide e ogni punta è una sorpresa.",
+            "en": "Stuffed points around a centre split into wedges, each with a topping of its own. Artisan dough baked to order: put it in the middle of the table, share it, and every point brings a surprise.",
+            "de": "Gefüllte Zacken um eine Mitte, die in Stücke geteilt ist — jedes mit eigenem Belag. Handgemachter Teig, frisch gebacken: in die Tischmitte stellen, teilen, und jede Zacke ist eine Überraschung."
+          },
+          "price": {
+            "amount": 9.9
+          },
+          "allergens": [
+            "gluten",
+            "lactose"
+          ],
+          "diet": [],
+          "image": "pizza-estrella.webp",
+          "pairing": "lambrusco-amabile",
+          "tags": [
+            "new",
+            "signature",
+            "sharing"
+          ]
+        },
         {
           "id": "pizza-margarita",
           "name": {
