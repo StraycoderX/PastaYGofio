@@ -37,6 +37,13 @@ insensible a acentos: `noquis` encuentra «Ñoquis», y un alemán puede escribi
 **Funciona sin conexión.** PWA instalable con service worker. En un valle con
 cobertura irregular, la carta abre igual después de escanear el QR una vez.
 
+**Pensada para el móvil primero.** Que es como se lee: alguien de pie con el
+teléfono en una mano. La cabecera se queda en una sola fila y ocupa 164 px de
+844 en lugar de 209; cada plato es una fila con la foto cuadrada, el nombre y
+el precio; y cuando hay algo elegido aparece abajo una barra con el número de
+platos y el total, para no tener que subir 94 platos hasta el icono de la
+cesta.
+
 Además: modo claro/oscuro, enlaces directos a cada plato (`?dish=…`), maridajes,
 alérgenos y nutrición por plato, hoja de estilos de impresión, teclado y
 lectores de pantalla, y respeto por `prefers-reduced-motion`.
@@ -98,6 +105,13 @@ Después de tocar cualquier archivo de `data/`:
 ```bash
 npm run check      # valida datos + lista de caché offline
 ```
+
+> **Al tocar `assets/` o `index.html`, sube `VERSION` en `sw.js`.**
+> El CSS y los módulos se sirven desde caché primero, y el navegador solo
+> reinstala el service worker cuando ese archivo cambia. Sin subirlo, quien ya
+> tenga la carta abierta alguna vez se queda con la versión anterior para
+> siempre. El cambio llega a la segunda visita: la página que dispara la
+> reinstalación ya se cargó con la hoja de estilos vieja.
 
 La validación **bloquea el despliegue** si encuentra un alérgeno mal escrito, un
 precio negativo, un id duplicado, una traducción que falta, una imagen que no
