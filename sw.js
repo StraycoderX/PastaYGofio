@@ -14,7 +14,7 @@
    reinstala el service worker cuando este archivo es distinto. Sin subirlo,
    un visitante que vuelve se queda con el diseño viejo y el index nuevo —
    la peor mezcla posible. */
-const VERSION = 'pyg-v3';
+const VERSION = 'pyg-v4';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 

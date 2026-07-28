@@ -448,6 +448,10 @@ a:hover { text-decoration-color: var(--accent); }
   scrollbar-width: thin;
   margin-inline: calc(var(--pad-x) * -1);
   padding-inline: var(--pad-x);
+  /* Without this the snap port is the padding box, so the first card snaps
+     flush to the screen edge and sits a centimetre to the left of the heading
+     above it. The strip is meant to bleed off the right, not the left. */
+  scroll-padding-inline: var(--pad-x);
 }
 @media (min-width: 860px) {
   .daily {
@@ -540,8 +544,11 @@ a:hover { text-decoration-color: var(--accent); }
   .hero__eyebrow { font-size: .68rem; letter-spacing: .16em; }
   .hero__title { font-size: clamp(1.85rem, 8vw, 2.4rem); margin-block: .25rem .4rem; }
   .hero__lede { font-size: .92rem; line-height: 1.5; }
-  .daily { gap: .7rem; margin-top: 1.1rem; grid-auto-columns: min(72vw, 280px); }
-  .pick__media { aspect-ratio: 4 / 3; }
+  /* nearly a full screen each, so the next one peeking in is what tells you
+     the strip scrolls */
+  .daily { gap: .75rem; margin-top: 1.1rem; grid-auto-columns: min(84vw, 330px); }
+  .pick { border-radius: 18px; }
+  .pick__media { aspect-ratio: 3 / 2; }
   .pick__body { padding: .7rem .85rem .85rem; }
   /* the pairing reads as a caption under the price, not squeezed beside it */
   .pick__foot { padding-top: .6rem; flex-direction: column; align-items: flex-start; gap: .1rem; }
@@ -928,61 +935,94 @@ a:hover { text-decoration-color: var(--accent); }
   letter-spacing: .04em;
 }
 
-/* On a phone the card turns into a compact row: a whole carte of 94 dishes is
-   scannable this way, and the full photo is one tap away in the detail sheet.
-   This block sits *after* the base card rules on purpose — the phone overrides
-   share their specificity, so source order is what decides. */
+/* On a phone the photo runs the full width of the card and the text sits under
+   it. This block sits *after* the base card rules on purpose — the phone
+   overrides share their specificity, so source order is what decides. */
 @media (max-width: 560px) {
   .card--photo {
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
   }
-  /* A square thumbnail with its own height, not one stretched to the card's.
-     Letting the photo fill the row turned every dish into a vertical sliver:
-     `object-fit: cover` on a 104x165 box crops a plate down to a strip of
-     sauce. Centred and inset, the crop matches what the camera saw. */
+  /* 3:2 rather than a square: most of these photos came out of the old carte
+     wide and short, so a taller frame would crop the plate off its own dish. */
   .card--photo .card__media {
-    flex: none;
-    align-self: center;
-    width: 116px;
-    aspect-ratio: 1;
-    margin: .6rem 0 .6rem .6rem;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    margin: 0;
     border: 0;
-    border-radius: 13px;
-    box-shadow: 0 1px 4px rgb(28 20 10 / 12%);
+    border-radius: 0;
   }
-  .card--photo .card__body { padding: .7rem .85rem .7rem .8rem; min-width: 0; }
+  /* The photo fades into the card instead of stopping on a hard line, so the
+     dish and its name read as one block. Mixed from --surface, so it works the
+     same in the dark theme. */
+  .card--photo .card__media::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -1px;
+    height: 18%;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--surface) 0,
+      color-mix(in srgb, var(--surface) 34%, transparent) 46%,
+      transparent 100%);
+  }
+  .card--photo .card__body { padding: .3rem 1rem .95rem; min-width: 0; }
 
   .card__top { gap: .1rem .55rem; flex-wrap: wrap; }
   /* two lines of name, so the price always lands beside the first one */
   .card__name {
-    font-size: .97rem;
-    line-height: 1.22;
+    font-size: 1.08rem;
+    line-height: 1.2;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .card__price { font-size: .97rem; }
+  .card__price { font-size: 1.06rem; }
   /* Two prices (mediana / familiar) do not fit beside the name on a phone, and
      clamping the name gives it an automatic minimum size of zero — it
      collapsed to nothing and the pizzas showed a price with no dish. Give the
      pair its own line instead. */
-  .card__prices { width: 100%; gap: .05rem .7rem; }
-  .card__prices span { font-size: .93rem; }
-  .card__prices small { font-size: .63rem; }
+  .card__prices { width: 100%; gap: .05rem .8rem; }
+  .card__prices span { font-size: .98rem; }
+  .card__prices small { font-size: .64rem; }
   .card--photo .card__desc {
     margin-top: .3rem;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    font-size: .81rem;
+    font-size: .84rem;
     line-height: 1.45;
+  }
+
+  /* Badges move onto the photo. They cost a whole row underneath, and up here
+     they label the dish the way a sticker on a menu does. The card is the
+     containing block — it is already position: relative. */
+  .card--photo .card__meta {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: .55rem;
+    inset-inline-start: .55rem;
+    margin: 0;
+    gap: .3rem;
+    max-width: calc(100% - 1.1rem);
+  }
+  .card--photo .card__meta .badge {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    backdrop-filter: blur(8px) saturate(1.3);
+    box-shadow: 0 1px 4px rgb(20 14 8 / 22%);
+  }
+  .card--photo .card__meta .badge--new {
+    background: var(--accent);
+    color: var(--accent-ink);
   }
   .card__meta { margin-top: .45rem; gap: .25rem; }
   /* a third badge only ever wrapped onto a line of its own */
   .card__meta .badge:nth-child(n+3) { display: none; }
-  .badge { font-size: .65rem; padding: .14rem .45rem; }
+  .badge { font-size: .65rem; padding: .16rem .5rem; }
 
   /* the dashed rule cost a whole row of pixels and separated nothing */
   .card__foot { padding-top: .55rem; border-top: 0; flex-wrap: wrap; row-gap: .4rem; }
@@ -992,12 +1032,49 @@ a:hover { text-decoration-color: var(--accent); }
      to share a line — so the foot wraps and gives them their own, right-aligned.
      A lone "Añadir" still fits next to "Ver detalle" and stays there. */
   .card__adds { flex-wrap: nowrap; margin-inline-start: auto; }
-  .add { font-size: .75rem; padding: .28rem .62rem .28rem .5rem; }
+  .add { font-size: .78rem; padding: .32rem .7rem .32rem .55rem; }
 
-  .card { box-shadow: 0 1px 2px rgb(28 20 10 / 5%); }
+  .card { box-shadow: 0 2px 10px rgb(28 20 10 / 7%); border-radius: 18px; }
   .card:hover { transform: none; }
   .card:hover .card__media img { transform: none; }
-  .grid { gap: .6rem; }
+  .grid { gap: .85rem; }
+}
+
+/* --- the photos moving with the page ------------------------------------
+   Scroll-driven, so there is no scroll listener and nothing to keep in sync:
+   the browser ties each animation to how far its own card has crossed the
+   screen. Where `view()` is missing the cards simply sit still, which is why
+   none of this needs a fallback — see the reduced-motion block at the end,
+   which does have to switch it off by hand, because a timeline-driven
+   animation ignores the duration override that silences everything else. */
+@supports (animation-timeline: view()) {
+  @media (max-width: 560px) {
+    .card {
+      animation: cardIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(26px) scale(.97); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* The photo is taller than its frame and drifts inside it as the card
+       goes by: the plate keeps moving after the card has stopped, which is
+       what makes a flat list feel like it has depth. 16% of the frame — far
+       enough to read as motion, short enough not to look like a glitch. */
+    .card--photo .card__media img {
+      height: 116%;
+      transition: none;
+      animation: photoDrift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    @keyframes photoDrift {
+      from { transform: translateY(-13.8%); }
+      to   { transform: translateY(0); }
+    }
+  }
 }
 
 .empty {
@@ -1502,6 +1579,12 @@ body.is-locked .toast {
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
+  /* Scroll-driven animations run off the scroll position, not a clock, so
+     zeroing the duration above does nothing to them. They have to be turned
+     off by name — and the photo put back to the height of its frame, since
+     the extra 16% only existed to give the drift somewhere to go. */
+  .card { animation: none !important; opacity: 1; transform: none; }
+  .card--photo .card__media img { animation: none !important; height: 100%; }
 }
 
 @media print {
