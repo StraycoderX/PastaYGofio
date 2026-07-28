@@ -1,9 +1,59 @@
 {
   "$comment": "Sugerencias del día. `featured` se muestra siempre, por delante de la rotación: es donde viven las novedades y promociones. `rotation` completa el resto de forma determinista a partir de la fecha, así que todos los comensales ven lo mismo el mismo día. `overrides` fija a mano la selección de una fecha concreta (YYYY-MM-DD).",
-  "$comment2": "La pizza del día salía de la rotación (un día la Diavola, otro la Capricciosa). Mientras la Estrella sea la novedad vive en `featured`, que es fija: si volviera la rotación, algunos días la taparía otra pizza. Para recuperarla, devolver aquí el pick `pizza` con from: [\"pizzas\"].",
+  "$comment2": "Un menú completo cada día: entrante, pasta o ravioli, carne o pescado, pizza y el vino. Cada `pick` sortea su propio plato con la fecha, así que la elección es la misma para todos los comensales y cambia sola a medianoche. Un plato que ya esté en `featured` no vuelve a salir en la rotación, y si el sorteo cae en uno repetido pasa al siguiente. Para quitar un turno, borrar su bloque; para añadir otro (ensaladas, dulces…), copiar uno y cambiar `slot`, `from` y `label`.",
   "rotation": {
     "seedSalt": "pastaygofio-2026",
     "picks": [
+      {
+        "slot": "starter",
+        "from": [
+          "starters"
+        ],
+        "label": {
+          "es": "Para empezar",
+          "it": "Per iniziare",
+          "en": "To start",
+          "de": "Zum Anfang"
+        }
+      },
+      {
+        "slot": "pasta",
+        "from": [
+          "pasta",
+          "ravioli"
+        ],
+        "label": {
+          "es": "La pasta de hoy",
+          "it": "La pasta di oggi",
+          "en": "Today's pasta",
+          "de": "Pasta des Tages"
+        }
+      },
+      {
+        "slot": "main",
+        "from": [
+          "meat",
+          "fish"
+        ],
+        "label": {
+          "es": "Carne o pescado",
+          "it": "Carne o pesce",
+          "en": "Meat or fish",
+          "de": "Fleisch oder Fisch"
+        }
+      },
+      {
+        "slot": "pizza",
+        "from": [
+          "pizzas"
+        ],
+        "label": {
+          "es": "Del horno",
+          "it": "Dal forno",
+          "en": "From the oven",
+          "de": "Aus dem Ofen"
+        }
+      },
       {
         "slot": "wine",
         "from": [
@@ -66,10 +116,10 @@
       "id": "pizza-estrella",
       "slot": "featured-5",
       "label": {
-        "es": "Del horno",
-        "it": "Dal forno",
-        "en": "From the oven",
-        "de": "Aus dem Ofen"
+        "es": "Novedad",
+        "it": "Novità",
+        "en": "New",
+        "de": "Neu"
       }
     }
   ]

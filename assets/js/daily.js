@@ -17,6 +17,32 @@ function hash(str) {
   return h >>> 0;
 }
 
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+
+/**
+ * How far to step through a pool from one day to the next.
+ *
+ * Any stride coprime with the pool size walks every dish before repeating one,
+ * which is the difference between a rotation and a raffle: drawing each day
+ * independently gave the same starter two days running often enough to look
+ * broken, and left some dishes never shown at all. Derived from the slot so
+ * each one walks its pool in a different order.
+ */
+function strideFor(seed, size) {
+  if (size < 3) return 1;
+  for (let i = 0; i < size; i++) {
+    const stride = ((seed + i) % (size - 1)) + 1;
+    if (gcd(stride, size) === 1) return stride;
+  }
+  return 1;
+}
+
+/** Whole days since the epoch, from a YYYY-MM-DD key. */
+function dayNumber(dateKey) {
+  const [y, m, d] = dateKey.split('-').map(Number);
+  return Math.floor(Date.UTC(y, m - 1, d) / 86_400_000);
+}
+
 /** Today's date as YYYY-MM-DD in the restaurant's timezone. */
 export function localDateKey(tz) {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -63,19 +89,21 @@ export function pickOfTheDay(model, config, tz) {
     for (const section of model.sections) {
       if (!pick.from?.includes(section.id)) continue;
       for (const item of section.items) {
-        if (!excluded.has(item.id) && item.variants.length) pool.push(item);
+        /* Dishes already on show are left out of the pool, not stepped over
+           later: three of the ten starters are pinned as `featured`, and
+           skipping them made consecutive days land on the same free
+           neighbour — the same starter turned up four days running. */
+        if (excluded.has(item.id) || chosen.has(item.uid) || !item.variants.length) continue;
+        pool.push(item);
       }
     }
     if (!pool.length) continue;
 
-    /* Deterministic index, stepping forward if that dish is already on show. */
-    const seed = hash(`${salt}|${dateKey}|${pick.slot}`);
-    let item = null;
-    for (let step = 0; step < pool.length; step++) {
-      const candidate = pool[(seed + step) % pool.length];
-      if (!chosen.has(candidate.uid)) { item = candidate; break; }
-    }
-    if (!item) continue;
+    /* Where the slot starts in its pool never changes; the day is what moves
+       it along. Same date, same dish, for every diner and with no backend —
+       and every dish in the pool gets its turn before any comes round again. */
+    const seed = hash(`${salt}|${pick.slot}`);
+    const item = pool[(seed + dayNumber(dateKey) * strideFor(seed, pool.length)) % pool.length];
 
     chosen.add(item.uid);
     out.push({ slot: pick.slot, label: pick.label ?? null, item });

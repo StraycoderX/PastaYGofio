@@ -10,11 +10,17 @@ repositorio.
 
 ## Qué trae
 
-**Sugerencias del día.** Una selección — entrante, plato, pizza, postre — que
-cambia sola cada día y propone el vino que mejor le va. No hay servidor: la
-elección se deriva de la fecha con un hash estable, así que todos los comensales
-ven lo mismo el mismo día y sigue funcionando sin conexión. Cocina puede fijar a
-mano la selección de una fecha concreta en `data/daily.json`.
+**Sugerencias del día.** Un menú entero que se arma solo cada día: entrante,
+pasta o ravioli, carne o pescado, pizza y el vino que mejor le va. No hay
+servidor — la elección se deriva de la fecha, así que todos los comensales ven
+lo mismo el mismo día y sigue funcionando sin conexión.
+
+Y es un turno de verdad, no un sorteo: cada categoría recorre su lista entera
+antes de repetir ninguno, así que ningún plato se queda sin salir y ninguno
+sale dos días seguidos. Delante van las novedades fijas de `featured`, que se
+enseñan siempre; los platos que estén ahí no vuelven a salir en el turno.
+Cocina puede fijar a mano la selección de una fecha concreta en
+`data/daily.json`.
 
 **Abierto / cerrado en vivo.** La cabecera calcula el estado real desde los
 horarios (`Atlantic/Canary`, no la zona del visitante): «Abierto · cierra a las
@@ -266,12 +272,6 @@ comensal.
   añadirlos a `allergens` ese mismo día o el filtro de alérgenos dirá que es
   apto para alguien que no puede comerlo.
 
-- **Foto de la Pizza Estrella.** Sale del cartel, y el cartel rodea la pizza de
-  rótulos por los cuatro lados: cualquier recorte que abarque la estrella
-  entera se lleva también trozos de letra. El que hay es el mayor limpio
-  (620x413) y enseña seis gajos, pero no la silueta de estrella, que es lo que
-  da nombre al plato. Con la foto original sin los textos encima entra la
-  estrella completa: mismo nombre de archivo y listo.
 - **Maridajes.** Los `pairing` de cada plato son sugerencias nuestras sobre la
   bodega real de la casa. Ajústalos a criterio de sala.
 - **Alérgenos de la carta original.** «Salsa de tomate» y «Risotto con setas»
