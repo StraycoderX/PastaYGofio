@@ -49,8 +49,10 @@ cobertura irregular, la carta abre igual después de escanear el QR una vez.
 
 **Pensada para el móvil primero.** Que es como se lee: alguien de pie con el
 teléfono en una mano. La cabecera se queda en una sola fila y ocupa 164 px de
-844 en lugar de 209; cada plato es una fila con la foto cuadrada, el nombre y
-el precio; y cuando hay algo elegido aparece abajo una barra con el número de
+844 en lugar de 209. Cada plato lleva su foto a todo el ancho —356×237 en un
+móvil de 390— y la foto va a la deriva dentro de su marco mientras la tarjeta
+cruza la pantalla, así que la lista tiene profundidad en vez de ser un
+catálogo. Y cuando hay algo elegido aparece abajo una barra con el número de
 platos y el total, para no tener que subir 94 platos hasta el icono de la
 cesta.
 
@@ -170,6 +172,30 @@ Empaqueta todo — CSS, fuentes, ilustraciones, datos y JavaScript — en un ún
 HTML sin ninguna petición de red. Se abre con doble clic desde una memoria USB,
 se manda por correo o se deja en la tablet de la barra: funciona igual sin
 internet. Útil también para enseñar la carta a alguien sin desplegar nada.
+
+---
+
+## El QR de la carta
+
+```bash
+pip install segno
+npm run qr        # -> dist/qr-carta.svg, .png y .html
+```
+
+`dist/qr-carta.html` se abre en el navegador y se imprime: la primera página
+trae cuatro tarjetas de mesa a media A5, la segunda un cartel para la puerta o
+la barra. El aviso de arriba no sale impreso. El `.svg` y el `.png` son el
+código a secas, por si hay que meterlo en un flyer, en Instagram o en la carta
+de papel.
+
+Si algún día cambia el dominio, se regenera con `npm run qr -- --url https://…`
+y se vuelve a imprimir; el QR no es más que un enlace escrito de otra forma.
+
+**Al recortar y al pegarlo en cualquier sitio, respeta los tres cuadrados de
+las esquinas.** Son los localizadores: tapar aunque sea uno impide que el
+lector encuentre el código, por muy alta que sea la corrección de errores.
+Una mancha en el centro, en cambio, no molesta — medido, aguanta hasta un 14 %
+del código cubierto, y se lee impreso incluso a 20 mm de lado.
 
 ---
 
