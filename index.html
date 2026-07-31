@@ -219,10 +219,12 @@
   <div class="tray__body" id="trayBody"></div>
   <footer class="tray__foot">
     <div class="tray__table" id="trayTable">
-      <label class="tray__table-label" for="tableInput" data-i18n="tableLabel">Mesa</label>
-      <!-- Tables are S1-S11 and T1-T12, so a numeric keypad cannot type them. -->
-      <input class="tray__table-input" id="tableInput" type="text" inputmode="text" autocapitalize="characters"
-             autocomplete="off" spellcheck="false" maxlength="8">
+      <!-- Read-only on purpose. The table comes from the QR taped to that
+           table and nothing else can set it, so nobody can send food to a
+           table they are not sitting at. A wrong number is fixed by the
+           waiter, not by the diner. -->
+      <span class="tray__table-label" data-i18n="tableLabel">Mesa</span>
+      <output class="tray__table-value" id="tableValue"></output>
       <p class="tray__table-hint" id="tableHint"></p>
     </div>
     <div class="tray__total">

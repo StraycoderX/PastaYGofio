@@ -17,13 +17,14 @@ const app = {
   daily: null,
   /** Table number for this sitting, or null when we simply do not know. */
   table: null,
-  tableFromQr: false,
   tray: new Tray()
 };
 
-/* Table numbers come off the QR taped to the table: /?mesa=7. Kept short and
-   alphanumeric so nothing else can ride in on the query string — the value
-   ends up in a WhatsApp message and on screen. */
+/* The QR taped to the table is the only way in: /?mesa=S1. There is no field
+   to type it, so a diner cannot claim a table they are not sitting at — and
+   an order that says S1 really came from a phone at S1.
+   Kept short and alphanumeric so nothing else can ride in on the query
+   string: the value ends up in a WhatsApp message and on screen. */
 const TABLE_RE = /^[A-Za-z0-9-]{1,8}$/;
 
 function pickTable() {
@@ -32,17 +33,14 @@ function pickTable() {
 
   if (fromQr && TABLE_RE.test(fromQr)) {
     app.table = fromQr.toUpperCase();
-    app.tableFromQr = true;
     writeSession('table', app.table);
-    writeSession('tableFromQr', '1');
     return;
   }
 
+  /* Same sitting, later scroll: the QR is scanned once and the number has to
+     survive a reload. sessionStorage, so closing the tab forgets it. */
   const saved = readSession('table');
-  if (saved && TABLE_RE.test(saved)) {
-    app.table = saved.toUpperCase();
-    app.tableFromQr = readSession('tableFromQr') === '1';
-  }
+  if (saved && TABLE_RE.test(saved)) app.table = saved.toUpperCase();
 }
 
 /* ------------------------------------------------------------------ *
@@ -287,21 +285,6 @@ function wire() {
   });
 
   /* search */
-  /* table number — the one field the diner may need to correct */
-  const table = $('#tableInput');
-  table.value = app.table ?? '';
-  table.addEventListener('input', () => {
-    const value = table.value.trim();
-    const valid = value === '' || TABLE_RE.test(value);
-    table.setAttribute('aria-invalid', String(!valid));
-    if (!valid) return;
-    app.table = value ? value.toUpperCase() : null;
-    app.tableFromQr = false;
-    writeSession('table', app.table);
-    writeSession('tableFromQr', '');
-    renderTray(app);
-  });
-
   const search = $('#searchInput');
   let debounce = 0;
   search.addEventListener('input', () => {

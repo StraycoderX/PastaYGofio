@@ -1372,7 +1372,7 @@ a:hover { text-decoration-color: var(--accent); }
 .tray__total strong { font-family: var(--font-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
 .tray__disclaimer { font-size: .72rem; color: var(--fg-muted); }
 
-/* table number — filled in from the QR, correctable by hand */
+/* table number — read from the QR on that table, and shown, not edited */
 .tray__table {
   display: grid;
   grid-template-columns: auto auto 1fr;
@@ -1387,27 +1387,21 @@ a:hover { text-decoration-color: var(--accent); }
   font-weight: 700;
   color: var(--fg-muted);
 }
-.tray__table-input {
-  width: 4.2rem;
-  padding: .3rem .55rem;
-  text-align: center;
+/* Deliberately not a field: no border, no focus ring, nothing that invites a
+   tap. It reads as a stamp, which is what it is. */
+.tray__table-value {
+  padding: .1rem .6rem;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
   font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  background: var(--surface-2);
+  letter-spacing: .02em;
 }
-.tray__table-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
-  outline: none;
-}
-.tray__table-input[aria-invalid="true"] {
-  border-color: var(--terracotta);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--terracotta) 22%, transparent);
-}
+/* takeaway: there is no table to stamp, so the row is just the note */
+.tray__table[data-empty="true"] .tray__table-label,
+.tray__table[data-empty="true"] .tray__table-value { display: none; }
 .tray__table-hint {
   grid-column: 1 / -1;
   font-size: .72rem;

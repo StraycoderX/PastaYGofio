@@ -126,21 +126,24 @@ export const T = {
   decrease: { es: 'Quitar uno', it: 'Togli uno', en: 'Remove one', de: 'Eins weniger' },
   /* table service */
   tableLabel: { es: 'Mesa', it: 'Tavolo', en: 'Table', de: 'Tisch' },
-  tablePlaceholder: { es: 'nº', it: 'n.', en: 'no.', de: 'Nr.' },
+  /* No longer "change it if it is wrong" — there is nothing to change. The
+     way out of a wrong number is a person, and saying so is what stops
+     someone hunting for a field that is not there. */
   tableFromQr: {
-    es: 'Leído del QR de tu mesa. Cámbialo si no es correcto.',
-    it: 'Letto dal QR del tuo tavolo. Modificalo se non è corretto.',
-    en: 'Read from your table QR code. Change it if it is wrong.',
-    de: 'Vom QR-Code Ihres Tisches gelesen. Bei Bedarf ändern.'
+    es: 'Leída del QR de tu mesa. Si no es la tuya, dínoslo antes de enviar.',
+    it: 'Letto dal QR del tuo tavolo. Se non è il tuo, dillo prima di inviare.',
+    en: 'Read from your table’s QR code. If it is not yours, tell us before sending.',
+    de: 'Vom QR-Code Ihres Tisches gelesen. Stimmt er nicht, sagen Sie uns vor dem Senden Bescheid.'
   },
-  /* Empty is not a missing field, it is the other kind of order — say so, or
-     someone sitting at a table who never scanned the QR sends their lunch to
-     the takeaway list without noticing. */
+  /* Without a table this is a takeaway order, and someone sitting in the
+     dining room needs to be told how to change that — otherwise their lunch
+     quietly joins the takeaway list. The QR on their own table is the answer,
+     and the only one. */
   tableAsk: {
-    es: 'Si estás en el local, escribe tu mesa. Vacío, sale como pedido para llevar.',
-    it: 'Se sei nel locale, scrivi il tuo tavolo. Vuoto, parte come ordine da asporto.',
-    en: 'If you are in the restaurant, enter your table. Left empty, it goes as takeaway.',
-    de: 'Wenn Sie im Lokal sind, geben Sie Ihren Tisch an. Leer gilt als Mitnahme.'
+    es: '¿Estás en el local? Escanea el QR de tu mesa y el pedido irá a cocina.',
+    it: 'Sei nel locale? Inquadra il QR del tuo tavolo e l’ordine andrà in cucina.',
+    en: 'In the restaurant? Scan the QR code on your table and the order goes to the kitchen.',
+    de: 'Sind Sie im Lokal? Scannen Sie den QR-Code auf Ihrem Tisch, dann geht die Bestellung in die Küche.'
   },
   trayDisclaimerTable: {
     es: 'Al enviarlo nos llega tu mesa y lo que habéis elegido. Te lo confirmamos en sala antes de ponerlo en marcha.',

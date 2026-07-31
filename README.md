@@ -209,12 +209,22 @@ una sola cosa: si sabemos la mesa.
 | **Con mesa** | Enviar pedido a cocina | «Hola, estamos en la Mesa S1 y nos gustaría pedir:» |
 | **Sin mesa** | Enviar pedido para llevar | «Hola, me gustaría hacer este pedido para llevar:» y pide hora de recogida |
 
-El número de mesa entra solo al escanear el QR de esa mesa (`…/?mesa=S1`), pero
-escribirlo a mano en la cesta vale igual: lo que decide es si hay adónde llevar
-la comida, no de dónde salió el dato. Quien lo escribe ve el botón cambiar en
-el momento, y quien lo borra vuelve a «para llevar».
+**El número de mesa no se puede escribir.** Entra solo al escanear el QR de esa
+mesa (`…/?mesa=S1`) y en la cesta se enseña como un sello, sin campo que tocar:
+así nadie manda comida a una mesa en la que no está sentado, y un pedido que
+dice S1 salió de verdad de un teléfono en la S1. Si el número no cuadra, lo
+arregla el camarero, y el aviso lo dice: «si no es la tuya, dínoslo antes de
+enviar».
+
+Sin mesa el pedido es para llevar, y a quien esté sentado en el local se le
+explica el único camino de vuelta: escanear el QR de su mesa.
 
 De quién es el pedido no hace falta preguntarlo: llega por su propio WhatsApp.
+
+Ojo con lo que esto **no** es: el parámetro sigue viviendo en la URL, así que
+quien quiera puede teclear `?mesa=S7` a mano. Quitar el campo evita el error
+tonto y el cambio de última hora, no a alguien decidido — el control de verdad
+sigue siendo que en sala se confirma el pedido antes de ponerlo en marcha.
 
 La mesa se guarda en `sessionStorage`, no en `localStorage`: al cerrar la
 pestaña se olvida, para que quien escaneó en el local y luego abre la carta

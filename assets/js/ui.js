@@ -35,8 +35,7 @@ export function applyStaticText(app) {
   $('#trayClose').setAttribute('aria-label', t('close', lang));
   $('#toTop').setAttribute('aria-label', t('toTop', lang));
   $('#heroLede').textContent = t('dailyLede', lang);
-  $('#tableInput').setAttribute('aria-label', t('tableLabel', lang));
-  $('#tableInput').placeholder = t('tablePlaceholder', lang);
+  $('#tableValue').setAttribute('aria-label', t('tableLabel', lang));
   $('#disclaimer').textContent = t('disclaimer', lang);
 
   for (const btn of $$('.lang__btn')) {
@@ -480,7 +479,9 @@ export function renderTray(app) {
 
   if (ordering) {
     $('#traySendLabel').textContent = t(dineIn ? 'sendKitchen' : 'sendTakeaway', lang);
-    $('#tableHint').textContent = t(app.tableFromQr ? 'tableFromQr' : 'tableAsk', lang);
+    $('#tableValue').textContent = app.table ?? '';
+    $('#trayTable').dataset.empty = String(!dineIn);
+    $('#tableHint').textContent = t(dineIn ? 'tableFromQr' : 'tableAsk', lang);
     if (!rows.length) {
       send.setAttribute('aria-disabled', 'true');
       send.href = '#';
