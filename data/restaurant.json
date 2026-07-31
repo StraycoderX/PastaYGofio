@@ -97,6 +97,8 @@
   },
   "service": {
     "$comment": "ordering=true: la cesta se puede enviar por WhatsApp. Si la carta se abrió desde el QR de una mesa (?mesa=S1) el pedido va a cocina con el número de mesa; sin mesa sale como pedido para llevar. Poniéndolo en false la cesta vuelve a ser solo una selección para enseñar al camarero.",
-    "ordering": true
+    "ordering": true,
+    "$commentOrderLanguage": "Idioma en el que llega el pedido a WhatsApp, sea cual sea el idioma en que el cliente lee la carta: quien lo recibe es cocina, no el comensal. El nombre del plato en el idioma del cliente va entre paréntesis, y una línea avisa de qué idioma habla.",
+    "orderLanguage": "es"
   }
 }

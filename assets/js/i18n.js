@@ -3,6 +3,17 @@
 export const LANGS = ['es', 'it', 'en', 'de'];
 export const DEFAULT_LANG = 'es';
 
+/* How each language is named *in* each language. The order that reaches
+   WhatsApp is written in the restaurant's language, and one of its lines says
+   which language the diner is reading in — so the floor knows how to greet
+   them. That line needs "alemán", not "Deutsch". */
+export const LANG_NAMES = {
+  es: { es: 'español', it: 'spagnolo', en: 'Spanish', de: 'Spanisch' },
+  it: { es: 'italiano', it: 'italiano', en: 'Italian', de: 'Italienisch' },
+  en: { es: 'inglés', it: 'inglese', en: 'English', de: 'Englisch' },
+  de: { es: 'alemán', it: 'tedesco', en: 'German', de: 'Deutsch' }
+};
+
 export const T = {
   skipToMenu: { es: 'Ir a la carta', it: 'Vai al menu', en: 'Skip to menu', de: 'Zur Karte' },
 
@@ -169,6 +180,12 @@ export const T = {
     it: 'Ordine da asporto. Si apre WhatsApp con la tua selezione e ti confermiamo lì a che ora sarà pronto.',
     en: 'Takeaway order. WhatsApp opens with your selection and we confirm there when it will be ready.',
     de: 'Bestellung zum Mitnehmen. WhatsApp öffnet sich mit Ihrer Auswahl; wann sie fertig ist, bestätigen wir dort.'
+  },
+  waDinerLanguage: {
+    es: '(El cliente lee la carta en {idioma}.)',
+    it: '(Il cliente legge il menu in {idioma}.)',
+    en: '(The diner is reading the menu in {idioma}.)',
+    de: '(Der Gast liest die Karte auf {idioma}.)'
   },
   waIntroTakeaway: {
     es: 'Hola, me gustaría hacer este pedido para llevar:',

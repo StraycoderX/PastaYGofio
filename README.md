@@ -221,6 +221,16 @@ explica el único camino de vuelta: escanear el QR de su mesa.
 
 De quién es el pedido no hace falta preguntarlo: llega por su propio WhatsApp.
 
+**El pedido llega siempre en español**, lea el cliente la carta en el idioma que
+la lea, porque quien lo recibe es cocina y no el comensal. Antes salía en el
+idioma del cliente y una mesa alemana llegaba como «Teror-Bruschetta (Familie)»:
+hasta el nombre del plato cambiaba —la Margarita volvía como Margherita— y había
+que traducir cada comanda en plena faena. Ahora el nombre del cliente va entre
+paréntesis, para que él reconozca lo que eligió cuando WhatsApp le enseña el
+borrador, y una línea avisa de qué idioma habla para que sala sepa atenderle.
+
+Se cambia en `data/restaurant.json` → `service.orderLanguage`.
+
 Ojo con lo que esto **no** es: el parámetro sigue viviendo en la URL, así que
 quien quiera puede teclear `?mesa=S7` a mano. Quitar el campo evita el error
 tonto y el cambio de última hora, no a alguien decidido — el control de verdad

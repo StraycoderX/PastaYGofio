@@ -2,7 +2,7 @@
    or a validated guard, never through innerHTML. */
 
 import { $, $$, clear, el, fold } from './dom.js';
-import { ALLERGENS, FILTERABLE_ALLERGENS, FILTERABLE_DIETS, WEEKDAYS, localise, t } from './i18n.js';
+import { ALLERGENS, DEFAULT_LANG, FILTERABLE_ALLERGENS, FILTERABLE_DIETS, LANG_NAMES, WEEKDAYS, localise, t } from './i18n.js';
 import { formatPrice, indexForSearch, matches } from './model.js';
 import { longDate, pickOfTheDay } from './daily.js';
 import { fromMinutes, status, weekRows } from './hours.js';
@@ -499,25 +499,41 @@ export function renderTray(app) {
 }
 
 function whatsappHref(app, rows, total) {
+  /* The message is addressed to the restaurant, so it is written in the
+     restaurant's language — not the diner's. Sent in the diner's, a German
+     table arrives as "Teror-Bruschetta (Familie)" and the kitchen has to
+     translate every comanda in the middle of service, dish names included:
+     the Margarita comes back as Margherita, "familiar" as "Familie".
+     The diner's own wording rides along in brackets, so they still recognise
+     what they picked when WhatsApp shows them the draft. */
+  const kitchen = app.restaurant?.service?.orderLanguage ?? DEFAULT_LANG;
   const { lang } = app;
+  const price = (amount) => formatPrice(amount, kitchen, app.restaurant?.currency ?? 'EUR');
+
   const lines = rows.map(({ item, variant, qty, line }) => {
-    const size = variant.key === 'single' ? '' : ` (${sizeLabel(app, variant.key)})`;
-    return `• ${qty}× ${localise(item.name, lang)}${size} — ${money(app, line)}`;
+    const name = localise(item.name, kitchen);
+    const size = variant.key === 'single' ? '' : `, ${t('size_' + variant.key, kitchen)}`;
+    const theirs = localise(item.name, lang);
+    /* nothing to echo when both languages call the dish the same thing */
+    const echo = theirs && theirs !== name ? ` (${theirs})` : '';
+    return `• ${qty}× ${name}${size}${echo} — ${price(line)}`;
   });
 
   /* Same button, two messages. With a table the first line tells the kitchen
      where to carry it; without one it asks for a pickup time instead, which is
      the only thing a takeaway order needs that a table order does not. Who is
      ordering comes free — it is their own WhatsApp chat. */
-  const table = app.table ? `${t('tableLabel', lang)} ${app.table}` : null;
+  const table = app.table ? `${t('tableLabel', kitchen)} ${app.table}` : null;
   const text = [
-    table ? t('waIntroOrder', lang, { mesa: table }) : t('waIntroTakeaway', lang),
+    table ? t('waIntroOrder', kitchen, { mesa: table }) : t('waIntroTakeaway', kitchen),
+    /* so whoever answers knows which language to greet them in */
+    lang === kitchen ? null : t('waDinerLanguage', kitchen, { idioma: localise(LANG_NAMES[lang], kitchen) }),
     '',
     ...lines,
     '',
-    `${t('total', lang)}: ${money(app, total)}`,
-    table ? t('waOutroOrder', lang) : t('waOutroTakeaway', lang)
-  ].join('\n');
+    `${t('total', kitchen)}: ${price(total)}`,
+    table ? t('waOutroOrder', kitchen) : t('waOutroTakeaway', kitchen)
+  ].filter((line) => line !== null).join('\n');
 
   const phone = String(app.restaurant?.contact?.phone ?? '').replace(/[^\d]/g, '');
   return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
