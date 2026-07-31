@@ -460,17 +460,26 @@ export function renderTray(app) {
      restaurant.json -> service.ordering brings back the table field and the
      WhatsApp hand-off, both of which are still wired below. */
   const ordering = app.restaurant?.service?.ordering === true;
+  /* Two kinds of order, told apart by one thing: whether we know the table.
+     The QR taped to each table fills it in (?mesa=S1) and typing it by hand
+     counts the same — what decides is whether there is somewhere to carry the
+     food to. With a table it goes to the kitchen; without one the diner is
+     somewhere else, so it is a takeaway order. */
+  const dineIn = ordering && Boolean(app.table);
   const send = $('#traySend');
 
   $('#tray').dataset.ordering = String(ordering);
+  $('#tray').dataset.mode = ordering ? (dineIn ? 'mesa' : 'llevar') : 'seleccion';
   $('#trayTable').hidden = !ordering;
   send.hidden = !ordering;
 
   $('#trayDisclaimer').textContent = t(
-    ordering && app.table ? 'trayDisclaimerTable' : 'trayDisclaimer', lang
+    !ordering ? 'trayDisclaimer' : dineIn ? 'trayDisclaimerTable' : 'trayDisclaimerTakeaway',
+    lang
   );
 
   if (ordering) {
+    $('#traySendLabel').textContent = t(dineIn ? 'sendKitchen' : 'sendTakeaway', lang);
     $('#tableHint').textContent = t(app.tableFromQr ? 'tableFromQr' : 'tableAsk', lang);
     if (!rows.length) {
       send.setAttribute('aria-disabled', 'true');
@@ -495,17 +504,18 @@ function whatsappHref(app, rows, total) {
     return `• ${qty}× ${localise(item.name, lang)}${size} — ${money(app, line)}`;
   });
 
-  /* Knowing the table means the diner is sitting in the restaurant, so this is
-     an order. Without it they are looking from somewhere else, so it is a
-     booking enquiry — same button, different message. */
+  /* Same button, two messages. With a table the first line tells the kitchen
+     where to carry it; without one it asks for a pickup time instead, which is
+     the only thing a takeaway order needs that a table order does not. Who is
+     ordering comes free — it is their own WhatsApp chat. */
   const table = app.table ? `${t('tableLabel', lang)} ${app.table}` : null;
   const text = [
-    table ? t('waIntroOrder', lang, { mesa: table }) : t('waIntro', lang),
+    table ? t('waIntroOrder', lang, { mesa: table }) : t('waIntroTakeaway', lang),
     '',
     ...lines,
     '',
     `${t('total', lang)}: ${money(app, total)}`,
-    table ? t('waOutroOrder', lang) : t('waOutro', lang)
+    table ? t('waOutroOrder', lang) : t('waOutroTakeaway', lang)
   ].join('\n');
 
   const phone = String(app.restaurant?.contact?.phone ?? '').replace(/[^\d]/g, '');

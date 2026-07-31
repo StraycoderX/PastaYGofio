@@ -96,7 +96,7 @@
     "taxIncludedKey": "igic"
   },
   "service": {
-    "$comment": "ordering=false: la cesta es solo una selección para enseñar al camarero. Al ponerlo en true vuelven el número de mesa (leído del QR, ?mesa=S1) y el envío del pedido por WhatsApp.",
-    "ordering": false
+    "$comment": "ordering=true: la cesta se puede enviar por WhatsApp. Si la carta se abrió desde el QR de una mesa (?mesa=S1) el pedido va a cocina con el número de mesa; sin mesa sale como pedido para llevar. Poniéndolo en false la cesta vuelve a ser solo una selección para enseñar al camarero.",
+    "ordering": true
   }
 }

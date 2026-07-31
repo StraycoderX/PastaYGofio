@@ -220,7 +220,8 @@
   <footer class="tray__foot">
     <div class="tray__table" id="trayTable">
       <label class="tray__table-label" for="tableInput" data-i18n="tableLabel">Mesa</label>
-      <input class="tray__table-input" id="tableInput" type="text" inputmode="numeric"
+      <!-- Tables are S1-S11 and T1-T12, so a numeric keypad cannot type them. -->
+      <input class="tray__table-input" id="tableInput" type="text" inputmode="text" autocapitalize="characters"
              autocomplete="off" spellcheck="false" maxlength="8">
       <p class="tray__table-hint" id="tableHint"></p>
     </div>
@@ -231,7 +232,12 @@
     <p class="tray__disclaimer" id="trayDisclaimer"></p>
     <div class="tray__actions">
       <button class="btn btn--ghost" id="trayClear" type="button" data-i18n="clear">Vaciar</button>
-      <a class="btn btn--wa" id="traySend" href="#" target="_blank" rel="noopener noreferrer" data-i18n="sendWhatsApp">Enviar por WhatsApp</a>
+      <!-- The label is written by renderTray: it names where the order lands,
+           which depends on whether we know the diner's table. -->
+      <a class="btn btn--wa" id="traySend" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="btn__glyph" aria-hidden="true"></span>
+        <span id="traySendLabel">Enviar pedido</span>
+      </a>
     </div>
   </footer>
 </aside>

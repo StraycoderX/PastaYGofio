@@ -199,32 +199,45 @@ del código cubierto, y se lee impreso incluso a 20 mm de lado.
 
 ---
 
-## Pedido en mesa (preparado, sin activar)
+## El pedido: en mesa o para llevar
 
-`data/restaurant.json` → `service.ordering` está en `false`. Poniéndolo en
-`true` la cesta gana dos cosas:
+La cesta se envía por WhatsApp, y hay **dos clases de pedido**. Las distingue
+una sola cosa: si sabemos la mesa.
 
-- **Número de mesa.** Cada mesa lleva su propio QR apuntando a `…/?mesa=S1`.
-  La carta lo lee, lo recuerda durante la visita y lo enseña en la cesta por si
-  hay que corregirlo. Se guarda en `sessionStorage`, no en `localStorage`: al
-  cerrar la pestaña se olvida, para que quien abra la carta desde casa no siga
-  siendo la mesa S1. Al compartir el enlace, el número se retira.
-- **Envío por WhatsApp.** El mensaje se abre con la mesa —«Hola, estamos en la
-  Mesa T7 y nos gustaría pedir:»— seguido de las líneas y el total.
+| | El botón dice | El mensaje empieza |
+|---|---|---|
+| **Con mesa** | Enviar pedido a cocina | «Hola, estamos en la Mesa S1 y nos gustaría pedir:» |
+| **Sin mesa** | Enviar pedido para llevar | «Hola, me gustaría hacer este pedido para llevar:» y pide hora de recogida |
 
-Los códigos QR se generan ya con vuestra numeración (S1-S11 salón, T1-T12
+El número de mesa entra solo al escanear el QR de esa mesa (`…/?mesa=S1`), pero
+escribirlo a mano en la cesta vale igual: lo que decide es si hay adónde llevar
+la comida, no de dónde salió el dato. Quien lo escribe ve el botón cambiar en
+el momento, y quien lo borra vuelve a «para llevar».
+
+De quién es el pedido no hace falta preguntarlo: llega por su propio WhatsApp.
+
+La mesa se guarda en `sessionStorage`, no en `localStorage`: al cerrar la
+pestaña se olvida, para que quien escaneó en el local y luego abre la carta
+desde casa no siga siendo la mesa S1. Al compartir el enlace, el número se
+retira.
+
+Los QR por mesa se generan con vuestra numeración (S1-S11 salón, T1-T12
 terraza):
 
 ```bash
-pip install segno
-python3 scripts/make-table-qr.py --url https://tu-dominio/pastaygofio/
+npm run qr:mesas -- --url https://straycoderx.github.io/PastaYGofio/
 # -> dist/qr-mesas.html   agrupado por zona, listo para imprimir y recortar
 ```
 
-Antes de activarlo conviene resolver lo que WhatsApp no cubre: quién vigila el
-buzón en hora punta, cómo se confirma al comensal que su pedido ha entrado, y
-qué pasa con las modificaciones («sin cebolla»). El mensaje ya avisa de que se
-confirma en sala antes de ponerlo en marcha.
+**Lo que WhatsApp no resuelve** y conviene tener hablado en sala: quién vigila
+el buzón en hora punta, cómo se confirma al comensal que su pedido ha entrado,
+y qué pasa con las modificaciones («sin cebolla»). Los dos mensajes avisan de
+que se confirma antes de ponerlo en marcha, pero eso es una promesa que hay que
+cumplir a mano.
+
+Para volver a dejar la cesta como simple selección para enseñar al camarero:
+`data/restaurant.json` → `service.ordering` a `false`, y desaparecen el campo
+de mesa y el botón.
 
 ---
 

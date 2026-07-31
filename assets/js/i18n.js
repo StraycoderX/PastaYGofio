@@ -104,7 +104,22 @@ export const T = {
   },
   total: { es: 'Total', it: 'Totale', en: 'Total', de: 'Gesamt' },
   clear: { es: 'Vaciar', it: 'Svuota', en: 'Clear', de: 'Leeren' },
-  sendWhatsApp: { es: 'Enviar por WhatsApp', it: 'Invia su WhatsApp', en: 'Send on WhatsApp', de: 'Per WhatsApp senden' },
+  /* The send button names the destination, not the app: what the diner needs
+     to know is whether this reaches the kitchen at their table or goes on the
+     takeaway list. The WhatsApp mark stays on the button so nobody is
+     surprised when the chat opens. */
+  sendKitchen: {
+    es: 'Enviar pedido a cocina',
+    it: 'Invia l’ordine in cucina',
+    en: 'Send order to the kitchen',
+    de: 'Bestellung an die Küche'
+  },
+  sendTakeaway: {
+    es: 'Enviar pedido para llevar',
+    it: 'Invia ordine da asporto',
+    en: 'Send takeaway order',
+    de: 'Bestellung zum Mitnehmen'
+  },
   add: { es: 'Añadir', it: 'Aggiungi', en: 'Add', de: 'Hinzufügen' },
   added: { es: 'Añadido a tu selección', it: 'Aggiunto alla selezione', en: 'Added to your selection', de: 'Zur Auswahl hinzugefügt' },
   increase: { es: 'Añadir uno', it: 'Aggiungi uno', en: 'Add one', de: 'Eins mehr' },
@@ -118,11 +133,14 @@ export const T = {
     en: 'Read from your table QR code. Change it if it is wrong.',
     de: 'Vom QR-Code Ihres Tisches gelesen. Bei Bedarf ändern.'
   },
+  /* Empty is not a missing field, it is the other kind of order — say so, or
+     someone sitting at a table who never scanned the QR sends their lunch to
+     the takeaway list without noticing. */
   tableAsk: {
-    es: 'Escribe tu número de mesa para que sepamos dónde estás.',
-    it: 'Scrivi il numero del tavolo così sappiamo dove sei.',
-    en: 'Enter your table number so we know where you are.',
-    de: 'Geben Sie Ihre Tischnummer an, damit wir wissen, wo Sie sitzen.'
+    es: 'Si estás en el local, escribe tu mesa. Vacío, sale como pedido para llevar.',
+    it: 'Se sei nel locale, scrivi il tuo tavolo. Vuoto, parte come ordine da asporto.',
+    en: 'If you are in the restaurant, enter your table. Left empty, it goes as takeaway.',
+    de: 'Wenn Sie im Lokal sind, geben Sie Ihren Tisch an. Leer gilt als Mitnahme.'
   },
   trayDisclaimerTable: {
     es: 'Al enviarlo nos llega tu mesa y lo que habéis elegido. Te lo confirmamos en sala antes de ponerlo en marcha.',
@@ -143,17 +161,23 @@ export const T = {
     de: '(Über die digitale Karte gesendet. Wir warten auf Ihre Bestätigung.)'
   },
 
-  waIntro: {
-    es: 'Hola, me gustaría reservar mesa en Pasta y Gofio. Estamos mirando:',
-    it: 'Ciao, vorrei prenotare un tavolo da Pasta y Gofio. Stiamo guardando:',
-    en: 'Hello, I would like to book a table at Pasta y Gofio. We are looking at:',
-    de: 'Hallo, ich möchte einen Tisch im Pasta y Gofio reservieren. Wir schauen uns an:'
+  trayDisclaimerTakeaway: {
+    es: 'Pedido para llevar. Se abre WhatsApp con tu selección y te confirmamos por ahí a qué hora lo tienes listo.',
+    it: 'Ordine da asporto. Si apre WhatsApp con la tua selezione e ti confermiamo lì a che ora sarà pronto.',
+    en: 'Takeaway order. WhatsApp opens with your selection and we confirm there when it will be ready.',
+    de: 'Bestellung zum Mitnehmen. WhatsApp öffnet sich mit Ihrer Auswahl; wann sie fertig ist, bestätigen wir dort.'
   },
-  waOutro: {
-    es: '(Selección orientativa desde la carta digital.)',
-    it: '(Selezione indicativa dal menu digitale.)',
-    en: '(Indicative selection from the digital menu.)',
-    de: '(Unverbindliche Auswahl aus der digitalen Karte.)'
+  waIntroTakeaway: {
+    es: 'Hola, me gustaría hacer este pedido para llevar:',
+    it: 'Ciao, vorrei fare questo ordine da asporto:',
+    en: 'Hello, I would like to place this takeaway order:',
+    de: 'Hallo, ich möchte diese Bestellung zum Mitnehmen aufgeben:'
+  },
+  waOutroTakeaway: {
+    es: '(Pedido para llevar desde la carta digital. Decidme a qué hora puedo pasar a recogerlo.)',
+    it: '(Ordine da asporto dal menu digitale. Ditemi a che ora posso passare a ritirarlo.)',
+    en: '(Takeaway order from the digital menu. Let me know what time I can collect it.)',
+    de: '(Bestellung zum Mitnehmen über die digitale Karte. Sagen Sie mir bitte, wann ich sie abholen kann.)'
   },
 
   /* footer */
