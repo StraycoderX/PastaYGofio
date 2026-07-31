@@ -239,6 +239,16 @@ npm run qr:mesas -- --url https://straycoderx.github.io/PastaYGofio/
 # -> dist/qr-mesas.html   agrupado por zona, listo para imprimir y recortar
 ```
 
+**Cada código lleva su mesa sellada en el centro**, y el color separa las zonas
+(verde el salón, terracota la terraza). Veintitrés cuadrados en blanco y negro
+son idénticos a ojo: sin el sello, en cuanto se recortan y se mezclan no hay
+manera de saber cuál va a qué mesa, ni de comprobar después que nadie los
+movió.
+
+El script **lee de vuelta los 23** y verifica que cada uno apunta a su mesa; si
+alguno fallara, aborta en vez de dejarte imprimir cartulina para nada. Necesita
+`pip install zxing-cpp Pillow`. Sin ellos avisa y genera igual, sin comprobar.
+
 **Lo que WhatsApp no resuelve** y conviene tener hablado en sala: quién vigila
 el buzón en hora punta, cómo se confirma al comensal que su pedido ha entrado,
 y qué pasa con las modificaciones («sin cebolla»). Los dos mensajes avisan de
