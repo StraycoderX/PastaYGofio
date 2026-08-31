@@ -156,8 +156,18 @@ tenía — `diet`, `tags`, `pairing` — se añaden después.
 
 ```bash
 npm start          # http://localhost:8080
-npm run check
+npm run check      # valida datos + caché offline; es lo que bloquea el despliegue
+npm run test       # abre la carta en un navegador y comprueba lo importante
 ```
+
+`npm run test` cubre lo que se rompe en silencio: que el pedido de mesa lleve su
+mesa y el de para llevar pida hora, que el número de mesa no se pueda escribir,
+que una mesa inventada en la URL no cuele, que el pedido llegue en español
+aunque la carta esté en alemán, y que el carrusel cambie de idioma. Nada de eso
+da error en consola cuando se estropea — simplemente deja de ser verdad.
+
+Necesita Chromium y `npm install --no-save playwright-core`; si no los
+encuentra, avisa y no falla.
 
 No hay compilación ni `node_modules` en producción: Node solo se usa para los
 scripts de validación.
