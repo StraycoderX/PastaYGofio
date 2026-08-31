@@ -4,7 +4,7 @@ import { buildModel, indexForSearch } from './model.js';
 import { Tray, read, readSession, write, writeSession } from './store.js';
 import {
   applyStaticText, renderDaily, renderDish, renderFilterChips, renderFooter,
-  renderMenu, renderRail, renderStatus, renderTray, toast
+  orderClipboard, renderBoard, renderMenu, renderRail, renderStatus, renderTray, toast
 } from './ui.js';
 
 const app = {
@@ -280,6 +280,23 @@ function wire() {
   $('#scrim').addEventListener('click', () => setTrayOpen(false));
   $('#trayClear').addEventListener('click', () => { app.tray.clear(); refreshMenu(); });
 
+  /* la pizarra: el pedido en grande para quien no tiene WhatsApp */
+  const board = $('#orderBoard');
+  $('#trayShow').addEventListener('click', () => {
+    renderBoard(app);
+    if (!board.open) board.showModal();
+    keepAwake();
+  });
+  $('#boardClose').addEventListener('click', () => board.close());
+  board.addEventListener('click', (event) => { if (event.target === board) board.close(); });
+  board.addEventListener('close', releaseWake);
+  $('#boardCopy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(orderClipboard(app));
+      toast(t('orderCopied', app.lang));
+    } catch { /* sin permiso de portapapeles: el pedido sigue en pantalla */ }
+  });
+
   $('#traySend').addEventListener('click', (event) => {
     if ($('#traySend').getAttribute('aria-disabled') === 'true') event.preventDefault();
   });
@@ -367,6 +384,22 @@ function wire() {
   });
 
   installPrompt();
+}
+
+/* Con la pizarra abierta la pantalla no debe apagarse: el móvil está en la
+   mano del camarero mientras apunta, no en la del dueño tocándola. Es una
+   comodidad — donde no exista Wake Lock, la pantalla se apaga y se vuelve a
+   encender, que es lo que pasa hoy. */
+let wakeLock = null;
+
+async function keepAwake() {
+  try { wakeLock = await navigator.wakeLock?.request('screen') ?? null; }
+  catch { wakeLock = null; }
+}
+
+function releaseWake() {
+  try { wakeLock?.release(); } catch { /* ya se había soltado */ }
+  wakeLock = null;
 }
 
 /* The masthead wraps to two rows on narrow screens, so the sticky toolbar

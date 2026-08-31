@@ -241,6 +241,23 @@ borrador, y una línea avisa de qué idioma habla para que sala sepa atenderle.
 
 Se cambia en `data/restaurant.json` → `service.orderLanguage`.
 
+### Sin WhatsApp
+
+No todo el mundo lo tiene instalado, así que debajo del botón de enviar hay una
+segunda salida: **el pedido en pantalla, en grande**, con el mismo texto que
+viajaría por WhatsApp.
+
+- **Sentado en el local**, la pantalla *es* el pedido: se le enseña al camarero
+  y él lo apunta. Tamaño de letra pensado para leerse de pie y a medio metro,
+  con la mesa enorme arriba. La pantalla no se apaga mientras está abierta
+  (Wake Lock), porque el móvil está en la mano de otra persona.
+- **Desde fuera** no hay camarero a quien enseñársela, así que lo que ofrece es
+  copiar el pedido —para mandarlo por donde sea— o llamar al restaurante.
+
+Reparte el mismo idioma que el resto: los platos y el total en el del
+restaurante, porque los lee el camarero; las instrucciones y los botones en el
+del comensal, que para eso mira su propio móvil.
+
 Ojo con lo que esto **no** es: el parámetro sigue viviendo en la URL, así que
 quien quiera puede teclear `?mesa=S7` a mano. Quitar el campo evita el error
 tonto y el cambio de última hora, no a alguien decidido — el control de verdad

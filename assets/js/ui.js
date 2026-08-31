@@ -471,6 +471,9 @@ export function renderTray(app) {
   $('#tray').dataset.mode = ordering ? (dineIn ? 'mesa' : 'llevar') : 'seleccion';
   $('#trayTable').hidden = !ordering;
   send.hidden = !ordering;
+  /* con ordering en false no hay pedido que enseñar: la cesta vuelve a ser
+     una selección y el camarero ya la ve en la propia carta */
+  $('#trayShow').hidden = true;
 
   $('#trayDisclaimer').textContent = t(
     !ordering ? 'trayDisclaimer' : dineIn ? 'trayDisclaimerTable' : 'trayDisclaimerTakeaway',
@@ -482,6 +485,12 @@ export function renderTray(app) {
     $('#tableValue').textContent = app.table ?? '';
     $('#trayTable').dataset.empty = String(!dineIn);
     $('#tableHint').textContent = t(dineIn ? 'tableFromQr' : 'tableAsk', lang);
+
+    /* la salida para quien no tiene WhatsApp: sin platos no hay nada que
+       enseñar, así que aparece con el primero */
+    const show = $('#trayShow');
+    show.textContent = t(dineIn ? 'showWaiter' : 'showTakeaway', lang);
+    show.hidden = !rows.length;
     if (!rows.length) {
       send.setAttribute('aria-disabled', 'true');
       send.href = '#';
@@ -498,45 +507,108 @@ export function renderTray(app) {
   }
 }
 
-function whatsappHref(app, rows, total) {
-  /* The message is addressed to the restaurant, so it is written in the
-     restaurant's language — not the diner's. Sent in the diner's, a German
-     table arrives as "Teror-Bruschetta (Familie)" and the kitchen has to
-     translate every comanda in the middle of service, dish names included:
-     the Margarita comes back as Margherita, "familiar" as "Familie".
-     The diner's own wording rides along in brackets, so they still recognise
-     what they picked when WhatsApp shows them the draft. */
-  const kitchen = app.restaurant?.service?.orderLanguage ?? DEFAULT_LANG;
-  const { lang } = app;
+/** Idioma en que se escribe el pedido: el de quien lo lee, no el del cliente. */
+const kitchenLang = (app) => app.restaurant?.service?.orderLanguage ?? DEFAULT_LANG;
+
+/**
+ * Las líneas del pedido, una por plato.
+ *
+ * En el idioma del restaurante, porque quien las lee es cocina o el camarero.
+ * En el del comensal, una mesa alemana llega como «Teror-Bruschetta (Familie)»
+ * y hay que traducir cada comanda en plena faena — hasta el nombre cambia: la
+ * Margarita vuelve como Margherita. El nombre que vio el cliente va detrás
+ * entre paréntesis, y solo cuando difiere, para que él reconozca lo suyo sin
+ * llenar la comanda de ruido.
+ *
+ * Lo usan el mensaje de WhatsApp y la pantalla que se le enseña al camarero:
+ * son el mismo pedido y tienen que decir lo mismo.
+ */
+function orderLines(app, rows) {
+  const kitchen = kitchenLang(app);
   const price = (amount) => formatPrice(amount, kitchen, app.restaurant?.currency ?? 'EUR');
 
-  const lines = rows.map(({ item, variant, qty, line }) => {
+  return rows.map(({ item, variant, qty, line }) => {
     const name = localise(item.name, kitchen);
     const size = variant.key === 'single' ? '' : `, ${t('size_' + variant.key, kitchen)}`;
-    const theirs = localise(item.name, lang);
-    /* nothing to echo when both languages call the dish the same thing */
+    const theirs = localise(item.name, app.lang);
     const echo = theirs && theirs !== name ? ` (${theirs})` : '';
-    return `• ${qty}× ${name}${size}${echo} — ${price(line)}`;
+    return { qty, texto: `${name}${size}${echo}`, precio: price(line) };
   });
+}
 
-  /* Same button, two messages. With a table the first line tells the kitchen
+/** El pedido entero como texto plano: lo que viaja por WhatsApp o al portapapeles. */
+function orderText(app, rows, total) {
+  const kitchen = kitchenLang(app);
+  const price = (amount) => formatPrice(amount, kitchen, app.restaurant?.currency ?? 'EUR');
+
+  /* Same order, two framings. With a table the first line tells the kitchen
      where to carry it; without one it asks for a pickup time instead, which is
      the only thing a takeaway order needs that a table order does not. Who is
      ordering comes free — it is their own WhatsApp chat. */
   const table = app.table ? `${t('tableLabel', kitchen)} ${app.table}` : null;
-  const text = [
+  return [
     table ? t('waIntroOrder', kitchen, { mesa: table }) : t('waIntroTakeaway', kitchen),
     /* so whoever answers knows which language to greet them in */
-    lang === kitchen ? null : t('waDinerLanguage', kitchen, { idioma: localise(LANG_NAMES[lang], kitchen) }),
+    app.lang === kitchen ? null : t('waDinerLanguage', kitchen, { idioma: localise(LANG_NAMES[app.lang], kitchen) }),
     '',
-    ...lines,
+    ...orderLines(app, rows).map(({ qty, texto, precio }) => `• ${qty}× ${texto} — ${precio}`),
     '',
     `${t('total', kitchen)}: ${price(total)}`,
     table ? t('waOutroOrder', kitchen) : t('waOutroTakeaway', kitchen)
   ].filter((line) => line !== null).join('\n');
+}
 
+function whatsappHref(app, rows, total) {
   const phone = String(app.restaurant?.contact?.phone ?? '').replace(/[^\d]/g, '');
-  return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${phone}?text=${encodeURIComponent(orderText(app, rows, total))}`;
+}
+
+/**
+ * El pedido en pantalla, grande, para quien no tiene WhatsApp.
+ *
+ * Sentado en el local basta con enseñárselo al camarero; desde fuera lo que
+ * sirve es copiarlo o llamar, así que el pie cambia según haya mesa o no.
+ */
+export function renderBoard(app) {
+  const { lang } = app;
+  const rows = app.tray.detailed(app.model);
+  const total = app.tray.total(app.model);
+  const kitchen = kitchenLang(app);
+
+  $('#boardWhere').textContent = app.table
+    ? t('tableLabel', kitchen)
+    : t('boardTakeaway', lang);
+  $('#boardTitle').textContent = app.table ?? localise(app.restaurant?.name ?? { es: '' }, lang);
+  $('#boardTitle').hidden = !app.table;
+
+  const host = clear($('#boardLines'));
+  for (const { qty, texto, precio } of orderLines(app, rows)) {
+    host.append(el('li', { class: 'board__line' },
+      el('span', { class: 'board__qty', text: `${qty}×` }),
+      el('span', { class: 'board__dish', text: texto }),
+      el('span', { class: 'board__price', text: precio })
+    ));
+  }
+
+  /* El pedido en el idioma del restaurante —platos, total, mesa—, porque lo
+     lee el camarero. Lo que va dirigido al comensal —la instrucción, los
+     botones— en el suyo, que para eso está mirando su propio móvil. */
+  $('#boardTotalLabel').textContent = t('total', kitchen);
+  $('#boardTotal').textContent = formatPrice(total, kitchen, app.restaurant?.currency ?? 'EUR');
+  $('#boardHint').textContent = t(app.table ? 'boardHintTable' : 'boardHintTakeaway', lang);
+  $('#boardCopy').textContent = t('copyOrder', lang);
+  $('#boardClose').setAttribute('aria-label', t('close', lang));
+
+  /* llamar solo tiene sentido cuando no hay un camarero delante */
+  const call = $('#boardCall');
+  call.hidden = Boolean(app.table);
+  call.textContent = t('callUs', lang);
+  call.href = `tel:${String(app.restaurant?.contact?.phone ?? '').replace(/[^\d+]/g, '')}`;
+}
+
+/** El pedido como texto, para el portapapeles. */
+export function orderClipboard(app) {
+  return orderText(app, app.tray.detailed(app.model), app.tray.total(app.model));
 }
 
 /* ------------------------------------------------------------------ *

@@ -131,6 +131,42 @@ export const T = {
     en: 'Send takeaway order',
     de: 'Bestellung zum Mitnehmen'
   },
+  /* La salida para quien no tiene WhatsApp. Sentado en el local, la pantalla
+     es el pedido: se la enseña al camarero y ya está. Desde fuera no hay
+     camarero a quien enseñársela, así que lo que sirve es copiarlo o llamar. */
+  showWaiter: {
+    es: 'No tengo WhatsApp · mostrar al camarero',
+    it: 'Non ho WhatsApp · mostra al cameriere',
+    en: 'No WhatsApp · show it to the waiter',
+    de: 'Kein WhatsApp · dem Kellner zeigen'
+  },
+  showTakeaway: {
+    es: 'No tengo WhatsApp · ver y copiar el pedido',
+    it: 'Non ho WhatsApp · vedi e copia l’ordine',
+    en: 'No WhatsApp · view and copy the order',
+    de: 'Kein WhatsApp · Bestellung ansehen und kopieren'
+  },
+  boardHintTable: {
+    es: 'Enseña esta pantalla al camarero. Está en español, como la lee cocina.',
+    it: 'Mostra questo schermo al cameriere. È in spagnolo, come lo legge la cucina.',
+    en: 'Show this screen to the waiter. It is in Spanish, the way the kitchen reads it.',
+    de: 'Zeigen Sie diesen Bildschirm dem Kellner. Er ist auf Spanisch, so wie die Küche ihn liest.'
+  },
+  boardHintTakeaway: {
+    es: 'Copia el pedido y mándanoslo como prefieras, o llámanos y te lo tomamos.',
+    it: 'Copia l’ordine e mandacelo come preferisci, oppure chiamaci.',
+    en: 'Copy the order and send it however you like, or call us and we will take it.',
+    de: 'Kopieren Sie die Bestellung und schicken Sie sie, wie Sie mögen, oder rufen Sie uns an.'
+  },
+  boardTakeaway: {
+    es: 'Pedido para llevar',
+    it: 'Ordine da asporto',
+    en: 'Takeaway order',
+    de: 'Zum Mitnehmen'
+  },
+  copyOrder: { es: 'Copiar pedido', it: 'Copia ordine', en: 'Copy order', de: 'Bestellung kopieren' },
+  orderCopied: { es: 'Pedido copiado', it: 'Ordine copiato', en: 'Order copied', de: 'Bestellung kopiert' },
+  callUs: { es: 'Llamar al restaurante', it: 'Chiama il ristorante', en: 'Call the restaurant', de: 'Restaurant anrufen' },
   add: { es: 'Añadir', it: 'Aggiungi', en: 'Add', de: 'Hinzufügen' },
   added: { es: 'Añadido a tu selección', it: 'Aggiunto alla selezione', en: 'Added to your selection', de: 'Zur Auswahl hinzugefügt' },
   increase: { es: 'Añadir uno', it: 'Aggiungi uno', en: 'Add one', de: 'Eins mehr' },

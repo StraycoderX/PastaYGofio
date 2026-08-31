@@ -1408,6 +1408,117 @@ a:hover { text-decoration-color: var(--accent); }
   color: var(--fg-muted);
 }
 .tray__actions { display: grid; grid-template-columns: auto 1fr; gap: .5rem; }
+/* la salida sin WhatsApp: presente, pero por debajo del camino principal */
+.tray__alt {
+  margin-top: .1rem;
+  font-size: .78rem;
+  color: var(--fg-muted);
+  text-align: center;
+}
+.tray__alt:hover { color: var(--fg); }
+
+/* =========================================================================
+   la pizarra — el pedido en grande, para leerlo desde el otro lado de la mesa
+   ========================================================================= */
+
+.board {
+  width: min(560px, 100%);
+  max-width: none;
+  max-height: 100dvh;
+  height: 100dvh;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  color: var(--fg);
+}
+.board::backdrop { background: rgba(20, 14, 8, .7); }
+.board__inner {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.35rem
+           max(1.25rem, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.board__head { position: relative; padding-inline-end: 3rem; }
+.board__where {
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--fg-muted);
+}
+.board__title {
+  font-size: clamp(2.6rem, 14vw, 4rem);
+  line-height: 1;
+  font-variation-settings: 'opsz' 144, 'WONK' 1;
+  color: var(--accent);
+}
+.board__close {
+  position: absolute;
+  top: 0; inset-inline-end: 0;
+  width: 40px; height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: grid; place-items: center;
+}
+.board__close::after {
+  content: "";
+  width: 16px; height: 16px;
+  background: currentColor;
+  -webkit-mask: url("../img/ui/close.svg") center / contain no-repeat;
+  mask: url("../img/ui/close.svg") center / contain no-repeat;
+}
+
+/* Grande de verdad: esto se lee de pie, a medio metro y con el móvil en la
+   mano de otra persona. Aquí el tamaño es la función. */
+.board__lines { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.board__line {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: .1rem .7rem;
+  align-items: baseline;
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.board__qty {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+.board__dish { font-size: 1.22rem; line-height: 1.25; font-weight: 500; }
+.board__price {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+.board__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1rem;
+  color: var(--fg-muted);
+}
+.board__total strong {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.board__hint { font-size: .84rem; color: var(--fg-muted); }
+.board__actions { margin-top: auto; display: grid; gap: .5rem; }
+
+@media (min-width: 561px) {
+  .board { margin: auto; height: auto; max-height: 92dvh; border-radius: var(--r-lg); }
+}
 /* with nothing to send, "Vaciar" is the only action and takes the full width */
 .tray:not([data-ordering="true"]) .tray__actions { grid-template-columns: 1fr; }
 

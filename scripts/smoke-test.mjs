@@ -176,6 +176,48 @@ console.log('\nLa cesta vacía no deja enviar');
   await ctx.close();
 }
 
+console.log('\nLa salida sin WhatsApp: el pedido en pantalla');
+{
+  const { ctx, page } = await abre('?mesa=s1&lang=de', { platos: 2 });
+  await page.click('#trayToggle');
+  await page.click('#trayShow');
+  await page.waitForTimeout(300);
+  const pizarra = await page.evaluate(() => ({
+    abierta: document.querySelector('#orderBoard').open,
+    mesa: document.querySelector('#boardTitle').textContent,
+    lineas: document.querySelectorAll('.board__line').length,
+    primerPlato: document.querySelector('.board__dish')?.textContent ?? '',
+    pista: document.querySelector('#boardHint').textContent,
+    total: document.querySelector('#boardTotalLabel').textContent,
+    llamar: !document.querySelector('#boardCall').hidden
+  }));
+  comprueba('se abre', pizarra.abierta, true);
+  comprueba('con la mesa en grande', pizarra.mesa, 'S1');
+  comprueba('lista los dos platos', pizarra.lineas, 2);
+  comprueba('el plato va en español', pizarra.primerPlato, (s) => s.startsWith('Bruschetta'));
+  comprueba('la instrucción va en alemán', pizarra.pista, (s) => s.includes('Kellner'));
+  comprueba('el total también en español', pizarra.total, 'Total');
+  comprueba('sentado en el local no ofrece llamar', pizarra.llamar, false);
+  await ctx.close();
+}
+
+console.log('\nLa misma pantalla, pero para llevar');
+{
+  const { ctx, page } = await abre('', { platos: 1 });
+  await page.click('#trayToggle');
+  await page.click('#trayShow');
+  await page.waitForTimeout(300);
+  const pizarra = await page.evaluate(() => ({
+    donde: document.querySelector('#boardWhere').textContent,
+    llamar: !document.querySelector('#boardCall').hidden,
+    telefono: document.querySelector('#boardCall').getAttribute('href')
+  }));
+  comprueba('se anuncia como para llevar', pizarra.donde, 'Pedido para llevar');
+  comprueba('ofrece llamar, que aquí no hay camarero', pizarra.llamar, true);
+  comprueba('y el teléfono es marcable', pizarra.telefono, (h) => /^tel:\+?\d{6,}$/.test(h));
+  await ctx.close();
+}
+
 console.log('\nEl carrusel de categorías cambia de idioma');
 {
   for (const [lang, primera] of [['it', 'Antipasti'], ['en', 'Starters'], ['de', 'Vorspeisen'], ['es', 'Empezar']]) {

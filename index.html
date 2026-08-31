@@ -241,8 +241,31 @@
         <span id="traySendLabel">Enviar pedido</span>
       </a>
     </div>
+    <!-- Not everyone has WhatsApp. This shows the same order on screen, big
+         enough to read across a table, so the waiter can take it down. -->
+    <button class="linklike tray__alt" id="trayShow" type="button"></button>
   </footer>
 </aside>
+
+<!-- the order, big, for the waiter to read off the diner's phone -->
+<dialog class="board" id="orderBoard" aria-labelledby="boardTitle">
+  <div class="board__inner">
+    <header class="board__head">
+      <p class="board__where" id="boardWhere"></p>
+      <h2 class="board__title" id="boardTitle"></h2>
+      <button class="board__close" id="boardClose" type="button"></button>
+    </header>
+    <ul class="board__lines" id="boardLines"></ul>
+    <!-- sin data-i18n: esta parte la lee el camarero, así que renderBoard la
+         escribe en el idioma del restaurante, igual que los platos -->
+    <p class="board__total"><span id="boardTotalLabel">Total</span> <strong id="boardTotal"></strong></p>
+    <p class="board__hint" id="boardHint"></p>
+    <div class="board__actions">
+      <button class="btn btn--ghost" id="boardCopy" type="button"></button>
+      <a class="btn btn--ghost" id="boardCall" href="#" hidden></a>
+    </div>
+  </div>
+</dialog>
 <div class="scrim" id="scrim" hidden></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
