@@ -1796,14 +1796,20 @@ body.has-cartbar .update { inset-block-end: max(4.75rem, calc(env(safe-area-inse
 .rail { flex: 1; min-width: 0; }
 .rail__index {
   flex: none;
-  margin-inline-end: var(--pad-x);
+  /* separado del carrusel y con su propia línea: pegado, la última categoría
+     se corta contra el botón y parece que lo tapa en vez de ser otro control */
+  margin-inline: .55rem var(--pad-x);
+  padding-inline-start: .9rem;
+  border-inline-start: 1px solid var(--border);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
   padding: .34rem .8rem;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--fg-muted);
-  background: var(--bg);
+  border: 0;
+  background: none;
   font-size: .82rem;
   font-weight: 600;
   white-space: nowrap;
+  color: var(--fg-2);
 }
 .rail__index:hover { border-color: var(--accent); color: var(--accent); }
 
