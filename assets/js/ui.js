@@ -36,7 +36,15 @@ export function applyStaticText(app) {
   $('#toTop').setAttribute('aria-label', t('toTop', lang));
   $('#heroLede').textContent = t('dailyLede', lang);
   $('#tableValue').setAttribute('aria-label', t('tableLabel', lang));
-  $('#disclaimer').textContent = t('disclaimer', lang);
+  $('#notesInput').placeholder = t('notesPlaceholder', lang);
+  const hasta = app.restaurant?.legal?.pricesValidUntil;
+  const locale = { es: 'es-ES', it: 'it-IT', en: 'en-GB', de: 'de-DE' }[lang] ?? 'es-ES';
+  $('#disclaimer').textContent = t('disclaimer', lang, {
+    hasta: hasta
+      ? new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' })
+          .format(new Date(hasta + 'T00:00:00Z'))
+      : '—'
+  });
 
   for (const btn of $$('.lang__btn')) {
     btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang));
@@ -339,6 +347,13 @@ export function renderDish(app, uid) {
       : el('span', { text: t('noAllergens', lang) })
   ));
 
+  /* Una lista de alérgenos sin confirmar se lee igual que una confirmada, y
+     ahí está el peligro: quien la consulta necesita saber cuál de las dos
+     tiene delante antes de decidir si come. */
+  if (item.allergensUnconfirmed) {
+    rows.push(el('p', { class: 'dish__unconfirmed', text: t('allergensUnconfirmed', lang) }));
+  }
+
   if (item.nutrition?.calories) {
     const n = item.nutrition;
     const cells = [
@@ -470,6 +485,7 @@ export function renderTray(app) {
   $('#tray').dataset.ordering = String(ordering);
   $('#tray').dataset.mode = ordering ? (dineIn ? 'mesa' : 'llevar') : 'seleccion';
   $('#trayTable').hidden = !ordering;
+  $('#trayNotes').hidden = !ordering;
   send.hidden = !ordering;
   /* con ordering en false no hay pedido que enseñar: la cesta vuelve a ser
      una selección y el camarero ya la ve en la propia carta */
@@ -536,10 +552,28 @@ function orderLines(app, rows) {
   });
 }
 
+/**
+ * La nota del comensal, limpia.
+ *
+ * Acaba dentro de un mensaje de WhatsApp cuyas líneas separan plato de plato,
+ * así que los saltos de línea se aplanan: una nota de seis renglones haría
+ * ilegible la comanda. Los caracteres de control se van por el mismo motivo.
+ */
+function dinerNotes(app) {
+  return String(app.notes ?? '')
+    /* saltos de línea y caracteres de control fuera: esto viaja dentro de un
+       mensaje cuyas líneas separan plato de plato */
+    .replace(/[\u0000-\u001f\u007f]+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+    .slice(0, 200);
+}
+
 /** El pedido entero como texto plano: lo que viaja por WhatsApp o al portapapeles. */
 function orderText(app, rows, total) {
   const kitchen = kitchenLang(app);
   const price = (amount) => formatPrice(amount, kitchen, app.restaurant?.currency ?? 'EUR');
+  const notas = dinerNotes(app);
 
   /* Same order, two framings. With a table the first line tells the kitchen
      where to carry it; without one it asks for a pickup time instead, which is
@@ -553,6 +587,8 @@ function orderText(app, rows, total) {
     '',
     ...orderLines(app, rows).map(({ qty, texto, precio }) => `• ${qty}× ${texto} — ${precio}`),
     '',
+    notas ? `${t('waNotes', kitchen)}${app.lang === kitchen ? '' : ` (${localise(LANG_NAMES[app.lang], kitchen)})`}: ${notas}` : null,
+    notas ? '' : null,
     `${t('total', kitchen)}: ${price(total)}`,
     table ? t('waOutroOrder', kitchen) : t('waOutroTakeaway', kitchen)
   ].filter((line) => line !== null).join('\n');
@@ -575,10 +611,13 @@ export function renderBoard(app) {
   const total = app.tray.total(app.model);
   const kitchen = kitchenLang(app);
 
+  /* Todo el bloque del pedido va en el idioma del restaurante, incluida la
+     cabecera: quien lee esta pantalla es un camarero que solo habla español,
+     y «Zum Mitnehmen» sobre una comanda no le dice nada. */
   $('#boardWhere').textContent = app.table
-    ? t('tableLabel', kitchen)
-    : t('boardTakeaway', lang);
-  $('#boardTitle').textContent = app.table ?? localise(app.restaurant?.name ?? { es: '' }, lang);
+    ? t('boardForWaiter', kitchen)
+    : t('boardTakeaway', kitchen);
+  $('#boardTitle').textContent = app.table ? `${t('tableLabel', kitchen)} ${app.table}` : '';
   $('#boardTitle').hidden = !app.table;
 
   const host = clear($('#boardLines'));
@@ -593,6 +632,16 @@ export function renderBoard(app) {
   /* El pedido en el idioma del restaurante —platos, total, mesa—, porque lo
      lee el camarero. Lo que va dirigido al comensal —la instrucción, los
      botones— en el suyo, que para eso está mirando su propio móvil. */
+  const notas = dinerNotes(app);
+  const notasNodo = $('#boardNotes');
+  notasNodo.hidden = !notas;
+  /* La nota la escribe el comensal en su idioma y no hay quien la traduzca
+     aquí: sin conexión a nada externo, inventarse una traducción sería peor
+     que no tenerla. Lo que sí se puede es decir en qué idioma está, para que
+     el camarero pregunte en vez de descifrar. */
+  const idiomaNota = app.lang === kitchen ? '' : ` (${localise(LANG_NAMES[app.lang], kitchen)})`;
+  notasNodo.textContent = notas ? `${t('boardNotesLabel', kitchen)}${idiomaNota}: ${notas}` : '';
+
   $('#boardTotalLabel').textContent = t('total', kitchen);
   $('#boardTotal').textContent = formatPrice(total, kitchen, app.restaurant?.currency ?? 'EUR');
   $('#boardHint').textContent = t(app.table ? 'boardHintTable' : 'boardHintTakeaway', lang);

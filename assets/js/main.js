@@ -17,6 +17,8 @@ const app = {
   daily: null,
   /** Table number for this sitting, or null when we simply do not know. */
   table: null,
+  /** «Sin cebolla»: lo que el comensal necesita decir y no cabe en la cesta. */
+  notes: '',
   tray: new Tray()
 };
 
@@ -43,6 +45,11 @@ function pickTable() {
   if (saved && TABLE_RE.test(saved)) app.table = saved.toUpperCase();
 }
 
+function pickNotes() {
+  const saved = readSession('notes');
+  if (typeof saved === 'string') app.notes = saved.slice(0, 200);
+}
+
 /* ------------------------------------------------------------------ *
  * boot
  * ------------------------------------------------------------------ */
@@ -62,6 +69,7 @@ async function loadJson(path) {
 async function boot() {
   app.lang = pickLang();
   pickTable();
+  pickNotes();
 
   let menu, restaurant, daily;
   try {
@@ -301,6 +309,16 @@ function wire() {
     if ($('#traySend').getAttribute('aria-disabled') === 'true') event.preventDefault();
   });
 
+  /* Indicaciones del comensal. En sessionStorage, no en localStorage: «sin
+     cebolla» vale para esta comida, no para todas las que haga en su vida. */
+  const notes = $('#notesInput');
+  notes.value = app.notes;
+  notes.addEventListener('input', () => {
+    app.notes = notes.value;
+    writeSession('notes', app.notes);
+    renderTray(app);
+  });
+
   /* search */
   const search = $('#searchInput');
   let debounce = 0;
@@ -503,6 +521,18 @@ function installPrompt() {
   });
 }
 
+let updateOffered = false;
+
+function offerUpdate() {
+  if (updateOffered) return;
+  updateOffered = true;
+  const bar = $('#update');
+  bar.hidden = false;
+  $('#updateText').textContent = t('updateReady', app.lang);
+  $('#updateGo').textContent = t('updateGo', app.lang);
+  $('#updateGo').addEventListener('click', () => location.reload(), { once: true });
+}
+
 function registerServiceWorker() {
   /* Nothing to cache in the single-file build — it is already one document. */
   if (!('serviceWorker' in navigator) || location.protocol === 'file:' || isSingleFile()) return;
@@ -510,6 +540,17 @@ function registerServiceWorker() {
   const register = () => navigator.serviceWorker
     .register('sw.js')
     .catch((error) => console.warn('SW registration failed', error));
+
+  /* Quien ya tenía la carta abierta la lee desde su móvil, no desde la red:
+     al publicar algo nuevo sigue viendo lo anterior hasta la visita siguiente.
+     Recargar sola a media lectura sería una grosería, así que se avisa y
+     decide él. Solo cuando *había* un service worker antes — en la primera
+     visita este evento salta con la instalación inicial y no hay nada nuevo
+     que ofrecer. */
+  const yaHabia = Boolean(navigator.serviceWorker.controller);
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (yaHabia) offerUpdate();
+  });
 
   /* boot() awaits the data fetches, so by the time we get here `load` has
      usually already fired — listening for it would silently never register. */

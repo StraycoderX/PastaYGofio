@@ -103,6 +103,9 @@
           "allergens": [
             "lactose"
           ],
+          "review": [
+            "allergens"
+          ],
           "diet": [
             "vegetarian"
           ],
@@ -134,6 +137,9 @@
           "allergens": [
             "gluten",
             "lactose"
+          ],
+          "review": [
+            "allergens"
           ],
           "diet": [
             "vegetarian"
@@ -380,6 +386,9 @@
           },
           "allergens": [
             "gluten"
+          ],
+          "review": [
+            "allergens"
           ],
           "diet": [
             "vegan",
@@ -800,6 +809,9 @@
           "allergens": [
             "lactose"
           ],
+          "review": [
+            "allergens"
+          ],
           "diet": [
             "vegetarian"
           ],
@@ -847,6 +859,9 @@
           },
           "allergens": [
             "gluten"
+          ],
+          "review": [
+            "allergens"
           ],
           "pairing": "masso-antico",
           "tags": [

@@ -10,6 +10,36 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+/** Ancho mínimo de foto antes de que se note el estirón en la tarjeta. */
+const MIN_PHOTO_WIDTH = 600;
+
+/** Platos cuyos datos están marcados como pendientes de confirmar. */
+const pendingReview = [];
+
+/** Fotos por debajo del ancho mínimo, para resumirlas al final. */
+const smallPhotos = [];
+
+const REVIEWABLE = new Set(['allergens', 'nutrition', 'price', 'photo']);
+
+/**
+ * Ancho de un .webp leyendo su cabecera, sin dependencias.
+ * Devuelve null para cualquier otro formato o si el archivo no encaja: el
+ * objetivo es avisar de fotos pequeñas, no validar imágenes.
+ */
+function webpWidth(file) {
+  try {
+    const d = readFileSync(file);
+    if (d.length < 30 || d.toString('ascii', 0, 4) !== 'RIFF' || d.toString('ascii', 8, 12) !== 'WEBP') return null;
+    const chunk = d.toString('ascii', 12, 16);
+    if (chunk === 'VP8X') return ((d[24] | (d[25] << 8) | (d[26] << 16)) & 0xffffff) + 1;
+    if (chunk === 'VP8L') return ((d.readUInt32LE(21) & 0x3fff) + 1);
+    if (chunk === 'VP8 ') return d.readUInt16LE(26) & 0x3fff;
+    return null;
+  } catch {
+    return null;
+  }
+}
 const LANGS = ['es', 'it', 'en', 'de'];
 
 const ALLERGENS = new Set([
@@ -125,11 +155,29 @@ for (const [si, section] of (menu.sections ?? []).entries()) {
       }
     }
 
+    if (item.review !== undefined) {
+      if (!Array.isArray(item.review)) fail(`${at}: review must be a list`);
+      else {
+        for (const key of item.review) {
+          if (!REVIEWABLE.has(key)) fail(`${at}: review "${key}" is not one of ${[...REVIEWABLE].join(', ')}`);
+        }
+        if (item.review.length) pendingReview.push(`${item.id} — ${item.review.join(', ')}`);
+      }
+    }
+
     if (item.image) {
       if (!/^[a-z0-9][a-z0-9._-]*\.(svg|png|jpe?g|webp|avif)$/i.test(item.image)) {
         fail(`${at}: image "${item.image}" is not a plain filename`);
       } else if (!existsSync(join(ROOT, 'assets/img/dishes', item.image))) {
         fail(`${at}: image "${item.image}" not found in assets/img/dishes/`);
+      } else {
+        /* Una foto pequeña no rompe nada — se estira y se ve blanda, que es
+           peor porque nadie se entera. El aviso la nombra en cada validación
+           hasta que alguien la rehaga. */
+        const ancho = webpWidth(join(ROOT, 'assets/img/dishes', item.image));
+        /* Se acumulan en vez de avisar una por una: cuarenta y nueve avisos
+           iguales en cada validación enseñan a saltárselos todos. */
+        if (ancho && ancho < MIN_PHOTO_WIDTH) smallPhotos.push({ id: item.id, ancho });
       }
     }
 
@@ -197,6 +245,20 @@ for (const url of [restaurant.address?.maps, restaurant.links?.review, restauran
 /* -------------------------------------------------------------- report */
 
 const counts = { sections: sectionIds.size, items: itemIds.size };
+
+if (smallPhotos.length) {
+  smallPhotos.sort((a, b) => a.ancho - b.ancho);
+  const peores = smallPhotos.slice(0, 5).map((f) => `${f.id} (${f.ancho} px)`).join(', ');
+  console.warn(`\n${smallPhotos.length} foto(s) por debajo de ${MIN_PHOTO_WIDTH} px de ancho: se ven blandas a pantalla completa.`);
+  console.warn(`  Las más justas: ${peores}.`);
+  console.warn('  Basta dejar la nueva en assets/img/dishes/ con el mismo nombre de archivo.');
+}
+
+if (pendingReview.length) {
+  console.warn(`\n${pendingReview.length} plato(s) con datos por confirmar en cocina:`);
+  for (const r of pendingReview) console.warn('  · ' + r);
+  console.warn('  Mientras tanto no se deduce «sin gluten» y la ficha lo avisa.');
+}
 if (warnings.length) {
   console.warn(`\n${warnings.length} warning(s):`);
   for (const w of warnings) console.warn('  ! ' + w);

@@ -185,6 +185,7 @@ console.log('\nLa salida sin WhatsApp: el pedido en pantalla');
   const pizarra = await page.evaluate(() => ({
     abierta: document.querySelector('#orderBoard').open,
     mesa: document.querySelector('#boardTitle').textContent,
+    donde: document.querySelector('#boardWhere').textContent,
     lineas: document.querySelectorAll('.board__line').length,
     primerPlato: document.querySelector('.board__dish')?.textContent ?? '',
     pista: document.querySelector('#boardHint').textContent,
@@ -192,7 +193,8 @@ console.log('\nLa salida sin WhatsApp: el pedido en pantalla');
     llamar: !document.querySelector('#boardCall').hidden
   }));
   comprueba('se abre', pizarra.abierta, true);
-  comprueba('con la mesa en grande', pizarra.mesa, 'S1');
+  comprueba('con la mesa en grande', pizarra.mesa, 'Mesa S1');
+  comprueba('encabezada para el camarero, en español', pizarra.donde, (t) => t.startsWith('Comanda'));
   comprueba('lista los dos platos', pizarra.lineas, 2);
   comprueba('el plato va en español', pizarra.primerPlato, (s) => s.startsWith('Bruschetta'));
   comprueba('la instrucción va en alemán', pizarra.pista, (s) => s.includes('Kellner'));
@@ -215,6 +217,56 @@ console.log('\nLa misma pantalla, pero para llevar');
   comprueba('se anuncia como para llevar', pizarra.donde, 'Pedido para llevar');
   comprueba('ofrece llamar, que aquí no hay camarero', pizarra.llamar, true);
   comprueba('y el teléfono es marcable', pizarra.telefono, (h) => /^tel:\+?\d{6,}$/.test(h));
+  await ctx.close();
+}
+
+console.log('\nAlérgenos sin confirmar: no se deduce nada');
+{
+  const { ctx, page } = await abre('', { platos: 0 });
+  const estado = await page.evaluate(() => {
+    /* el risotto declara solo lactosa; sin la marca de revisión, la carta
+       deduciría «sin gluten» de una suposición */
+    const card = document.querySelector('#item-risotto-setas');
+    card.querySelector('.card__more').click();
+    return new Promise((r) => setTimeout(() => r({
+      insignias: [...document.querySelectorAll('#dishBody .badge')].map((b) => b.textContent),
+      aviso: document.querySelector('.dish__unconfirmed')?.textContent ?? ''
+    }), 200));
+  });
+  comprueba('no se anuncia sin gluten', estado.insignias, (b) => !b.includes('Sin gluten'));
+  comprueba('y la ficha lo dice', estado.aviso, (t) => t.includes('pendiente de confirmar'));
+  await ctx.close();
+}
+
+console.log('\nAlérgenos sin confirmar: fuera del filtro de celíacos');
+{
+  const { ctx, page } = await abre('', { platos: 0 });
+  const visible = await page.evaluate(() => {
+    document.querySelector('[data-allergen="gluten"]').click();
+    return new Promise((r) => setTimeout(() => r({
+      risotto: !!document.querySelector('#item-risotto-setas'),
+      quedan: document.querySelectorAll('.card').length
+    }), 300));
+  });
+  comprueba('el risotto se retira', visible.risotto, false);
+  comprueba('pero la carta no se vacía', visible.quedan, (n) => n > 10);
+  await ctx.close();
+}
+
+console.log('\nLa nota del comensal viaja con el pedido');
+{
+  const { ctx, page } = await abre('?mesa=s1', { platos: 1 });
+  await page.click('#trayToggle');
+  await page.fill('#notesInput', 'Sin cebolla,\npor favor');
+  await page.waitForTimeout(300);
+  const texto = await mensajeWhatsApp(page);
+  comprueba('llega en el mensaje', texto, (t) => t.includes('Sin cebolla, por favor'));
+  comprueba('rotulada en español', texto, (t) => t.includes('Indicaciones del cliente'));
+  comprueba('sin saltos de línea que partan la comanda', texto, (t) => !/Sin cebolla,\n/.test(t));
+  await page.click('#trayShow');
+  await page.waitForTimeout(300);
+  const enPizarra = await page.evaluate(() => document.querySelector('#boardNotes').textContent);
+  comprueba('y también en la pizarra', enPizarra, (t) => t.includes('Sin cebolla'));
   await ctx.close();
 }
 

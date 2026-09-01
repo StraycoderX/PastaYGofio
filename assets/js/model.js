@@ -25,6 +25,12 @@ function normaliseItem(raw, section) {
   const allergens = Array.isArray(raw.allergens) ? raw.allergens.filter((a) => typeof a === 'string') : [];
   const diet = Array.isArray(raw.diet) ? raw.diet.filter((d) => typeof d === 'string') : [];
   const tags = Array.isArray(raw.tags) ? raw.tags.filter((x) => typeof x === 'string') : [];
+  const review = Array.isArray(raw.review) ? raw.review.filter((x) => typeof x === 'string') : [];
+  /* Alérgenos escritos por parecido con otro plato, no dictados por cocina.
+     Mientras estén así no valen para deducir nada ni para tranquilizar a
+     nadie: un celíaco no puede distinguir «no lleva gluten» de «creemos que
+     no lleva gluten», y la diferencia se la juega él. */
+  const allergensUnconfirmed = review.includes('allergens');
 
   return {
     id,
@@ -39,10 +45,12 @@ function normaliseItem(raw, section) {
     variants,
     from: variants.length ? Math.min(...variants.map((v) => v.amount)) : null,
     allergens,
-    /* "Gluten free" may only be inferred from a *declared* allergen list.
-       A dish with no allergens recorded is unknown, not safe — inferring
-       otherwise would badge an undeclared dish as coeliac-friendly. */
-    diet: diet.includes('glutenfree') || (allergens.length && !allergens.includes('gluten'))
+    allergensUnconfirmed,
+    /* "Gluten free" may only be inferred from a *declared, confirmed* allergen
+       list. A dish with no allergens recorded is unknown, not safe — and one
+       whose list is still under review is exactly as unknown, however
+       plausible the guess looked when it was written. */
+    diet: diet.includes('glutenfree') || (!allergensUnconfirmed && allergens.length && !allergens.includes('gluten'))
       ? [...new Set([...diet, 'glutenfree'])]
       : diet,
     declaredDiet: diet,
@@ -113,6 +121,13 @@ export function indexForSearch(model) {
 
 export function matches(item, { query, searchIndex, hideAllergens, requireDiet }) {
   if (query && !(searchIndex.get(item.uid) ?? '').includes(query)) return false;
+
+  /* Con un filtro de alérgenos puesto, un plato cuya lista está por confirmar
+     se retira. Quien filtra por alérgenos no está ojeando la carta: se está
+     protegiendo, y ahí los dos errores no pesan igual. Esconder algo que
+     resultó ser inofensivo le cuesta un plato; enseñarle algo que no lo era,
+     la noche. */
+  if (item.allergensUnconfirmed && hideAllergens.length) return false;
   for (const allergen of hideAllergens) if (item.allergens.includes(allergen)) return false;
   for (const diet of requireDiet) if (!item.diet.includes(diet)) return false;
   return true;

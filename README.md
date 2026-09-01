@@ -133,6 +133,26 @@ existe o un plato marcado como vegano que declara lactosa.
 que entre ellos no esté el gluten. Ojo: un plato **sin** alérgenos declarados no
 cuenta como sin gluten, se considera desconocido.
 
+### Datos que aún no ha confirmado cocina
+
+Cuando un dato se pone por parecido con otro plato y no lo ha dictado cocina, se
+marca:
+
+```jsonc
+"allergens": ["lactose"],
+"review": ["allergens"]     // allergens | nutrition | price | photo
+```
+
+Mientras esté ahí, la carta **no deduce «sin gluten»** de esa lista, no pinta la
+insignia, retira el plato en cuanto alguien active un filtro de alérgenos, y la
+ficha avisa de que está pendiente. `npm run check` los cuenta en cada
+validación, así que la deuda se ve en vez de olvidarse.
+
+Por qué: una lista de alérgenos escrita a ojo se lee exactamente igual que una
+confirmada. Un celíaco no puede distinguir «no lleva gluten» de «creemos que no
+lleva gluten», y la diferencia se la juega él. Al eliminar la marca, la
+deducción vuelve sola.
+
 ### Volcar de nuevo desde el sitio antiguo
 
 `data/menu.json` contiene la carta real, transcrita de la versión publicada en
@@ -254,9 +274,14 @@ viajaría por WhatsApp.
 - **Desde fuera** no hay camarero a quien enseñársela, así que lo que ofrece es
   copiar el pedido —para mandarlo por donde sea— o llamar al restaurante.
 
-Reparte el mismo idioma que el resto: los platos y el total en el del
-restaurante, porque los lee el camarero; las instrucciones y los botones en el
-del comensal, que para eso mira su propio móvil.
+Reparte el mismo idioma que el resto, y esto importa porque **en sala solo se
+habla español**: todo lo que lee el camarero —encabezado, mesa, platos, nota y
+total— va en el idioma del restaurante por mucho que la carta esté en alemán.
+Solo las instrucciones y los botones, que son para el comensal, van en el suyo.
+
+La única excepción es lo que escribe el propio cliente en la nota: eso no lo
+traduce nadie, así que se etiqueta con el idioma —«Nota (alemán): …»— para que
+el camarero pregunte en vez de descifrar.
 
 Ojo con lo que esto **no** es: el parámetro sigue viviendo en la URL, así que
 quien quiera puede teclear `?mesa=S7` a mano. Quitar el campo evita el error

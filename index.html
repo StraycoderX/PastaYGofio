@@ -227,6 +227,14 @@
       <output class="tray__table-value" id="tableValue"></output>
       <p class="tray__table-hint" id="tableHint"></p>
     </div>
+    <!-- «Sin cebolla» no cabía en ninguna parte y acababa llegando como un
+         mensaje suelto detrás del pedido, o no llegando. -->
+    <div class="tray__notes" id="trayNotes">
+      <label class="tray__notes-label" for="notesInput" data-i18n="notesLabel">Alguna indicación</label>
+      <textarea class="tray__notes-input" id="notesInput" rows="2" maxlength="200"
+                spellcheck="true" enterkeyhint="done"></textarea>
+    </div>
+
     <div class="tray__total">
       <span data-i18n="total">Total</span>
       <strong id="trayTotal">€0.00</strong>
@@ -250,25 +258,41 @@
 <!-- the order, big, for the waiter to read off the diner's phone -->
 <dialog class="board" id="orderBoard" aria-labelledby="boardTitle">
   <div class="board__inner">
-    <header class="board__head">
-      <p class="board__where" id="boardWhere"></p>
-      <h2 class="board__title" id="boardTitle"></h2>
-      <button class="board__close" id="boardClose" type="button"></button>
-    </header>
-    <ul class="board__lines" id="boardLines"></ul>
-    <!-- sin data-i18n: esta parte la lee el camarero, así que renderBoard la
-         escribe en el idioma del restaurante, igual que los platos -->
-    <p class="board__total"><span id="boardTotalLabel">Total</span> <strong id="boardTotal"></strong></p>
-    <p class="board__hint" id="boardHint"></p>
-    <div class="board__actions">
-      <button class="btn btn--ghost" id="boardCopy" type="button"></button>
-      <a class="btn btn--ghost" id="boardCall" href="#" hidden></a>
+    <button class="board__close" id="boardClose" type="button"></button>
+
+    <!-- Todo lo de dentro de .board__order lo lee el camarero, que solo habla
+         español: nada aquí lleva data-i18n, lo escribe renderBoard en el
+         idioma del restaurante por mucho que la carta esté en alemán. -->
+    <section class="board__order" lang="es">
+      <header class="board__head">
+        <p class="board__where" id="boardWhere"></p>
+        <h2 class="board__title" id="boardTitle"></h2>
+      </header>
+      <ul class="board__lines" id="boardLines"></ul>
+      <p class="board__notes" id="boardNotes" hidden></p>
+      <p class="board__total"><span id="boardTotalLabel">Total</span> <strong id="boardTotal"></strong></p>
+    </section>
+
+    <!-- Y esto lo lee el comensal, en su idioma, que para eso mira su móvil. -->
+    <div class="board__diner">
+      <p class="board__hint" id="boardHint"></p>
+      <div class="board__actions">
+        <button class="btn btn--ghost" id="boardCopy" type="button"></button>
+        <a class="btn btn--ghost" id="boardCall" href="#" hidden></a>
+      </div>
     </div>
   </div>
 </dialog>
 <div class="scrim" id="scrim" hidden></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- La carta vive en el móvil del comensal, así que un cambio de precio no le
+     llega hasta la visita siguiente. Esto se lo ofrece sin interrumpirle. -->
+<div class="update" id="update" role="status" hidden>
+  <span id="updateText"></span>
+  <button class="update__go" id="updateGo" type="button"></button>
+</div>
 
 <noscript>
   <div class="shell noscript">

@@ -164,6 +164,47 @@ export const T = {
     en: 'Takeaway order',
     de: 'Zum Mitnehmen'
   },
+  /* Encabeza la pantalla que el comensal le pone delante al camarero. Le dice
+     de un vistazo qué está mirando y por qué se lo enseñan, sin que tenga que
+     deducirlo de un móvil ajeno en mitad del servicio.
+     Va traducida como el resto, pero se pinta siempre en el idioma del
+     restaurante (service.orderLanguage), no en el del cliente. */
+  boardForWaiter: {
+    es: 'Comanda · el cliente no tiene WhatsApp',
+    it: 'Comanda · il cliente non ha WhatsApp',
+    en: 'Order · the diner has no WhatsApp',
+    de: 'Bestellung · der Gast hat kein WhatsApp'
+  },
+  boardNotesLabel: { es: 'Nota', it: 'Nota', en: 'Note', de: 'Hinweis' },
+  updateReady: {
+    es: 'Hay una carta nueva.',
+    it: 'C’è un menu aggiornato.',
+    en: 'There is an updated menu.',
+    de: 'Es gibt eine neue Karte.'
+  },
+  updateGo: { es: 'Actualizar', it: 'Aggiorna', en: 'Update', de: 'Aktualisieren' },
+  allergensUnconfirmed: {
+    es: 'Esta lista está pendiente de confirmar en cocina. Si tienes alergia o intolerancia, pregúntanos antes de pedir.',
+    it: 'Questo elenco è in attesa di conferma dalla cucina. In caso di allergia o intolleranza, chiedici prima di ordinare.',
+    en: 'This list is still to be confirmed by the kitchen. If you have an allergy or intolerance, ask us before ordering.',
+    de: 'Diese Liste muss die Küche noch bestätigen. Bei Allergie oder Unverträglichkeit fragen Sie uns bitte vor der Bestellung.'
+  },
+  notesLabel: {
+    es: 'Alguna indicación',
+    it: 'Qualche indicazione',
+    en: 'Anything we should know',
+    de: 'Etwas anzumerken'
+  },
+  notesPlaceholder: {
+    es: 'Sin cebolla, poco hecho, una alergia…',
+    it: 'Senza cipolla, al sangue, un’allergia…',
+    en: 'No onion, rare, an allergy…',
+    de: 'Ohne Zwiebeln, blutig, eine Allergie…'
+  },
+  /* Va en el idioma del restaurante como el resto de la comanda, pero el
+     texto lo escribe el cliente en el suyo: eso no lo traduce nadie, y en
+     sala se agradece saberlo antes de leerlo. */
+  waNotes: { es: 'Indicaciones del cliente', it: 'Indicazioni del cliente', en: 'Diner’s notes', de: 'Hinweise des Gastes' },
   copyOrder: { es: 'Copiar pedido', it: 'Copia ordine', en: 'Copy order', de: 'Bestellung kopieren' },
   orderCopied: { es: 'Pedido copiado', it: 'Ordine copiato', en: 'Order copied', de: 'Bestellung kopiert' },
   callUs: { es: 'Llamar al restaurante', it: 'Chiama il ristorante', en: 'Call the restaurant', de: 'Restaurant anrufen' },
@@ -252,11 +293,14 @@ export const T = {
 
   offlineReady: { es: 'La carta ya funciona sin conexión', it: 'Il menu funziona anche offline', en: 'The menu now works offline', de: 'Die Karte funktioniert jetzt offline' },
 
+  /* La fecha sale de restaurant.json -> legal.pricesValidUntil, no escrita a
+     mano aquí: escrita a mano se queda vieja y nadie se entera hasta que un
+     cliente lo lee. */
   disclaimer: {
-    es: 'IGIC incluido en el precio. Precios válidos hasta diciembre de 2026, salvo error tipográfico. Conforme al Reglamento (UE) n.º 1169/2011, la información sobre alérgenos está disponible en la carta y en el local. Las imágenes son orientativas.',
-    it: 'IGIC incluso nel prezzo. Prezzi validi fino a dicembre 2026, salvo errori tipografici. Ai sensi del Regolamento (UE) n. 1169/2011, le informazioni sugli allergeni sono disponibili nel menu e nel locale. Le immagini sono indicative.',
-    en: 'IGIC included in the price. Prices valid until December 2026, typographical errors excepted. In accordance with Regulation (EU) No 1169/2011, allergen information is available on the menu and on the premises. Images are indicative.',
-    de: 'IGIC im Preis enthalten. Preise gültig bis Dezember 2026, Druckfehler vorbehalten. Gemäß Verordnung (EU) Nr. 1169/2011 sind Allergeninformationen in der Karte und im Lokal verfügbar. Abbildungen sind unverbindlich.'
+    es: 'IGIC incluido en el precio. Precios válidos hasta {hasta}, salvo error tipográfico. Conforme al Reglamento (UE) n.º 1169/2011, la información sobre alérgenos está disponible en la carta y en el local. Las imágenes son orientativas.',
+    it: 'IGIC incluso nel prezzo. Prezzi validi fino a {hasta}, salvo errori tipografici. Ai sensi del Regolamento (UE) n. 1169/2011, le informazioni sugli allergeni sono disponibili nel menu e nel locale. Le immagini sono indicative.',
+    en: 'IGIC included. Prices valid until {hasta}, typographical errors excepted. Under Regulation (EU) No 1169/2011, allergen information is available on the menu and on the premises. Images are for guidance only.',
+    de: 'IGIC im Preis enthalten. Preise gültig bis {hasta}, Druckfehler vorbehalten. Gemäß Verordnung (EU) Nr. 1169/2011 sind Allergeninformationen auf der Karte und im Lokal verfügbar. Abbildungen dienen nur zur Orientierung.'
   },
   dataStamp: { es: 'Carta actualizada el {d}', it: 'Menu aggiornato il {d}', en: 'Menu updated on {d}', de: 'Karte aktualisiert am {d}' }
 };
