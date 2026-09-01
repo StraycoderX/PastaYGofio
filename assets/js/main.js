@@ -4,7 +4,7 @@ import { buildModel, indexForSearch } from './model.js';
 import { Tray, read, readSession, write, writeSession } from './store.js';
 import {
   applyStaticText, renderDaily, renderDish, renderFilterChips, renderFooter,
-  orderClipboard, renderBoard, renderMenu, renderRail, renderStatus, renderTray, toast
+  orderClipboard, renderBoard, renderIndex, renderMenu, renderRail, renderStatus, renderTray, toast
 } from './ui.js';
 
 const app = {
@@ -106,6 +106,7 @@ function renderAll() {
   renderFilterChips(app);
   /* before refreshMenu(): it calls syncRail(), which expects the links to exist */
   renderRail(app);
+  renderIndex(app);
   renderDaily(app);
   refreshMenu();
   renderStatus(app);
@@ -288,6 +289,32 @@ function wire() {
   $('#scrim').addEventListener('click', () => setTrayOpen(false));
   $('#trayClear').addEventListener('click', () => { app.tray.clear(); refreshMenu(); });
 
+  /* índice de la carta */
+  const indexDialog = $('#indexDialog');
+  $('#indexBtn').addEventListener('click', () => { if (!indexDialog.open) indexDialog.showModal(); });
+  $('#indexClose').addEventListener('click', () => indexDialog.close());
+  indexDialog.addEventListener('click', (event) => { if (event.target === indexDialog) indexDialog.close(); });
+  /* el salto lo hace el ancla; aquí solo se cierra para no tapar el destino */
+  indexDialog.addEventListener('click', (event) => {
+    if (event.target.closest('[data-index-jump]')) indexDialog.close();
+  });
+
+  /* Pista de alergias: para quien la necesita, el filtro es la aplicación
+     entera, y estaba detrás de un botón que solo pone «Filtros». Se retira en
+     cuanto la usa una vez — o en cuanto abre los filtros por su cuenta. */
+  const allergyHint = $('#allergyHint');
+  if (!read('sawFilters', false)) allergyHint.hidden = false;
+  const filtersSeen = () => {
+    write('sawFilters', true);
+    allergyHint.hidden = true;
+  };
+  allergyHint.addEventListener('click', () => {
+    filtersSeen();
+    $('#filterToggle').setAttribute('aria-expanded', 'true');
+    $('#filters').hidden = false;
+    $('#filters').scrollIntoView({ block: 'nearest' });
+  });
+
   /* la pizarra: el pedido en grande para quien no tiene WhatsApp */
   const board = $('#orderBoard');
   $('#trayShow').addEventListener('click', () => {
@@ -344,6 +371,7 @@ function wire() {
     const open = filterToggle.getAttribute('aria-expanded') !== 'true';
     filterToggle.setAttribute('aria-expanded', String(open));
     $('#filters').hidden = !open;
+    if (open) filtersSeen();
   });
   $('#filterReset').addEventListener('click', () => {
     app.filters.diet.clear();

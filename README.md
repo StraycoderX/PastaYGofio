@@ -56,6 +56,13 @@ catálogo. Y cuando hay algo elegido aparece abajo una barra con el número de
 platos y el total, para no tener que subir 94 platos hasta el icono de la
 cesta.
 
+**Orientarse en 35 pantallas.** La carta es larga y el carrusel enseña cuatro
+categorías de quince, así que hay un **índice** con las quince y cuántos platos
+tiene cada una, y un **«Ver la carta»** en la portada que salta las sugerencias
+de un toque en vez de hacer bajar casi dos pantallas. Dos pistas de una sola
+vez —para qué sirve el ＋, y que existe el filtro de alergias— **se retiran en
+cuanto dejan de hacer falta**, en lugar de un tutorial que nadie lee.
+
 Además: modo claro/oscuro, enlaces directos a cada plato (`?dish=…`), maridajes,
 alérgenos y nutrición por plato, hoja de estilos de impresión, teclado y
 lectores de pantalla, y respeto por `prefers-reduced-motion`.

@@ -54,6 +54,9 @@ export const T = {
   /* results */
   itemCount: { es: '{n} platos', it: '{n} piatti', en: '{n} dishes', de: '{n} Gerichte' },
   itemCountOne: { es: '1 plato', it: '1 piatto', en: '1 dish', de: '1 Gericht' },
+  /* «5 platos» de vino tinto no lo dice nadie */
+  drinkCount: { es: '{n} referencias', it: '{n} etichette', en: '{n} options', de: '{n} Sorten' },
+  drinkCountOne: { es: '1 referencia', it: '1 etichetta', en: '1 option', de: '1 Sorte' },
   noResults: { es: 'No hay platos que coincidan.', it: 'Nessun piatto corrisponde.', en: 'No dishes match.', de: 'Keine passenden Gerichte.' },
   noResultsHint: { es: 'Prueba con otra palabra o quita algún filtro.', it: 'Prova un’altra parola o togli un filtro.', en: 'Try another word or remove a filter.', de: 'Anderes Wort probieren oder Filter entfernen.' },
 
@@ -98,9 +101,37 @@ export const T = {
   opensOn: { es: 'abre {d} a las {t}', it: 'apre {d} alle {t}', en: 'opens {d} at {t}', de: 'öffnet {d} um {t}' },
   opensSoon: { es: 'Abre en {n} min', it: 'Apre tra {n} min', en: 'Opens in {n} min', de: 'Öffnet in {n} Min.' },
 
+  /* atajos y orientación */
+  seeMenu: { es: 'Ver la carta', it: 'Vai al menu', en: 'See the menu', de: 'Zur Karte' },
+  menuIndex: { es: 'Índice', it: 'Indice', en: 'Index', de: 'Übersicht' },
+  menuIndexTitle: { es: 'Toda la carta', it: 'Tutto il menu', en: 'The whole menu', de: 'Die ganze Karte' },
+  addHint: {
+    es: 'Toca ＋ en cada plato y ve armando tu pedido.',
+    it: 'Tocca ＋ su ogni piatto per comporre il tuo ordine.',
+    en: 'Tap ＋ on any dish to build your order.',
+    de: 'Tippen Sie bei jedem Gericht auf ＋, um Ihre Bestellung zusammenzustellen.'
+  },
+  allergyHint: {
+    es: '¿Alergias o intolerancias? Filtra la carta.',
+    it: 'Allergie o intolleranze? Filtra il menu.',
+    en: 'Allergies or intolerances? Filter the menu.',
+    de: 'Allergien oder Unverträglichkeiten? Karte filtern.'
+  },
+
   /* tray */
   trayTitle: { es: 'Mi selección', it: 'La mia selezione', en: 'My selection', de: 'Meine Auswahl' },
   trayOpen: { es: 'Abrir mi selección', it: 'Apri la mia selezione', en: 'Open my selection', de: 'Meine Auswahl öffnen' },
+  /* Con el pedido activo la cesta ya no es una selección que se enseña: es un
+     pedido que se envía. Tres nombres para lo mismo —selección, mesa, pedido—
+     sobraban de cuando no enviaba nada. */
+  orderTitle: { es: 'Tu pedido', it: 'Il tuo ordine', en: 'Your order', de: 'Ihre Bestellung' },
+  orderOpen: { es: 'Abrir tu pedido', it: 'Apri il tuo ordine', en: 'Open your order', de: 'Ihre Bestellung öffnen' },
+  orderEmpty: {
+    es: 'Todavía no has añadido nada. Toca ＋ en cualquier plato para ir armando tu pedido.',
+    it: 'Non hai ancora aggiunto nulla. Tocca ＋ su un piatto per comporre il tuo ordine.',
+    en: 'Nothing added yet. Tap ＋ on any dish to build your order.',
+    de: 'Noch nichts hinzugefügt. Tippen Sie bei einem Gericht auf ＋, um Ihre Bestellung zusammenzustellen.'
+  },
   trayEmpty: {
     es: 'Todavía no has añadido nada. Toca «+» en cualquier plato para ir armando tu mesa.',
     it: 'Non hai ancora aggiunto nulla. Tocca «+» su un piatto per comporre il tuo tavolo.',

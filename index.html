@@ -90,6 +90,9 @@
 
   <nav class="railwrap" id="railwrap" aria-label="Categorías">
     <div class="rail shell" id="rail"></div>
+    <!-- El carrusel enseña 4 de 15 categorías: sin esto, nadie sabe que hay
+         postres si no arrastra. -->
+    <button class="rail__index" id="indexBtn" type="button" aria-haspopup="dialog"></button>
   </nav>
 </header>
 
@@ -105,6 +108,9 @@
       <p class="hero__eyebrow" id="heroDate"></p>
       <h1 class="hero__title" data-i18n="dailyTitle">Sugerencias del día</h1>
       <p class="hero__lede" id="heroLede"></p>
+      <!-- Casi dos pantallas de sugerencias separaban el QR del primer plato.
+           Siguen ahí, pero ya no son un peaje. -->
+      <a class="hero__skip" id="heroSkip" href="#menu"></a>
       <div class="daily" id="daily" aria-live="polite"></div>
     </div>
   </section>
@@ -150,6 +156,9 @@
       </div>
     </div>
   </div>
+
+  <button class="toolbar__hint shell" id="allergyHint" type="button" hidden></button>
+  <p class="addhint shell" id="addHint" hidden></p>
 
   <div class="shell" id="menu" tabindex="-1"></div>
 
@@ -254,6 +263,17 @@
     <button class="linklike tray__alt" id="trayShow" type="button"></button>
   </footer>
 </aside>
+
+<!-- índice de la carta: las 15 categorías con cuántos platos tiene cada una -->
+<dialog class="index" id="indexDialog" aria-labelledby="indexTitle">
+  <div class="index__inner">
+    <header class="index__head">
+      <h2 class="index__title" id="indexTitle"></h2>
+      <button class="board__close" id="indexClose" type="button"></button>
+    </header>
+    <ul class="index__list" id="indexList"></ul>
+  </div>
+</dialog>
 
 <!-- the order, big, for the waiter to read off the diner's phone -->
 <dialog class="board" id="orderBoard" aria-labelledby="boardTitle">

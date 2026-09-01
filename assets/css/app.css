@@ -1768,6 +1768,123 @@ body.has-cartbar .update { inset-block-end: max(4.75rem, calc(env(safe-area-inse
   line-height: 1.4;
 }
 
+/* --- atajo del hero, índice y pistas ------------------------------------ */
+
+.hero__skip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .9rem;
+  padding: .5rem 1.05rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+.hero__skip::after { content: "↓"; opacity: .5; }
+.hero__skip:hover { border-color: var(--accent); color: var(--accent); }
+.hero__inner { display: flex; flex-direction: column; align-items: flex-start; }
+.hero__inner > * { width: 100%; }
+.hero__skip { width: auto; }
+
+/* el índice, anclado al final del carrusel para que no se lo lleve el scroll */
+.railwrap { display: flex; align-items: center; }
+.rail { flex: 1; min-width: 0; }
+.rail__index {
+  flex: none;
+  margin-inline-end: var(--pad-x);
+  padding: .34rem .8rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--fg-muted);
+  background: var(--bg);
+  font-size: .82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rail__index:hover { border-color: var(--accent); color: var(--accent); }
+
+.index {
+  width: min(460px, 100%);
+  max-height: 88dvh;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: var(--shadow-lg);
+}
+.index::backdrop { background: rgba(20, 14, 8, .55); backdrop-filter: blur(3px); }
+.index__inner { padding: 1.2rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: .9rem; max-height: 88dvh; }
+.index__head { position: relative; padding-inline-end: 3rem; }
+.index__title { font-size: 1.5rem; font-variation-settings: 'opsz' 72, 'WONK' 1; }
+.index__head .board__close { top: -.2rem; inset-inline-end: 0; position: absolute; }
+.index__list { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+.index__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .7rem .2rem .7rem .75rem;
+  border-inline-start: 3px solid var(--sect, var(--accent));
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+.index__link:hover { background: var(--surface-2); }
+.index__name { font-family: var(--font-display); font-size: 1.08rem; font-weight: 600; }
+.index__count { font-size: .8rem; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+
+/* pistas que se retiran cuando dejan de hacer falta */
+.toolbar__hint {
+  display: block;
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  border: 0;
+  background: none;
+  padding: 1.1rem var(--pad-x) 0;
+  text-align: start;
+  font-size: .82rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.toolbar__hint:hover { text-decoration: underline; }
+.addhint {
+  max-width: var(--shell);
+  margin: 1.25rem auto -.75rem;
+  padding-inline: var(--pad-x);
+  font-size: .86rem;
+  color: var(--fg-muted);
+}
+
+/* =========================================================================
+   objetivos táctiles
+   =========================================================================
+   La cabecera es deliberadamente compacta —164 px de cromo fijo costaron
+   trabajo— pero los botones de idioma medían 26x26 px y la guía son 44. Justo
+   el alemán recién sentado, que es para quien existen los cuatro idiomas, era
+   quien fallaba el toque.
+   La zona sensible se agranda con un pseudo-elemento en vez de agrandar el
+   botón: el dedo gana sitio y la cabecera no. Solo hacia arriba y abajo, que
+   es donde hay hueco libre; a los lados los botones se tocan entre sí y
+   solaparlos haría ganar al equivocado. */
+.lang__btn, .icon-btn, .rail__link {
+  position: relative;
+}
+/* `.search__clear` se queda fuera a propósito: su ::after ya dibuja la aspa,
+   y agrandarlo hacia arriba lo metería dentro del campo de búsqueda. */
+.lang__btn::after,
+.icon-btn::after,
+.rail__link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block: calc((44px - 100%) / -2);
+}
+
 .noscript {
   padding-block: 3rem;
   text-align: center;

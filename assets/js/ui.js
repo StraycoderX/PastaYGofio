@@ -37,6 +37,13 @@ export function applyStaticText(app) {
   $('#heroLede').textContent = t('dailyLede', lang);
   $('#tableValue').setAttribute('aria-label', t('tableLabel', lang));
   $('#notesInput').placeholder = t('notesPlaceholder', lang);
+  $('#heroSkip').textContent = t('seeMenu', lang);
+  $('#indexBtn').textContent = t('menuIndex', lang);
+  $('#indexBtn').setAttribute('aria-label', t('menuIndexTitle', lang));
+  $('#indexTitle').textContent = t('menuIndexTitle', lang);
+  $('#indexClose').setAttribute('aria-label', t('close', lang));
+  $('#addHint').textContent = t('addHint', lang);
+  $('#allergyHint').textContent = t('allergyHint', lang);
   const hasta = app.restaurant?.legal?.pricesValidUntil;
   const locale = { es: 'es-ES', it: 'it-IT', en: 'en-GB', de: 'de-DE' }[lang] ?? 'es-ES';
   $('#disclaimer').textContent = t('disclaimer', lang, {
@@ -423,6 +430,35 @@ export function renderDish(app, uid) {
   return item;
 }
 
+/**
+ * El índice: las categorías con cuántos platos tiene cada una.
+ *
+ * La carta mide 35 pantallas y el carrusel enseña cuatro de quince. Sin esto,
+ * que existan los postres es algo que solo descubre quien arrastra.
+ */
+export function renderIndex(app) {
+  const host = clear($('#indexList'));
+  for (const section of app.model.sections) {
+    const n = section.items.length;
+    host.append(el('li', {},
+      el('a', {
+        class: 'index__link',
+        href: '#sec-' + section.id,
+        style: { '--sect': section.accent },
+        dataset: { indexJump: section.id }
+      },
+        el('span', { class: 'index__name', text: localise(section.name, app.lang) }),
+        el('span', {
+          class: 'index__count',
+          text: section.kind === 'drink'
+            ? (n === 1 ? t('drinkCountOne', app.lang) : t('drinkCount', app.lang, { n }))
+            : (n === 1 ? t('itemCountOne', app.lang) : t('itemCount', app.lang, { n }))
+        })
+      )
+    ));
+  }
+}
+
 /* ------------------------------------------------------------------ *
  * tray
  * ------------------------------------------------------------------ */
@@ -433,7 +469,10 @@ export function renderTray(app) {
   const body = clear($('#trayBody'));
 
   if (!rows.length) {
-    body.append(el('p', { class: 'tray__empty', text: t('trayEmpty', lang) }));
+    body.append(el('p', {
+      class: 'tray__empty',
+      text: t(app.restaurant?.service?.ordering === true ? 'orderEmpty' : 'trayEmpty', lang)
+    }));
   } else {
     for (const { item, variant, qty, line } of rows) {
       body.append(el('div', { class: 'tray__row' },
@@ -460,8 +499,16 @@ export function renderTray(app) {
   badge.hidden = count === 0;
 
   /* the phone-only bar mirrors the header basket, which scrolls out of reach */
+  /* Un vocabulario, no tres: con el pedido activo esto es «tu pedido», no
+     «mi selección». Los tres nombres sobraban de cuando la cesta no enviaba
+     nada a ninguna parte. */
+  const pedido = app.restaurant?.service?.ordering === true;
+  $('#trayTitle').textContent = t(pedido ? 'orderTitle' : 'trayTitle', lang);
+  $('#trayToggle').setAttribute('aria-label', t(pedido ? 'orderOpen' : 'trayOpen', lang));
+
   const bar = $('#cartBar');
   if (bar) {
+    $('.cartbar__label').textContent = t(pedido ? 'orderTitle' : 'trayTitle', lang);
     $('#cartBarCount').textContent = String(count);
     $('#cartBarTotal').textContent = money(app, total);
     bar.setAttribute('aria-label', `${t('trayOpen', lang)} — ${money(app, total)}`);
@@ -515,6 +562,10 @@ export function renderTray(app) {
       send.href = whatsappHref(app, rows, total);
     }
   }
+
+  /* La pista del ＋ existe para quien no sabe que se puede pedir. En cuanto
+     añade el primer plato ya lo sabe, y la ayuda estorba. */
+  $('#addHint').hidden = !ordering || count > 0;
 
   /* keep the "+" buttons in the grid in sync */
   for (const btn of $$('.add')) {

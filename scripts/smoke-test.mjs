@@ -280,6 +280,86 @@ console.log('\nEl carrusel de categorías cambia de idioma');
   }
 }
 
+console.log('\nLlegar a la comida y orientarse');
+{
+  const { ctx, page } = await abre('?mesa=s1', { platos: 0 });
+  comprueba('«Ver la carta» se ve sin bajar', await page.evaluate(
+    () => document.querySelector('#heroSkip').getBoundingClientRect().top < window.innerHeight), true);
+
+  await page.click('#heroSkip');
+  await page.waitForTimeout(1100);
+  comprueba('y deja el primer plato en pantalla', await page.evaluate(() => {
+    const r = document.querySelector('.card').getBoundingClientRect();
+    return r.top > 0 && r.top < window.innerHeight;
+  }), true);
+
+  await page.click('#indexBtn');
+  await page.waitForTimeout(300);
+  comprueba('el índice lista las 15 categorías', await page.evaluate(
+    () => document.querySelectorAll('.index__link').length), 15);
+  comprueba('con el recuento de platos', await page.evaluate(
+    () => document.querySelector('.index__count').textContent), (t) => /\d+ platos/.test(t));
+  comprueba('y las bebidas no se cuentan en «platos»', await page.evaluate(
+    () => [...document.querySelectorAll('.index__link')]
+      .find((l) => l.dataset.indexJump === 'redwine')?.querySelector('.index__count').textContent),
+    (t) => /referencias/.test(t ?? ''));
+
+  await page.click('[data-index-jump="sweet"]');
+  await page.waitForTimeout(1200);
+  comprueba('y salta a la sección', await page.evaluate(() => {
+    const r = document.querySelector('#sec-sweet').getBoundingClientRect();
+    return r.top > -50 && r.top < window.innerHeight;
+  }), true);
+  await ctx.close();
+}
+
+console.log('\nNadie tiene que adivinar para qué sirve el ＋');
+{
+  const { ctx, page } = await abre('?mesa=s1', { platos: 0 });
+  comprueba('la pista está mientras la cesta esté vacía', await page.evaluate(
+    () => !document.querySelector('#addHint').hidden), true);
+  await page.evaluate(() => document.querySelector('.add').click());
+  await page.waitForTimeout(400);
+  comprueba('y se retira con el primer plato', await page.evaluate(
+    () => document.querySelector('#addHint').hidden), true);
+  await ctx.close();
+}
+
+console.log('\nUn vocabulario, no tres');
+{
+  const { ctx, page } = await abre('?mesa=s1');
+  await page.click('#trayToggle');
+  await page.waitForTimeout(300);
+  const palabras = await page.evaluate(() => ({
+    titulo: document.querySelector('#trayTitle').textContent,
+    barra: document.querySelector('.cartbar__label').textContent,
+    boton: document.querySelector('#traySendLabel').textContent
+  }));
+  comprueba('el panel dice «Tu pedido»', palabras.titulo, 'Tu pedido');
+  comprueba('la barra de abajo también', palabras.barra, 'Tu pedido');
+  comprueba('y el botón sigue nombrando el destino', palabras.boton, 'Enviar pedido a cocina');
+  await ctx.close();
+}
+
+console.log('\nSe puede tocar con el dedo, no con un alfiler');
+{
+  const { ctx, page } = await abre('', { platos: 0 });
+  const pequenos = await page.evaluate(() => {
+    const out = [];
+    for (const el of document.querySelectorAll('.lang__btn, .icon-btn, .rail__link')) {
+      const r = el.getBoundingClientRect();
+      const ext = Math.abs(parseFloat(getComputedStyle(el, '::after').insetBlockStart) || 0);
+      /* se redondea antes de comparar: la zona se calcula con calc() y sale
+         43,999 cuando el objetivo es justo 44 */
+      const alto = Math.round(r.height + 2 * ext);
+      if (alto < 44) out.push(`${el.className.split(' ')[0]} ${alto}px`);
+    }
+    return [...new Set(out)];
+  });
+  comprueba('ningún objetivo por debajo de 44 px de alto', pequenos, (a) => a.length === 0);
+  await ctx.close();
+}
+
 console.log('\nLa carta entera está ahí');
 {
   const { ctx, page } = await abre('', { platos: 0 });
